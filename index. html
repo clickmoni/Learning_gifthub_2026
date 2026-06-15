@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Clickmoni - Python Developer</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    body { font-family: Arial; text-align: center; padding: 20px; background: #0d1117; color: white; }
+    h1 { color: #58a6ff; margin-top: 40px; font-size: 32px; }
+    h2 { color: #8b949e; font-size: 18px; }
+    .btn { background: #238636; color: white; padding: 15px 30px; text-decoration: none; border-radius: 8px; display: inline-block; margin: 20px 0; font-weight: bold; font-size: 18px; }
+    .project { border: 1px solid #30363d; padding: 20px; margin: 20px 0; border-radius: 8px; text-align: left; }
+    .project h3 { color: #58a6ff; margin-top: 0; }
+  </style>
+</head>
+<body>
+  <h1>Hi, I'm Clickmoni 👋</h1>
+  <h2>Python Developer from Port Harcourt, Nigeria 🇳🇬</h2>
+  <p>I build WhatsApp bots and websites that help small businesses save time.</p>
+  
+  <a href="https://wa.me/2348012345678" class="btn">Chat With Me on WhatsApp</a>
+  
+  <h2>My Projects</h2>
+  <div class="project">
+    <h3>🚀 Project 1: WhatsApp Auto-Reply Bot</h3>
+    <p>Building for a Port Harcourt client — launching this week!</p>
+  </div>
+  
+  <div class="project">
+    <h3>💼 Project 2: Coming Soon</h3>
+    <p>Your business could be here next. Let’s talk.</p>
+  </div>
+  
+  <p style="margin-top:40px; color:#8b949e;">Built with GitHub Pages</p>
+</body>
+</html>
