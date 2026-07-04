@@ -1,36 +1,113 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <title>Clickmoni - Python Developer</title>
+  <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ClickMoni - Turn Your Social Media Into Income</title>
   <style>
-    body { font-family: Arial; text-align: center; padding: 20px; background: #0d1117; color: white; }
-    h1 { color: #58a6ff; margin-top: 40px; font-size: 32px; }
-    h2 { color: #8b949e; font-size: 18px; }
-    .btn { background: #238636; color: white; padding: 15px 30px; text-decoration: none; border-radius: 8px; display: inline-block; margin: 20px 0; font-weight: bold; font-size: 18px; }
-    .project { border: 1px solid #30363d; padding: 20px; margin: 20px 0; border-radius: 8px; text-align: left; }
-    .project h3 { color: #58a6ff; margin-top: 0; }
+    * {margin:0; padding:0; box-sizing:border-box; font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;}
+    body {background:#f8f9fa; color:#212529;}
+    .container {max-width:480px; margin:0 auto; padding:16px;}
+    .header {background:linear-gradient(135deg,#0d6efd,#198754); color:white; padding:32px 16px; text-align:center; border-radius:0 0 24px 24px;}
+    .header h1 {font-size:28px; margin-bottom:8px;}
+    .header p {opacity:0.9; font-size:16px;}
+    .badge {background:rgba(255,255,255,0.2); padding:6px 12px; border-radius:20px; font-size:12px; display:inline-block; margin:4px;}
+    .card {background:white; border-radius:16px; padding:20px; margin:16px 0; box-shadow:0 2px 8px rgba(0,0,0,0.05);}
+    .plan {border:2px solid #e9ecef; position:relative;}
+    .plan.popular {border-color:#0d6efd;}
+    .popular-tag {position:absolute; top:-12px; right:16px; background:#0d6efd; color:white; padding:4px 12px; border-radius:12px; font-size:12px;}
+    .plan h3 {font-size:20px; margin-bottom:4px;}
+    .price {font-size:32px; font-weight:700; color:#0d6efd; margin:8px 0;}
+    .price span {font-size:16px; color:#6c757d; font-weight:400;}
+    .features {margin:16px 0; font-size:14px; color:#495057;}
+    .features li {margin:8px 0; list-style:none;}
+    .features li:before {content:"✓ "; color:#198754; font-weight:bold;}
+    .btn {display:block; width:100%; padding:14px; background:#0d6efd; color:white; text-align:center; border-radius:12px; text-decoration:none; font-weight:600; border:none; font-size:16px; margin-top:12px;}
+    .btn:active {background:#0b5ed7;}
+    .footer {text-align:center; font-size:12px; color:#6c757d; padding:24px 16px;}
+    .trust {display:flex; justify-content:center; gap:16px; margin:24px 0; flex-wrap:wrap;}
+    .trust-item {font-size:12px; text-align:center;}
   </style>
 </head>
 <body>
-  <h1>Hi, I'm Clickmoni 👋</h1>
-  <h2>I Build WhatsApp Bots That Get You More Customers — From Port Harcourt 🇳🇬</h2>
-<p><strong>🎁 First 3 clients: 50% off — ₦7,500 only</strong></p>
-  <p>I build WhatsApp bots and websites that help small businesses save time.</p>
-  
-        <a href="https://wa.me/2347075573283?text=Hi%20Clickmoni%2C%20I%20saw%20your%20portfolio.%20I%20need%20help%20with%20my%20business." class="btn">Chat With Me on WhatsApp</a>
-  
-  <h2>My Projects</h2>
-     <a href="https://wa.me/2347075573283" class="btn">Chat With Me on WhatsApp</a>
-    <h3>🚀 Project 1: WhatsApp Auto-Reply Bot</h3>
-    <p>Building for a Port Harcourt client — launching this week!</p>
+  <div class="header">
+    <h1>ClickMoni</h1>
+    <p>Turn Your Social Media Into Daily Income</p>
+    <div>
+      <span class="badge">Port Harcourt Based</span>
+      <span class="badge">Withdrawals 15th & 30th</span>
+    </div>
   </div>
-  
-
-    <<div class="project">
-  <h3>❌ Problem: Missing customer messages?</h3>
-  <p>✅ Solution: I build auto-reply bots that answer 24/7, take orders, and save your number. Starting at ₦15,000.</p>
-    </div> 
-  <p style="margin-top:40px; color:#8b949e;">Built with GitHub Pages</p>
+  <div class="container">
+    <div class="card">
+      <h2 style="margin-bottom:8px;">How It Works</h2>
+      <p style="font-size:14px; color:#495057;">1. Activate with N750–N11k → Get digital kit<br>2. Complete simple brand tasks daily<br>3. Refer friends & earn N300–N6,500 per person</p>
+    </div>
+    <h2 style="margin:24px 0 8px 0;">Choose Your Plan</h2>
+    <div class="card plan">
+      <h3>Starter</h3>
+      <div class="price">N750 <span>/once</span></div>
+      <ul class="features">
+        <li>IG Growth Kit PDF</li>
+        <li>Earn up to N200/day from tasks</li>
+        <li>N300 per referral</li>
+      </ul>
+      <a href="#" class="btn">Activate Starter</a>
+    </div>
+    <div class="card plan">
+      <h3>Basic</h3>
+      <div class="price">N1,500 <span>/once</span></div>
+      <ul class="features">
+        <li>Everything in Starter</li>
+        <li>30 Canva Templates</li>
+        <li>Earn up to N400/day</li>
+        <li>N700 per referral</li>
+      </ul>
+      <a href="#" class="btn">Activate Basic</a>
+    </div>
+    <div class="card plan popular">
+      <span class="popular-tag">MOST POPULAR</span>
+      <h3>Pro</h3>
+      <div class="price">N3,500 <span>/once</span></div>
+      <ul class="features">
+        <li>Everything in Basic</li>
+        <li>Brand Deals Course 1hr</li>
+        <li>Earn up to N900/day</li>
+        <li>N1,800 per referral</li>
+      </ul>
+      <a href="#" class="btn">Activate Pro</a>
+    </div>
+    <div class="card plan">
+      <h3>Premium</h3>
+      <div class="price">N5,500 <span>/once</span></div>
+      <ul class="features">
+        <li>Everything in Pro</li>
+        <li>30-Day Content Calendar</li>
+        <li>Earn up to N1,500/day</li>
+        <li>N3,000 per referral</li>
+      </ul>
+      <a href="#" class="btn">Activate Premium</a>
+    </div>
+    <div class="card plan">
+      <h3>VIP</h3>
+      <div class="price">N11,000 <span>/once</span></div>
+      <ul class="features">
+        <li>Everything in Premium</li>
+        <li>1-on-1 Strategy Call 30min</li>
+        <li>Earn up to N3,000/day</li>
+        <li>N6,500 per referral</li>
+      </ul>
+      <a href="#" class="btn">Activate VIP</a>
+    </div>
+    <div class="trust">
+      <div class="trust-item">🔒<br>Secure Paystack</div>
+      <div class="trust-item">📱<br>Mobile Tasks</div>
+      <div class="trust-item">💸<br>Real Payouts</div>
+    </div>
+  </div>
+  <div class="footer">
+    © 2026 ClickMoni Digital Services. Port Harcourt, Rivers State.<br>
+    Not a bank. Not an investment scheme. N750–N11,000 pays for digital products only.
+  </div>
 </body>
-</html>
+        </html>
