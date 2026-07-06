@@ -1,111 +1,135 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-  <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>ClickMoni Dashboard</title>
   <style>
-    * { margin: 0; padding: 0; box-sizing: border-box; }
-    body { font-family: Arial, sans-serif; background: #f8f9fa; padding: 15px; }
-    .container { max-width: 600px; margin: 0 auto; background: white; padding: 20px; border-radius: 12px; box-shadow: 0 2px 10px rgba(0,0,0,0.1); }
-    h2 { color: #007E33; margin-bottom: 15px; }
-    .plan-btn {
-      display: block; color: white; padding: 15px; margin: 12px 0; 
-      text-decoration: none; border-radius: 8px; font-weight: bold; text-align: center;
-    }
-    .telegram-box {
-      background:#229ED9; color:white; padding:15px; border-radius:8px; 
-      text-align:center; margin:15px 0;
-    }
-    .task-btn { width: 100%; padding: 12px; margin: 8px 0; background: #eee; border: none; border-radius: 6px; text-align: left; }
+    body { font-family:Arial; padding:15px; background:#f5f5f5; margin:0; }
+    .container { max-width:500px; margin:auto; background:white; padding:20px; border-radius:10px; }
+    .plan-btn { display:block; color:white; padding:15px; margin:10px 0; text-align:center; border-radius:5px; text-decoration:none; font-weight:bold; }
+    .box { background:#f8f9fa; padding:15px; border-radius:8px; margin:15px 0; }
+    .withdraw-btn { background:#00C851; color:white; padding:12px; width:100%; border:none; border-radius:6px; font-weight:bold; margin-top:10px; }
+    .task-btn { width:100%; padding:12px; margin:8px 0; background:#eee; border:none; border-radius:6px; text-align:left; }
   </style>
 </head>
 <body>
 
 <div class="container">
-  <h2>Welcome, <span id="userName">User</span>! 👋</h2>
+  <h2>Welcome, <span id="name">User</span>! 👋</h2>
   
-  <!-- TELEGRAM BOX - Shows after signup only -->
-  <div id="telegramBox" class="telegram-box">
-    <h3 style="margin:0 0 10px 0;">📢 Join ClickMoni Official Group</h3>
-    <p style="margin:0 0 15px 0; font-size:14px;">Get payment proofs & updates from CEO: @Monigold</p>
-    <a href="https://t.me/ClickMoniOfficial" target="_blank" style="background:white; color:#229ED9; padding:12px 25px; border-radius:6px; text-decoration:none; font-weight:bold; display:inline-block;">
-      Click to Join Telegram →
+  <!-- TELEGRAM BOX -->
+  <div id="telegramBox" style="background:#229ED9; color:white; padding:15px; border-radius:8px; text-align:center; margin:15px 0;">
+    <b>📢 Join ClickMoni Official Group</b><br><br>
+    <a href="https://t.me/ClickMoniOfficial" target="_blank" style="background:white; color:#229ED9; padding:10px 20px; border-radius:5px; text-decoration:none; font-weight:bold;">
+      Click to Join Telegram
     </a>
   </div>
 
-  <!-- ACTIVATE SECTION - Shows if not paid -->
+  <!-- SECTION 1: SHOW BEFORE PAYMENT -->
   <div id="activate-section">
     <h3>🔓 Activate Your Account to Start Earning</h3>
-    <p style="margin:10px 0;">Choose ANY plan below to unlock daily tasks:</p>
+    <p>Choose ANY plan below to unlock daily tasks:</p>
     
-    <a href="https://paystack.shop/pay/clickmoni_starter" class="plan-btn" style="background:#28a745;">
-      Starter Plan — ₦750 <br><small>Task: ₦200/day | Referral: ₦200</small>
-    </a>
-    
-    <a href="https://paystack.shop/pay/clickmoni_basic" class="plan-btn" style="background:#007bff;">
-      Basic Plan — ₦1,500 <br><small>Task: ₦350/day | Referral: ₦500</small>
-    </a>
-    
-    <a href="https://paystack.shop/pay/clickmoni_pro" class="plan-btn" style="background:#6f42c1;">
-      Pro Plan — ₦3,000 <br><small>Task: ₦700/day | Referral: ₦1,000</small>
-    </a>
-    
-    <a href="https://paystack.shop/pay/clickmoni_premium" class="plan-btn" style="background:#fd7e14;">
-      Premium Plan — ₦5,000 <br><small>Task: ₦1,200/day | Referral: ₦1,800</small>
-    </a>
-    
-    <a href="https://paystack.shop/pay/clickmoni_vip" class="plan-btn" style="background:#dc3545;">
-      VIP Plan — ₦10,000 <br><small>Task: ₦2,500/day | Referral: ₦3,500</small>
-    </a>
+    <a href="https://paystack.shop/pay/clickmoni_starter" class="plan-btn" style="background:green;">Starter Plan — ₦750</a>
+    <a href="https://paystack.shop/pay/clickmoni_basic" class="plan-btn" style="background:blue;">Basic Plan — ₦1,500</a>
+    <a href="https://paystack.shop/pay/clickmoni_pro" class="plan-btn" style="background:purple;">Pro Plan — ₦3,000</a>
+    <a href="https://paystack.shop/pay/clickmoni_premium" class="plan-btn" style="background:orange;">Premium Plan — ₦5,000</a>
+    <a href="https://paystack.shop/pay/clickmoni_vip" class="plan-btn" style="background:red;">VIP Plan — ₦10,000</a>
   </div>
 
-  <!-- TASKS SECTION - Shows after payment -->
-  <div id="tasks-section" style="display:none;">
-    <h3>✅ Your Tasks — <span id="userPlan"></span> Plan</h3>
-    <p>Complete tasks below to earn daily:</p>
-    <button class="task-btn">Task 1: Watch Video — Earn ₦50</button>
-    <button class="task-btn">Task 2: Share Post — Earn ₦100</button>
-    <button class="task-btn">Task 3: Comment — Earn ₦50</button>
+  <!-- SECTION 2: SHOW AFTER PAYMENT -->
+  <div id="dashboard-section" style="display:none;">
+    
+    <div class="box">
+      <h3>💰 Your Balance</h3>
+      <p>Plan: <b id="userPlan">STARTER</b></p>
+      <p>Task Earnings: <b>₦<span id="taskEarn">0</span></b></p>
+      <p>Affiliate Earnings: <b>₦<span id="refEarn">0</span></b></p>
+      <p>Total Balance: <b>₦<span id="totalEarn">0</span></b></p>
+    </div>
+
+    <div class="box">
+      <h3>✅ Daily Tasks</h3>
+      <button class="task-btn" onclick="completeTask(50)">Task 1: Watch Video — Earn ₦50</button>
+      <button class="task-btn" onclick="completeTask(100)">Task 2: Share Post — Earn ₦100</button>
+      <button class="task-btn" onclick="completeTask(50)">Task 3: Comment — Earn ₦50</button>
+    </div>
+
+    <div class="box">
+      <h3>🏦 Task Withdrawal</h3>
+      <p>Min withdrawal: ₦9,000</p>
+      <p>Your task balance: ₦<span id="taskBalance">0</span></p>
+      <button class="withdraw-btn" onclick="withdraw('task')">Withdraw Task Earnings</button>
+    </div>
+
+    <div class="box">
+      <h3>👥 Affiliate Withdrawal</h3>
+      <p>Refer friends & earn per plan</p>
+      <p>Your referral link: <input type="text" id="refLink" value="" style="width:100%; padding:8px;" readonly></p>
+      <p>Referral balance: ₦<span id="refBalance">0</span></p>
+      <button class="withdraw-btn" onclick="withdraw('affiliate')">Withdraw Referral Earnings</button>
+    </div>
+
   </div>
 
 </div>
 
 <script>
-// 1. Load user data
-const userName = localStorage.getItem('clickmoni_name') || 'User';
-const userEmail = localStorage.getItem('clickmoni_user');
-document.getElementById('userName').innerText = userName;
+  // Load user
+  const userName = localStorage.getItem('clickmoni_name') || 'User';
+  const userEmail = localStorage.getItem('clickmoni_user');
+  document.getElementById('name').innerText = userName;
+  
+  if (!userEmail) window.location.href = 'index.html';
+  
+  // Referral link
+  document.getElementById('refLink').value = window.location.origin + '/index.html?ref=' + encodeURIComponent(userEmail);
 
-// 2. If not signed up, send to signup page
-if (!userEmail) {
-  window.location.href = 'index.html';
-}
+  // Check if paid
+  const urlParams = new URLSearchParams(window.location.search);
+  if (urlParams.get('paid') === 'true') {
+    const plan = urlParams.get('plan') || 'starter';
+    localStorage.setItem('clickmoni_active_' + userEmail, 'true');
+    localStorage.setItem('clickmoni_plan', plan);
+    window.history.replaceState({}, document.title, window.location.pathname);
+  }
 
-// 3. Show/hide Telegram box - only first time
-const justSignedUp = localStorage.getItem('clickmoni_newuser');
-if (justSignedUp === 'true') {
-  localStorage.removeItem('clickmoni_newuser'); // Show only once
-} else {
-  document.getElementById('telegramBox').style.display = 'none';
-}
+  // Show correct section
+  const isActive = localStorage.getItem('clickmoni_active_' + userEmail) === 'true';
+  if (isActive) {
+    document.getElementById('activate-section').style.display = 'none';
+    document.getElementById('dashboard-section').style.display = 'block';
+    document.getElementById('userPlan').innerText = (localStorage.getItem('clickmoni_plan') || 'starter').toUpperCase();
+    loadEarnings();
+  }
 
-// 4. Check if Paystack redirected back with payment
-const urlParams = new URLSearchParams(window.location.search);
-if (urlParams.get('paid') === 'true') {
-  const plan = urlParams.get('plan') || 'starter';
-  localStorage.setItem('clickmoni_active_' + userEmail, 'true');
-  localStorage.setItem('clickmoni_plan', plan);
-  window.history.replaceState({}, document.title, window.location.pathname);
-}
+  // Simple earnings system
+  function loadEarnings() {
+    document.getElementById('taskEarn').innerText = localStorage.getItem('task_' + userEmail) || 0;
+    document.getElementById('refEarn').innerText = localStorage.getItem('ref_' + userEmail) || 0;
+    document.getElementById('taskBalance').innerText = localStorage.getItem('task_' + userEmail) || 0;
+    document.getElementById('refBalance').innerText = localStorage.getItem('ref_' + userEmail) || 0;
+    document.getElementById('totalEarn').innerText = parseInt(localStorage.getItem('task_' + userEmail) || 0) + parseInt(localStorage.getItem('ref_' + userEmail) || 0);
+  }
 
-// 5. Show tasks if activated, else show plans
-if (localStorage.getItem('clickmoni_active_' + userEmail) === 'true') {
-  document.getElementById('tasks-section').style.display = 'block';
-  document.getElementById('activate-section').style.display = 'none';
-  document.getElementById('userPlan').innerText = (localStorage.getItem('clickmoni_plan') || 'starter').toUpperCase();
-}
+  function completeTask(amount) {
+    let current = parseInt(localStorage.getItem('task_' + userEmail) || 0);
+    localStorage.setItem('task_' + userEmail, current + amount);
+    loadEarnings();
+    alert('₦' + amount + ' added to task earnings!');
+  }
+
+  function withdraw(type) {
+    let balance = parseInt(localStorage.getItem(type + '_' + userEmail) || 0);
+    if (balance < 9000) {
+      alert('Minimum withdrawal is ₦9,000. Your balance: ₦' + balance);
+    } else {
+      alert('Withdrawal request sent! ₦' + balance + ' will be sent to your Opay within 24hrs.');
+      localStorage.setItem(type + '_' + userEmail, 0);
+      loadEarnings();
+    }
+  }
 </script>
 
 </body>
-      </html>
+  </html>
