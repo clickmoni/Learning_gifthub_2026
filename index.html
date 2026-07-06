@@ -1,135 +1,36 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+  <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>ClickMoni Dashboard</title>
+  <title>ClickMoni — Earn Smart. Live Better.</title>
   <style>
-    body { font-family:Arial; padding:15px; background:#f5f5f5; margin:0; }
-    .container { max-width:500px; margin:auto; background:white; padding:20px; border-radius:10px; }
-    .plan-btn { display:block; color:white; padding:15px; margin:10px 0; text-align:center; border-radius:5px; text-decoration:none; font-weight:bold; }
-    .box { background:#f8f9fa; padding:15px; border-radius:8px; margin:15px 0; }
-    .withdraw-btn { background:#00C851; color:white; padding:12px; width:100%; border:none; border-radius:6px; font-weight:bold; margin-top:10px; }
-    .task-btn { width:100%; padding:12px; margin:8px 0; background:#eee; border:none; border-radius:6px; text-align:left; }
+    * { margin:0; padding:0; box-sizing:border-box; font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Arial,sans-serif; }
+    body { background:#0D0D0D; color:#fff; }
+    .header { display:flex; justify-content:space-between; align-items:center; padding:15px 20px; }
+    .logo { display:flex; align-items:center; gap:10px; font-size:20px; font-weight:700; }
+    .logo-icon { width:35px; height:35px; background:#FF3B30; border-radius:8px; display:flex; align-items:center; justify-content:center; }
+    .container { padding:20px; text-align:center; max-width:500px; margin:auto; }
+    .tag { border:1px solid #FF3B30; color:#FF3B30; padding:8px 15px; border-radius:20px; display:inline-block; font-size:12px; margin:20px 0; }
+    h1 { font-size:42px; line-height:1.1; margin:20px 0; font-weight:800; }
+    h1 span { color:#FF3B30; }
+    p { color:#aaa; font-size:16px; line-height:1.6; margin-bottom:30px; }
+    .btn { display:block; width:100%; padding:16px; border-radius:12px; text-decoration:none; font-weight:600; font-size:16px; margin:10px 0; border:none; }
+    .btn-primary { background:#FF3B30; color:#fff; }
+    .btn-secondary { background:#1C1C1E; color:#fff; border:1px solid #333; }
   </style>
 </head>
 <body>
-
-<div class="container">
-  <h2>Welcome, <span id="name">User</span>! 👋</h2>
-  
-  <!-- TELEGRAM BOX -->
-  <div id="telegramBox" style="background:#229ED9; color:white; padding:15px; border-radius:8px; text-align:center; margin:15px 0;">
-    <b>📢 Join ClickMoni Official Group</b><br><br>
-    <a href="https://t.me/ClickMoniOfficial" target="_blank" style="background:white; color:#229ED9; padding:10px 20px; border-radius:5px; text-decoration:none; font-weight:bold;">
-      Click to Join Telegram
-    </a>
+  <div class="header">
+    <div class="logo"><div class="logo-icon">💰</div> ClickMoni.</div>
+    <div>☰</div>
   </div>
-
-  <!-- SECTION 1: SHOW BEFORE PAYMENT -->
-  <div id="activate-section">
-    <h3>🔓 Activate Your Account to Start Earning</h3>
-    <p>Choose ANY plan below to unlock daily tasks:</p>
-    
-    <a href="https://paystack.shop/pay/clickmoni_starter" class="plan-btn" style="background:green;">Starter Plan — ₦750</a>
-    <a href="https://paystack.shop/pay/clickmoni_basic" class="plan-btn" style="background:blue;">Basic Plan — ₦1,500</a>
-    <a href="https://paystack.shop/pay/clickmoni_pro" class="plan-btn" style="background:purple;">Pro Plan — ₦3,000</a>
-    <a href="https://paystack.shop/pay/clickmoni_premium" class="plan-btn" style="background:orange;">Premium Plan — ₦5,000</a>
-    <a href="https://paystack.shop/pay/clickmoni_vip" class="plan-btn" style="background:red;">VIP Plan — ₦10,000</a>
+  <div class="container">
+    <div class="tag">THE NEW STANDARD OF DIGITAL EARNINGS</div>
+    <h1>Pay Smart.<br><span>Live Better.</span></h1>
+    <p>Unlock seamless digital earnings with Nigeria's most transparent platform. Complete tasks, refer friends, and cash out instantly.</p>
+    <a href="signup.html" class="btn btn-primary">Get Started →</a>
+    <a href="dashboard.html" class="btn btn-secondary">Dashboard Login</a>
   </div>
-
-  <!-- SECTION 2: SHOW AFTER PAYMENT -->
-  <div id="dashboard-section" style="display:none;">
-    
-    <div class="box">
-      <h3>💰 Your Balance</h3>
-      <p>Plan: <b id="userPlan">STARTER</b></p>
-      <p>Task Earnings: <b>₦<span id="taskEarn">0</span></b></p>
-      <p>Affiliate Earnings: <b>₦<span id="refEarn">0</span></b></p>
-      <p>Total Balance: <b>₦<span id="totalEarn">0</span></b></p>
-    </div>
-
-    <div class="box">
-      <h3>✅ Daily Tasks</h3>
-      <button class="task-btn" onclick="completeTask(50)">Task 1: Watch Video — Earn ₦50</button>
-      <button class="task-btn" onclick="completeTask(100)">Task 2: Share Post — Earn ₦100</button>
-      <button class="task-btn" onclick="completeTask(50)">Task 3: Comment — Earn ₦50</button>
-    </div>
-
-    <div class="box">
-      <h3>🏦 Task Withdrawal</h3>
-      <p>Min withdrawal: ₦9,000</p>
-      <p>Your task balance: ₦<span id="taskBalance">0</span></p>
-      <button class="withdraw-btn" onclick="withdraw('task')">Withdraw Task Earnings</button>
-    </div>
-
-    <div class="box">
-      <h3>👥 Affiliate Withdrawal</h3>
-      <p>Refer friends & earn per plan</p>
-      <p>Your referral link: <input type="text" id="refLink" value="" style="width:100%; padding:8px;" readonly></p>
-      <p>Referral balance: ₦<span id="refBalance">0</span></p>
-      <button class="withdraw-btn" onclick="withdraw('affiliate')">Withdraw Referral Earnings</button>
-    </div>
-
-  </div>
-
-</div>
-
-<script>
-  // Load user
-  const userName = localStorage.getItem('clickmoni_name') || 'User';
-  const userEmail = localStorage.getItem('clickmoni_user');
-  document.getElementById('name').innerText = userName;
-  
-  if (!userEmail) window.location.href = 'index.html';
-  
-  // Referral link
-  document.getElementById('refLink').value = window.location.origin + '/index.html?ref=' + encodeURIComponent(userEmail);
-
-  // Check if paid
-  const urlParams = new URLSearchParams(window.location.search);
-  if (urlParams.get('paid') === 'true') {
-    const plan = urlParams.get('plan') || 'starter';
-    localStorage.setItem('clickmoni_active_' + userEmail, 'true');
-    localStorage.setItem('clickmoni_plan', plan);
-    window.history.replaceState({}, document.title, window.location.pathname);
-  }
-
-  // Show correct section
-  const isActive = localStorage.getItem('clickmoni_active_' + userEmail) === 'true';
-  if (isActive) {
-    document.getElementById('activate-section').style.display = 'none';
-    document.getElementById('dashboard-section').style.display = 'block';
-    document.getElementById('userPlan').innerText = (localStorage.getItem('clickmoni_plan') || 'starter').toUpperCase();
-    loadEarnings();
-  }
-
-  // Simple earnings system
-  function loadEarnings() {
-    document.getElementById('taskEarn').innerText = localStorage.getItem('task_' + userEmail) || 0;
-    document.getElementById('refEarn').innerText = localStorage.getItem('ref_' + userEmail) || 0;
-    document.getElementById('taskBalance').innerText = localStorage.getItem('task_' + userEmail) || 0;
-    document.getElementById('refBalance').innerText = localStorage.getItem('ref_' + userEmail) || 0;
-    document.getElementById('totalEarn').innerText = parseInt(localStorage.getItem('task_' + userEmail) || 0) + parseInt(localStorage.getItem('ref_' + userEmail) || 0);
-  }
-
-  function completeTask(amount) {
-    let current = parseInt(localStorage.getItem('task_' + userEmail) || 0);
-    localStorage.setItem('task_' + userEmail, current + amount);
-    loadEarnings();
-    alert('₦' + amount + ' added to task earnings!');
-  }
-
-  function withdraw(type) {
-    let balance = parseInt(localStorage.getItem(type + '_' + userEmail) || 0);
-    if (balance < 9000) {
-      alert('Minimum withdrawal is ₦9,000. Your balance: ₦' + balance);
-    } else {
-      alert('Withdrawal request sent! ₦' + balance + ' will be sent to your Opay within 24hrs.');
-      localStorage.setItem(type + '_' + userEmail, 0);
-      loadEarnings();
-    }
-  }
-</script>
-
 </body>
-  </html>
+</html>
