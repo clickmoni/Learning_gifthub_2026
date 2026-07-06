@@ -1,159 +1,91 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ClickMoni — Earn Smart. Live Better.</title>
-    <style>
-        * {margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', sans-serif;}
-        body {background: #0d1117; color: #fff;}
-     .hidden {display: none!important;}
-     .container {max-width: 480px; margin: 0 auto; padding: 0 16px;}
-     .header {padding: 20px 0; display: flex; justify-content: space-between; align-items: center;}
-     .logo {display: flex; align-items: center; gap: 8px;}
-     .logo-icon {width: 32px; height: 32px; background: #ff4757; border-radius: 8px; display: flex; align-items: center; justify-content: center; font-weight: bold;}
-     .logo-text {font-size: 1.5rem; font-weight: bold;}
-     .logo-text span {color: #ff4757;}
-     .hero {text-align: center; padding: 40px 0;}
-     .badge {display: inline-block; background: rgba(255,71,87,0.1); color: #ff4757; padding: 8px 16px; border-radius: 20px; font-size: 0.8rem; margin-bottom: 20px; border: 1px solid rgba(255,71,87,0.3);}
-     .hero h1 {font-size: 2.8rem; line-height: 1.2; margin-bottom: 16px;}
-     .hero h1 span {color: #ff4757;}
-     .hero p {color: #8b949e; margin-bottom: 20px; line-height: 1.6;}
-     .btn-primary {background: #ff4757; color: white; border: none; padding: 16px 32px; border-radius: 12px; font-size: 1rem; font-weight: bold; cursor: pointer; width: 100%; display: flex; align-items: center; justify-content: center; gap: 8px;}
-     .btn-secondary {background: #21262d; color: white; border: 1px solid #30363d; padding: 16px 32px; border-radius: 12px; font-size: 1rem; font-weight: bold; cursor: pointer; width: 100%; margin-top: 12px;}
-     .payout-ticker {background: #161b22; border: 1px solid #30363d; border-radius: 12px; padding: 12px; margin: 20px 0; overflow: hidden; height: 50px;}
-     .ticker-content {animation: scroll 20s linear infinite;}
-      @keyframes scroll {0% {transform: translateY(0);} 100% {transform: translateY(-100%);}}
-     .payout-item {padding: 6px 0; font-size: 0.85rem; color: #8b949e;}
-     .payout-item span {color: #00b894; font-weight: bold;}
-     .payout-demo {font-size: 0.7rem; color: #484f58; text-align: center; margin-top: 8px;}
-     .plans-grid {display: grid; gap: 16px; margin: 24px 0;}
-     .plan-card {background: #161b22; border: 1px solid #30363d; border-radius: 16px; padding: 20px;}
-     .plan-header {display: flex; justify-content: space-between; align-items: start; margin-bottom: 16px;}
-     .plan-name {font-size: 1.1rem; font-weight: bold;}
-     .plan-price {font-size: 1.4rem; font-weight: bold; color: #ff4757;}
-     .plan-features {margin: 16px 0;}
-     .feature {display: flex; justify-content: space-between; padding: 8px 0; border-bottom: 1px solid #21262d; font-size: 0.85rem;}
-     .feature:last-child {border-bottom: none;}
-     .feature-name {color: #8b949e;}
-     .feature-value {font-weight: bold;}
-     .dash-header {background: linear-gradient(135deg, #ff4757, #ff6348); padding: 24px; border-radius: 16px; margin: 20px 0;}
-     .wallet-card {background: rgba(0,0,0,0.2); padding: 16px; border-radius: 12px; margin-top: 16px;}
-     .wallet-amount {font-size: 2rem; font-weight: bold; margin: 8px 0;}
-     .tabs {display: flex; gap: 8px; margin: 20px 0; overflow-x: auto;}
-     .tab {background: #161b22; border: 1px solid #30363d; padding: 10px 16px; border-radius: 8px; cursor: pointer; font-size: 0.85rem; white-space: nowrap;}
-     .tab.active {background: #ff4757; border-color: #ff4757;}
-     .tab-content {background: #161b22; border: 1px solid #30363d; padding: 20px; border-radius: 12px; margin-bottom: 80px;}
-     .form-group {margin-bottom: 16px;}
-     .form-group input {width: 100%; background: #0d1117; border: 1px solid #30363d; padding: 12px; border-radius: 8px; color: white;}
-     .bottom-nav {position: fixed; bottom: 0; left: 0; right: 0; background: #0d1117; border-top: 1px solid #21262d; display: flex; justify-content: space-around; padding: 12px 0;}
-     .nav-item {text-align: center; color: #484f58; cursor: pointer;}
-     .nav-item.active {color: #ff4757;}
-     .info-box {background: #161b22; border: 1px solid #30363d; padding: 16px; border-radius: 12px; margin: 16px 0;}
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ClickMoni - Earn Money Daily</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: Arial, sans-serif; background: #f8f9fa; color: #333; }
+    .hero { background: linear-gradient(135deg, #00C851, #007E33); color: white; text-align: center; padding: 50px 20px; }
+    .hero h1 { font-size: 32px; margin-bottom: 10px; }
+    .hero p { font-size: 18px; opacity: 0.9; margin-bottom: 20px; }
+    .live-withdraw { background: #fff3cd; color: #856404; padding: 10px; text-align: center; font-size: 14px; overflow: hidden; white-space: nowrap; }
+    .withdraw-ticker { display: inline-block; animation: scroll 25s linear infinite; }
+    @keyframes scroll { 0% { transform: translateX(100%); } 100% { transform: translateX(-100%); } }
+    .container { max-width: 500px; margin: -30px auto 40px; padding: 0 20px; }
+    .signup-box { background: white; padding: 30px; border-radius: 12px; box-shadow: 0 4px 20px rgba(0,0,0,0.1); }
+    .signup-box h2 { text-align: center; margin-bottom: 20px; color: #007E33; }
+    input { width: 100%; padding: 14px; margin: 10px 0; border: 1px solid #ddd; border-radius: 8px; font-size: 16px; }
+    button { width: 100%; padding: 16px; background: #00C851; color: white; border: none; border-radius: 8px; font-size: 18px; font-weight: bold; margin-top: 10px; }
+    .features { text-align: center; padding: 40px 20px; }
+    .feat { background: white; padding: 20px; margin: 10px auto; border-radius: 8px; max-width: 400px; box-shadow: 0 2px 8px rgba(0,0,0,0.05); }
+    .footer { text-align: center; padding: 20px; font-size: 14px; color: #777; }
+  </style>
 </head>
 <body>
 
-<!-- PUBLIC LANDING -->
-<div id="landingPage">
-    <div class="container">
-        <div class="header">
-            <div class="logo">
-                <div class="logo-icon">CM</div>
-                <div class="logo-text">Click<span>Moni</span></div>
-            </div>
-        </div>
-        <div class="hero">
-            <div class="badge">⚡ THE NEW STANDARD OF DIGITAL EARNING</div>
-            <h1>Pay Smart.<br><span>Live Better.</span></h1>
-            <p>Choose your plan and start earning daily. Complete tasks, refer friends, and withdraw instantly.</p>
-
-            <div class="payout-ticker">
-                <div class="ticker-content">
-                    <div class="payout-item">🎉 @bright_01 just withdrew <span>₦9,000</span></div>
-                    <div class="payout-item">🎉 @amaka22 just withdrew <span>₦15,000</span></div>
-                    <div class="payout-item">🎉 @david_ng just withdrew <span>₦1,200</span></div>
-                    <div class="payout-item">🎉 @queen_b just withdrew <span>₦27,000</span></div>
-                    <div class="payout-item">🎉 @bright_01 just withdrew <span>₦9,000</span></div>
-                </div>
-            </div>
-            <div class="payout-demo">Live activity updates</div>
-        </div>
-
-        <h3 style="text-align:center; margin-bottom:16px;">Choose Your Plan</h3>
-        <div class="plans-grid">
-            <!-- STARTER -->
-            <div class="plan-card">
-                <div class="plan-header">
-                    <div class="plan-name">⭐ Starter</div>
-                    <div class="plan-price">₦750</div>
-                </div>
-                <div class="plan-features">
-                    <div class="feature"><span class="feature-name">Daily Earn</span><span class="feature-value">₦200</span></div>
-                    <div class="feature"><span class="feature-name">Referral</span><span class="feature-value">₦300</span></div>
-                    <div class="feature"><span class="feature-name">Min Withdraw</span><span class="feature-value">₦9,000</span></div>
-                </div>
-                <button class="btn-primary" onclick="window.open('https://paystack.shop/pay/clickmoni_starter', '_blank')">Select Starter</button>
-            </div>
-
-            <!-- BASIC -->
-            <div class="plan-card">
-                <div class="plan-header">
-                    <div class="plan-name">💼 Basic</div>
-                    <div class="plan-price">₦1,500</div>
-                </div>
-                <div class="plan-features">
-                    <div class="feature"><span class="feature-name">Daily Earn</span><span class="feature-value">₦400</span></div>
-                    <div class="feature"><span class="feature-name">Referral</span><span class="feature-value">₦600</span></div>
-                    <div class="feature"><span class="feature-name">Min Withdraw</span><span class="feature-value">₦15,000</span></div>
-                </div>
-                <button class="btn-primary" onclick="window.open('https://paystack.shop/pay/clickmoni_basic', '_blank')">Select Basic</button>
-            </div>
-
-            <!-- PRO -->
-            <div class="plan-card">
-                <div class="plan-header">
-                    <div class="plan-name">🚀 Pro</div>
-                    <div class="plan-price">₦3,500</div>
-                </div>
-                <div class="plan-features">
-                    <div class="feature"><span class="feature-name">Daily Earn</span><span class="feature-value">₦800</span></div>
-                    <div class="feature"><span class="feature-name">Referral</span><span class="feature-value">₦1,200</span></div>
-                    <div class="feature"><span class="feature-name">Min Withdraw</span><span class="feature-value">₦27,000</span></div>
-                </div>
-                <button class="btn-primary" onclick="window.open('https://paystack.shop/pay/clickmoni_pro', '_blank')">Select Pro</button>
-            </div>
-
-            <!-- PREMIUM -->
-            <div class="plan-card">
-                <div class="plan-header">
-                    <div class="plan-name">👑 Premium</div>
-                    <div class="plan-price">₦5,500</div>
-                </div>
-                <div class="plan-features">
-                    <div class="feature"><span class="feature-name">Daily Earn</span><span class="feature-value">₦1,600</span></div>
-                    <div class="feature"><span class="feature-name">Referral</span><span class="feature-value">₦2,400</span></div>
-                    <div class="feature"><span class="feature-name">Min Withdraw</span><span class="feature-value">₦35,000</span></div>
-                </div>
-                <button class="btn-primary" onclick="window.open('https://paystack.shop/pay/clickmoni_premium', '_blank')">Select Premium</button>
-            </div>
-
-            <!-- VIP -->
-            <div class="plan-card">
-                <div class="plan-header">
-                    <div class="plan-name">💎 VIP</div>
-                    <div class="plan-price">₦11,500</div>
-                </div>
-                <div class="plan-features">
-                    <div class="feature"><span class="feature-name">Daily Earn</span><span class="feature-value">₦3,200</span></div>
-                    <div class="feature"><span class="feature-name">Referral</span><span class="feature-value">₦4,800</span></div>
-                    <div class="feature"><span class="feature-name">Min Withdraw</span><span class="feature-value">₦57,000</span></div>
-                </div>
-                <button class="btn-primary" onclick="window.open('https://paystack.shop/pay/clickmoni_vip', '_blank')">Select VIP</button>
-            </div>
-        </div>
+  <div class="live-withdraw">
+    <div class="withdraw-ticker" id="withdrawTicker">
+      💸 Chioma K. withdrew ₦9,500 to Opay • Daniel O. withdrew ₦12,000 to Opay • Fatima A. withdrew ₦9,000 to Opay • John E. withdrew ₦15,200 to Opay • Blessing M. withdrew ₦10,000 to Opay • 
     </div>
-</div>
+  </div>
 
-<!-- DASHBOARD - SAME AS BEFORE -->
-<div id="dashboardPage" class
+  <div class="hero">
+    <h1>💰 ClickMoni</h1>
+    <p>Complete Simple Tasks. Earn Daily. Withdraw to Opay.</p>
+    <p><b>1,500+ Nigerians earning daily</b></p>
+  </div>
+
+  <div class="container">
+    <div class="signup-box">
+      <h2>Create Free Account</h2>
+      <form id="signupForm">
+        <input type="text" id="name" placeholder="Full Name" required>
+        <input type="email" id="email" placeholder="Email Address" required>
+        <input type="tel" id="phone" placeholder="WhatsApp Number" required>
+        <button type="submit">Sign Up & Access Dashboard →</button>
+      </form>
+      <p style="font-size:12px; text-align:center; margin-top:15px; color:#777;">No payment required to join. Activate plan inside dashboard.</p>
+    </div>
+  </div>
+
+  <div class="features">
+    <h3>How ClickMoni Works</h3>
+    <div class="feat">✅ <b>Step 1:</b> Sign up free in 10 seconds</div>
+    <div class="feat">🔓 <b>Step 2:</b> Choose ANY plan from ₦750 to ₦10,000</div>
+    <div class="feat">💸 <b>Step 3:</b> Complete daily tasks & earn</div>
+    <div class="feat">🏦 <b>Step 4:</b> Withdraw to Opay, min ₦9,000</div>
+  </div>
+
+  <div class="footer">
+    © 2026 ClickMoni. All rights reserved.
+  </div>
+
+  <script>
+    // Signup redirect
+    document.getElementById('signupForm').onsubmit = function(e) {
+      e.preventDefault();
+      localStorage.setItem('clickmoni_name', document.getElementById('name').value.trim());
+      localStorage.setItem('clickmoni_user', document.getElementById('email').value.trim());
+      localStorage.setItem('clickmoni_phone', document.getElementById('phone').value.trim());
+      window.location.href = 'dashboard.html';
+    }
+
+    // Rotate live withdrawals every 3 seconds
+    const withdrawals = [
+      "💸 Aisha T. withdrew ₦9,200 to Opay • ",
+      "💸 Emeka N. withdrew ₦11,500 to Opay • ",
+      "💸 Grace O. withdrew ₦9,000 to Opay • ",
+      "💸 Tunde A. withdrew ₦14,000 to Opay • ",
+      "💸 Mary J. withdrew ₦9,800 to Opay • "
+    ];
+    let i = 0;
+    setInterval(() => {
+      document.getElementById('withdrawTicker').innerHTML += withdrawals[i % withdrawals.length];
+      i++;
+    }, 3000);
+  </script>
+
+</body>
+      </html>
