@@ -1,19 +1,111 @@
-<!-- JOIN TELEGRAM - SHOWS AFTER SIGNUP -->
-<div id="telegramBox" style="background:#229ED9; color:white; padding:15px; border-radius:8px; text-align:center; margin:15px 0;">
-  <h3 style="margin:0 0 10px 0;">📢 Join ClickMoni Official Group</h3>
-  <p style="margin:0 0 15px 0; font-size:14px;">Get payment proofs & updates from CEO: @Monigold</p>
-  <a href="https://t.me/ClickMoniOfficial" target="_blank" style="background:white; color:#229ED9; padding:12px 25px; border-radius:6px; text-decoration:none; font-weight:bold; display:inline-block;">
-    Click to Join Telegram →
-  </a>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ClickMoni Dashboard</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: Arial, sans-serif; background: #f8f9fa; padding: 15px; }
+    .container { max-width: 600px; margin: 0 auto; background: white; padding: 20px; border-radius: 12px; box-shadow: 0 2px 10px rgba(0,0,0,0.1); }
+    h2 { color: #007E33; margin-bottom: 15px; }
+    .plan-btn {
+      display: block; color: white; padding: 15px; margin: 12px 0; 
+      text-decoration: none; border-radius: 8px; font-weight: bold; text-align: center;
+    }
+    .telegram-box {
+      background:#229ED9; color:white; padding:15px; border-radius:8px; 
+      text-align:center; margin:15px 0;
+    }
+    .task-btn { width: 100%; padding: 12px; margin: 8px 0; background: #eee; border: none; border-radius: 6px; text-align: left; }
+  </style>
+</head>
+<body>
+
+<div class="container">
+  <h2>Welcome, <span id="userName">User</span>! 👋</h2>
+  
+  <!-- TELEGRAM BOX - Shows after signup only -->
+  <div id="telegramBox" class="telegram-box">
+    <h3 style="margin:0 0 10px 0;">📢 Join ClickMoni Official Group</h3>
+    <p style="margin:0 0 15px 0; font-size:14px;">Get payment proofs & updates from CEO: @Monigold</p>
+    <a href="https://t.me/ClickMoniOfficial" target="_blank" style="background:white; color:#229ED9; padding:12px 25px; border-radius:6px; text-decoration:none; font-weight:bold; display:inline-block;">
+      Click to Join Telegram →
+    </a>
+  </div>
+
+  <!-- ACTIVATE SECTION - Shows if not paid -->
+  <div id="activate-section">
+    <h3>🔓 Activate Your Account to Start Earning</h3>
+    <p style="margin:10px 0;">Choose ANY plan below to unlock daily tasks:</p>
+    
+    <a href="https://paystack.shop/pay/clickmoni_starter" class="plan-btn" style="background:#28a745;">
+      Starter Plan — ₦750 <br><small>Task: ₦200/day | Referral: ₦200</small>
+    </a>
+    
+    <a href="https://paystack.shop/pay/clickmoni_basic" class="plan-btn" style="background:#007bff;">
+      Basic Plan — ₦1,500 <br><small>Task: ₦350/day | Referral: ₦500</small>
+    </a>
+    
+    <a href="https://paystack.shop/pay/clickmoni_pro" class="plan-btn" style="background:#6f42c1;">
+      Pro Plan — ₦3,000 <br><small>Task: ₦700/day | Referral: ₦1,000</small>
+    </a>
+    
+    <a href="https://paystack.shop/pay/clickmoni_premium" class="plan-btn" style="background:#fd7e14;">
+      Premium Plan — ₦5,000 <br><small>Task: ₦1,200/day | Referral: ₦1,800</small>
+    </a>
+    
+    <a href="https://paystack.shop/pay/clickmoni_vip" class="plan-btn" style="background:#dc3545;">
+      VIP Plan — ₦10,000 <br><small>Task: ₦2,500/day | Referral: ₦3,500</small>
+    </a>
+  </div>
+
+  <!-- TASKS SECTION - Shows after payment -->
+  <div id="tasks-section" style="display:none;">
+    <h3>✅ Your Tasks — <span id="userPlan"></span> Plan</h3>
+    <p>Complete tasks below to earn daily:</p>
+    <button class="task-btn">Task 1: Watch Video — Earn ₦50</button>
+    <button class="task-btn">Task 2: Share Post — Earn ₦100</button>
+    <button class="task-btn">Task 3: Comment — Earn ₦50</button>
+  </div>
+
 </div>
 
 <script>
-// Only show this box if user just signed up
+// 1. Load user data
+const userName = localStorage.getItem('clickmoni_name') || 'User';
+const userEmail = localStorage.getItem('clickmoni_user');
+document.getElementById('userName').innerText = userName;
+
+// 2. If not signed up, send to signup page
+if (!userEmail) {
+  window.location.href = 'index.html';
+}
+
+// 3. Show/hide Telegram box - only first time
 const justSignedUp = localStorage.getItem('clickmoni_newuser');
-if (!justSignedUp) {
-  localStorage.setItem('clickmoni_newuser', 'true');
+if (justSignedUp === 'true') {
+  localStorage.removeItem('clickmoni_newuser'); // Show only once
 } else {
-  // If they've seen it before, hide it
   document.getElementById('telegramBox').style.display = 'none';
 }
+
+// 4. Check if Paystack redirected back with payment
+const urlParams = new URLSearchParams(window.location.search);
+if (urlParams.get('paid') === 'true') {
+  const plan = urlParams.get('plan') || 'starter';
+  localStorage.setItem('clickmoni_active_' + userEmail, 'true');
+  localStorage.setItem('clickmoni_plan', plan);
+  window.history.replaceState({}, document.title, window.location.pathname);
+}
+
+// 5. Show tasks if activated, else show plans
+if (localStorage.getItem('clickmoni_active_' + userEmail) === 'true') {
+  document.getElementById('tasks-section').style.display = 'block';
+  document.getElementById('activate-section').style.display = 'none';
+  document.getElementById('userPlan').innerText = (localStorage.getItem('clickmoni_plan') || 'starter').toUpperCase();
+}
 </script>
+
+</body>
+      </html>
