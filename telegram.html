@@ -3,25 +3,25 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Telegram - Lanvars</title>
+    <title>Telegram - ClickMoni</title>
     <style>
-        body { font-family: Arial, sans-serif; background: #0a0a0a; color: #fff; padding: 20px; text-align: center; }
-        .box { background: #1a1a1a; border: 2px solid #FFD700; border-radius: 15px; padding: 30px; max-width: 400px; margin: 50px auto; }
-        h1 { color: #FFD700; margin-bottom: 15px; }
-        p { color: #ccc; line-height: 1.6; margin-bottom: 20px; }
-        .btn { background: #0088cc; color: #fff; padding: 15px 30px; border-radius: 10px; text-decoration: none; font-weight: bold; display: inline-block; margin: 10px 0; width: 80%; }
+        body { font-family: Arial, sans-serif; background: #000; color: #fff; padding: 20px; text-align: center; }
+        .box { background: #111; border: 2px solid #FFD700; border-radius: 18px; padding: 30px; max-width: 400px; margin: 40px auto; }
+        h1 { color: #FFD700; margin-bottom: 15px; font-size: 24px; }
+        p { color: #aaa; line-height: 1.6; margin-bottom: 20px; }
+        .btn { background: #0088cc; color: #fff; padding: 16px 30px; border-radius: 12px; text-decoration: none; font-weight: 700; display: inline-block; margin: 10px 0; width: 85%; }
         .btn-gold { background: #FFD700; color: #000; }
-        .back { color: #FFD700; text-decoration: none; display: block; margin-bottom: 20px; text-align: left; }
-        .ceo { color: #FFD700; font-weight: bold; }
+        .back { color: #FFD700; text-decoration: none; display: block; margin-bottom: 20px; text-align: left; font-weight: 600; }
+        .ceo { color: #FFD700; font-weight: 700; }
     </style>
 </head>
 <body>
     <a href="dashboard.html" class="back">← Back to Dashboard</a>
     <div class="box">
         <h1>📢 ClickMoni Official</h1>
-        <p>Join our official Telegram for daily updates, withdrawal proofs, bonus codes & support.</p>
+        <p>Join our official Telegram for daily updates, withdrawal proofs, bonus codes & 24/7 support.</p>
         <p>CEO: <span class="ceo">@Monigold</span></p>
-        <p><strong>Bonus:</strong> Join now and get ₦100 instantly!</p>
+        <p><strong style="color:#00ff00;">Bonus:</strong> Join now and get ₦100 instantly!</p>
         
         <a href="https://t.me/ClickMoniOfficial" target="_blank" class="btn" onclick="claimBonus()">Join @ClickMoniOfficial</a>
         <br>
@@ -30,16 +30,16 @@
 
     <script>
         function claimBonus() {
-            let claimed = localStorage.getItem('lanvars_telegram_bonus');
+            let claimed = localStorage.getItem('clickmoni_telegram_bonus');
             if(claimed) {
-                alert('You already claimed your Telegram bonus!');
+                alert('You already claimed your ₦100 Telegram bonus!');
                 return;
             }
-            let balance = parseInt(localStorage.getItem('lanvars_balance') || '0');
+            let balance = parseInt(localStorage.getItem('clickmoni_balance') || '0');
             balance += 100;
-            localStorage.setItem('lanvars_balance', balance);
-            localStorage.setItem('lanvars_telegram_bonus', 'true');
-            alert('₦100 Telegram Bonus Added! Check your dashboard balance.');
+            localStorage.setItem('clickmoni_balance', balance);
+            localStorage.setItem('clickmoni_telegram_bonus', 'true');
+            alert('₦100 Added to Your ClickMoni Balance!');
         }
     </script>
 </body>
