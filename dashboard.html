@@ -3,125 +3,121 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dashboard - Lanvars</title>
+    <title>Dashboard - ClickMoni</title>
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body { 
-            font-family: Arial, sans-serif; 
-            background: #0a0a0a; 
+            font-family: 'Segoe UI', Arial, sans-serif; 
+            background: #000; 
             color: #fff; 
-            padding: 20px; 
-            padding-bottom: 80px;
+            padding: 15px; 
+            padding-bottom: 90px;
         }
         .header { 
             display: flex; 
             justify-content: space-between; 
             align-items: center; 
-            margin-bottom: 20px; 
-        }
-        .header h1 { color: #FFD700; font-size: 24px; }
-        .logout { color: #FFD700; text-decoration: none; font-size: 14px; }
-        .balance-card { 
-            background: linear-gradient(135deg, #1a1a1a, #2a2a2a); 
-            border: 2px solid #FFD700; 
-            border-radius: 15px; 
-            padding: 25px; 
-            text-align: center; 
             margin-bottom: 25px; 
         }
-        .balance-card h2 { color: #ccc; font-size: 14px; margin-bottom: 10px; }
-        .balance { color: #FFD700; font-size: 36px; font-weight: bold; }
+        .logo { color: #FFD700; font-size: 26px; font-weight: 800; letter-spacing: -1px; }
+        .logout { color: #FFD700; text-decoration: none; font-size: 13px; font-weight: 600; }
+        .balance-card { 
+            background: #111; 
+            border: 2px solid #FFD700; 
+            border-radius: 18px; 
+            padding: 25px; 
+            text-align: center; 
+            margin-bottom: 20px; 
+        }
+        .balance-card h2 { color: #888; font-size: 13px; margin-bottom: 8px; font-weight: 500; }
+        .balance { color: #FFD700; font-size: 38px; font-weight: 800; }
         .stats { 
             display: grid; 
             grid-template-columns: 1fr 1fr; 
-            gap: 15px; 
+            gap: 12px; 
             margin-bottom: 25px; 
         }
         .stat { 
-            background: #1a1a1a; 
-            border: 1px solid #333; 
-            border-radius: 10px; 
-            padding: 15px; 
+            background: #0d0d0d; 
+            border: 1px solid #FFD700; 
+            border-radius: 14px; 
+            padding: 18px 10px; 
             text-align: center; 
         }
-        .stat p { color: #999; font-size: 12px; }
-        .stat h3 { color: #FFD700; font-size: 20px; margin-top: 5px; }
+        .stat p { color: #666; font-size: 11px; font-weight: 600; }
+        .stat h3 { color: #FFD700; font-size: 20px; margin-top: 6px; font-weight: 700; }
         .btn { 
             display: block; 
             width: 100%; 
-            padding: 16px; 
-            margin: 12px 0; 
+            padding: 17px; 
+            margin: 13px 0; 
             border: none; 
-            border-radius: 10px; 
+            border-radius: 14px; 
             font-size: 16px; 
-            font-weight: bold; 
+            font-weight: 700; 
             text-decoration: none; 
             text-align: center; 
             cursor: pointer; 
-            transition: 0.3s;
         }
         .btn-gold { background: #FFD700; color: #000; }
-        .btn-dark { background: #1a1a1a; color: #FFD700; border: 1px solid #FFD700; }
-        .btn:hover { opacity: 0.9; transform: translateY(-2px); }
-        .section-title { color: #FFD700; margin: 30px 0 15px 0; font-size: 18px; }
-        .ceo { text-align: center; margin-top: 30px; color: #666; font-size: 12px; }
-        .ceo a { color: #FFD700; text-decoration: none; }
+        .btn-dark { background: #0d0d0d; color: #FFD700; border: 2px solid #FFD700; }
+        .section-title { color: #FFD700; margin: 28px 0 12px 0; font-size: 15px; font-weight: 700; }
+        .footer { text-align: center; margin-top: 35px; color: #444; font-size: 11px; }
+        .footer a { color: #FFD700; text-decoration: none; font-weight: 600; }
     </style>
 </head>
 <body>
     <div class="header">
-        <h1>Welcome, <span id="userName">User</span></h1>
+        <div class="logo">ClickMoni</div>
         <a href="index.html" class="logout" onclick="logout()">Logout</a>
     </div>
 
     <div class="balance-card">
-        <h2>TOTAL BALANCE</h2>
+        <h2>AVAILABLE BALANCE</h2>
         <div class="balance">₦<span id="balance">0</span></div>
     </div>
 
     <div class="stats">
         <div class="stat">
-            <p>ACTIVE PACK</p>
+            <p>ACTIVE PLAN</p>
             <h3 id="pack">None</h3>
         </div>
         <div class="stat">
-            <p>DAILY EARNING</p>
+            <p>DAILY PROFIT</p>
             <h3>₦<span id="daily">0</span></h3>
         </div>
     </div>
 
-    <h3 class="section-title">💰 Earn & Grow</h3>
-    <a href="tiers.html" class="btn btn-gold">🚀 Activate Account</a>
-    <a href="jobs.html" class="btn btn-gold">💼 Real Jobs - Earn Daily</a>
-    <a href="sponsor.html" class="btn btn-gold">👥 Sponsor & Referral</a>
-    <a href="withdraw.html" class="btn btn-dark">💰 Withdraw Funds</a>
+    <h3 class="section-title">EARN MONEY</h3>
+    <a href="tiers.html" class="btn btn-gold">🚀 Activate Plan</a>
+    <a href="jobs.html" class="btn btn-gold">💼 Daily Jobs</a>
+    <a href="sponsor.html" class="btn btn-gold">👥 Invite & Earn</a>
+    <a href="withdraw.html" class="btn btn-dark">💸 Withdraw</a>
 
-    <h3 class="section-title">📱 Community</h3>
-    <a href="telegram.html" class="btn btn-gold">📢 Telegram Channel</a>
+    <h3 class="section-title">COMMUNITY</h3>
+    <a href="telegram.html" class="btn btn-gold">📢 Official Telegram</a>
     
-    <h3 class="section-title">🎁 More Features</h3>
+    <h3 class="section-title">MORE</h3>
     <button class="btn btn-dark" onclick="comingSoon('Gift Card')">🎁 Gift Card</button>
     <button class="btn btn-dark" onclick="comingSoon('Ads Profile')">📊 Ads Profile</button>
 
-    <div class="ceo">
-        ClickMoni Official | CEO: <a href="https://t.me/Monigold" target="_blank">@Monigold</a>
+    <div class="footer">
+        ClickMoni Official | CEO: <a href="https://t.me/Monigold" target="_blank">@Monigold</a><br>
+        <a href="https://t.me/ClickMoniOfficial" target="_blank">t.me/ClickMoniOfficial</a>
     </div>
 
     <script>
-        // Load user data from localStorage
-        document.getElementById('userName').textContent = localStorage.getItem('lanvars_user') || 'User';
-        document.getElementById('balance').textContent = localStorage.getItem('lanvars_balance') || '0';
-        document.getElementById('pack').textContent = localStorage.getItem('lanvars_pack') || 'None';
-        document.getElementById('daily').textContent = localStorage.getItem('lanvars_daily') || '0';
+        document.getElementById('balance').textContent = localStorage.getItem('clickmoni_balance') || '0';
+        document.getElementById('pack').textContent = localStorage.getItem('clickmoni_pack') || 'None';
+        document.getElementById('daily').textContent = localStorage.getItem('clickmoni_daily') || '0';
 
         function logout() {
             localStorage.clear();
-            alert('Logged out successfully');
         }
 
         function comingSoon(feature) {
-            alert(feature + ' is Coming Soon! 🚀\n\nWe are building this feature. Join our Telegram @ClickMoniOfficial for updates.');
+            alert(feature + ' Coming Soon!\n\nJoin @ClickMoniOfficial for updates.');
         }
     </script>
 </body>
-  </html>
+    </html>
