@@ -1,91 +1,43 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>ClickMoni - Earn Money Daily</title>
-  <style>
-    * { margin: 0; padding: 0; box-sizing: border-box; }
-    body { font-family: Arial, sans-serif; background: #f8f9fa; color: #333; }
-    .hero { background: linear-gradient(135deg, #00C851, #007E33); color: white; text-align: center; padding: 50px 20px; }
-    .hero h1 { font-size: 32px; margin-bottom: 10px; }
-    .hero p { font-size: 18px; opacity: 0.9; margin-bottom: 20px; }
-    .live-withdraw { background: #fff3cd; color: #856404; padding: 10px; text-align: center; font-size: 14px; overflow: hidden; white-space: nowrap; }
-    .withdraw-ticker { display: inline-block; animation: scroll 25s linear infinite; }
-    @keyframes scroll { 0% { transform: translateX(100%); } 100% { transform: translateX(-100%); } }
-    .container { max-width: 500px; margin: -30px auto 40px; padding: 0 20px; }
-    .signup-box { background: white; padding: 30px; border-radius: 12px; box-shadow: 0 4px 20px rgba(0,0,0,0.1); }
-    .signup-box h2 { text-align: center; margin-bottom: 20px; color: #007E33; }
-    input { width: 100%; padding: 14px; margin: 10px 0; border: 1px solid #ddd; border-radius: 8px; font-size: 16px; }
-    button { width: 100%; padding: 16px; background: #00C851; color: white; border: none; border-radius: 8px; font-size: 18px; font-weight: bold; margin-top: 10px; }
-    .features { text-align: center; padding: 40px 20px; }
-    .feat { background: white; padding: 20px; margin: 10px auto; border-radius: 8px; max-width: 400px; box-shadow: 0 2px 8px rgba(0,0,0,0.05); }
-    .footer { text-align: center; padding: 20px; font-size: 14px; color: #777; }
-  </style>
-</head>
-<body>
-
-  <div class="live-withdraw">
-    <div class="withdraw-ticker" id="withdrawTicker">
-      💸 Chioma K. withdrew ₦9,500 to Opay • Daniel O. withdrew ₦12,000 to Opay • Fatima A. withdrew ₦9,000 to Opay • John E. withdrew ₦15,200 to Opay • Blessing M. withdrew ₦10,000 to Opay • 
-    </div>
+<div id="activate-section" style="padding:20px;">
+  <h2>Welcome, <span id="userName"></span>! 👋</h2>
+  
+  <!-- TELEGRAM BUTTON - OPTIONAL -->
+  <div style="background:#f8f9fa; border:2px dashed #229ED9; padding:15px; border-radius:8px; text-align:center; margin:15px 0;">
+    <h3 style="margin:0 0 8px 0; color:#229ED9;">📢 Join Our Community (Optional)</h3>
+    <p style="margin:0 0 12px 0; font-size:14px; color:#666;">Get payment proofs, updates & support from other users</p>
+    <a href="https://t.me/ClickMoniOfficial" target="_blank" style="background:#229ED9; color:white; padding:10px 20px; border-radius:6px; text-decoration:none; font-weight:bold; display:inline-block;">
+      Join Telegram Group →
+    </a>
+    <p style="font-size:12px; color:#999; margin:10px 0 0 0;">You can skip this and activate plan below</p>
   </div>
 
-  <div class="hero">
-    <h1>💰 ClickMoni</h1>
-    <p>Complete Simple Tasks. Earn Daily. Withdraw to Opay.</p>
-    <p><b>1,500+ Nigerians earning daily</b></p>
-  </div>
+  <h3>🔓 Activate Your Account to Start Earning</h3>
+  <p>Choose ANY plan below to unlock daily tasks:</p>
+  
+  <a href="https://paystack.shop/pay/clickmoni_starter" class="plan-btn" style="background:#28a745;">
+    Starter Plan — ₦750 <br><small>Task: ₦200/day | Referral: ₦200</small>
+  </a>
+  
+  <a href="https://paystack.shop/pay/clickmoni_basic" class="plan-btn" style="background:#007bff;">
+    Basic Plan — ₦1,500 <br><small>Task: ₦350/day | Referral: ₦500</small>
+  </a>
+  
+  <a href="https://paystack.shop/pay/clickmoni_pro" class="plan-btn" style="background:#6f42c1;">
+    Pro Plan — ₦3,000 <br><small>Task: ₦700/day | Referral: ₦1,000</small>
+  </a>
+  
+  <a href="https://paystack.shop/pay/clickmoni_premium" class="plan-btn" style="background:#fd7e14;">
+    Premium Plan — ₦5,000 <br><small>Task: ₦1,200/day | Referral: ₦1,800</small>
+  </a>
+  
+  <a href="https://paystack.shop/pay/clickmoni_vip" class="plan-btn" style="background:#dc3545;">
+    VIP Plan — ₦10,000 <br><small>Task: ₦2,500/day | Referral: ₦3,500</small>
+  </a>
+</div>
 
-  <div class="container">
-    <div class="signup-box">
-      <h2>Create Free Account</h2>
-      <form id="signupForm">
-        <input type="text" id="name" placeholder="Full Name" required>
-        <input type="email" id="email" placeholder="Email Address" required>
-        <input type="tel" id="phone" placeholder="WhatsApp Number" required>
-        <button type="submit">Sign Up & Access Dashboard →</button>
-      </form>
-      <p style="font-size:12px; text-align:center; margin-top:15px; color:#777;">No payment required to join. Activate plan inside dashboard.</p>
-    </div>
-  </div>
-
-  <div class="features">
-    <h3>How ClickMoni Works</h3>
-    <div class="feat">✅ <b>Step 1:</b> Sign up free in 10 seconds</div>
-    <div class="feat">🔓 <b>Step 2:</b> Choose ANY plan from ₦750 to ₦10,000</div>
-    <div class="feat">💸 <b>Step 3:</b> Complete daily tasks & earn</div>
-    <div class="feat">🏦 <b>Step 4:</b> Withdraw to Opay, min ₦9,000</div>
-  </div>
-
-  <div class="footer">
-    © 2026 ClickMoni. All rights reserved.
-  </div>
-
-  <script>
-    // Signup redirect
-    document.getElementById('signupForm').onsubmit = function(e) {
-      e.preventDefault();
-      localStorage.setItem('clickmoni_name', document.getElementById('name').value.trim());
-      localStorage.setItem('clickmoni_user', document.getElementById('email').value.trim());
-      localStorage.setItem('clickmoni_phone', document.getElementById('phone').value.trim());
-      window.location.href = 'dashboard.html';
-    }
-
-    // Rotate live withdrawals every 3 seconds
-    const withdrawals = [
-      "💸 Aisha T. withdrew ₦9,200 to Opay • ",
-      "💸 Emeka N. withdrew ₦11,500 to Opay • ",
-      "💸 Grace O. withdrew ₦9,000 to Opay • ",
-      "💸 Tunde A. withdrew ₦14,000 to Opay • ",
-      "💸 Mary J. withdrew ₦9,800 to Opay • "
-    ];
-    let i = 0;
-    setInterval(() => {
-      document.getElementById('withdrawTicker').innerHTML += withdrawals[i % withdrawals.length];
-      i++;
-    }, 3000);
-  </script>
-
-</body>
-      </html>
+<style>
+.plan-btn {
+  display: block; color: white; padding: 15px; margin: 12px 0; 
+  text-decoration: none; border-radius: 8px; font-weight: bold; text-align: center;
+}
+</style>
