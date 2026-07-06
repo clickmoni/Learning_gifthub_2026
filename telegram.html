@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Telegram - Lanvars</title>
+    <style>
+        body { font-family: Arial, sans-serif; background: #0a0a0a; color: #fff; padding: 20px; text-align: center; }
+        .box { background: #1a1a1a; border: 2px solid #FFD700; border-radius: 15px; padding: 30px; max-width: 400px; margin: 50px auto; }
+        h1 { color: #FFD700; margin-bottom: 15px; }
+        p { color: #ccc; line-height: 1.6; margin-bottom: 20px; }
+        .btn { background: #0088cc; color: #fff; padding: 15px 30px; border-radius: 10px; text-decoration: none; font-weight: bold; display: inline-block; margin: 10px 0; width: 80%; }
+        .btn-gold { background: #FFD700; color: #000; }
+        .back { color: #FFD700; text-decoration: none; display: block; margin-bottom: 20px; text-align: left; }
+        .ceo { color: #FFD700; font-weight: bold; }
+    </style>
+</head>
+<body>
+    <a href="dashboard.html" class="back">← Back to Dashboard</a>
+    <div class="box">
+        <h1>📢 ClickMoni Official</h1>
+        <p>Join our official Telegram for daily updates, withdrawal proofs, bonus codes & support.</p>
+        <p>CEO: <span class="ceo">@Monigold</span></p>
+        <p><strong>Bonus:</strong> Join now and get ₦100 instantly!</p>
+        
+        <a href="https://t.me/ClickMoniOfficial" target="_blank" class="btn" onclick="claimBonus()">Join @ClickMoniOfficial</a>
+        <br>
+        <a href="dashboard.html" class="btn btn-gold">Back to Dashboard</a>
+    </div>
+
+    <script>
+        function claimBonus() {
+            let claimed = localStorage.getItem('lanvars_telegram_bonus');
+            if(claimed) {
+                alert('You already claimed your Telegram bonus!');
+                return;
+            }
+            let balance = parseInt(localStorage.getItem('lanvars_balance') || '0');
+            balance += 100;
+            localStorage.setItem('lanvars_balance', balance);
+            localStorage.setItem('lanvars_telegram_bonus', 'true');
+            alert('₦100 Telegram Bonus Added! Check your dashboard balance.');
+        }
+    </script>
+</body>
+</html>
