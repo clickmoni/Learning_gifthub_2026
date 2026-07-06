@@ -1,113 +1,13 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Choose Your Tier — ClickMoni</title>
-  <style>
-    * { margin:0; padding:0; box-sizing:border-box; font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Arial,sans-serif; }
-    body { background:#0D0D0D; color:#fff; padding:20px 20px 100px; }
-    .header { display:flex; justify-content:space-between; align-items:center; margin-bottom:20px; }
-    .back { color:#fff; font-size:24px; text-decoration:none; }
-    h2 { text-align:center; font-size:24px; }
-    .subtext { text-align:center; color:#aaa; margin:10px 0 20px; }
-    .badge { background:#FF3B30; color:#fff; padding:8px 15px; border-radius:20px; display:inline-block; margin:0 auto 20px; display:table; font-size:12px; }
-    .pack { background:#1C1C1E; border-radius:20px; margin:20px 0; overflow:hidden; border:1px solid #333; }
-    .pack-header { padding:20px; display:flex; justify-content:space-between; align-items:center; }
-    .pack-title { display:flex; align-items:center; gap:10px; }
-    .pack-icon { width:40px; height:40px; background:#0D0D0D; border-radius:10px; display:flex; align-items:center; justify-content:center; }
-    .pack-price { text-align:right; }
-    .pack-price h3 { font-size:24px; }
-    .pack-body { padding:0 20px 20px; }
-    .feature { display:flex; justify-content:space-between; padding:12px 0; border-bottom:1px solid #333; font-size:14px; }
-    .feature:last-child { border-bottom:none; }
-    .btn { width:100%; background:#FF3B30; color:#fff; padding:16px; border:none; border-radius:12px; font-weight:600; font-size:16px; margin-top:15px; text-decoration:none; display:block; text-align:center; }
-    .bottom-nav { position:fixed; bottom:0; left:0; right:0; background:#1C1C1E; display:flex; justify-content:space-around; padding:10px 0; border-top:1px solid #333; }
-    .nav-item { text-align:center; color:#777; font-size:12px; }
-    .nav-item.active { color:#FF3B30; }
-  </style>
-</head>
-<body>
-  <div class="header">
-    <a href="dashboard.html" class="back">←</a>
-    <h2>Choose your tier</h2>
-    <div>🌙</div>
-  </div>
-  
-  <h2 style="text-align:center;">Experience more</h2>
-  <p class="subtext">Select a plan that fits your earning goals.</p>
-  <div class="badge" id="currentBadge">🔒 Current: Free</div>
+// Save activation to admin
+let activations = JSON.parse(localStorage.getItem('clickmoni_activations') || '[]');
+activations.push({
+    user: localStorage.getItem('clickmoni_user') || 'Guest',
+    plan: 'BRONZE', // Change to SILVER, GOLD, PLATINUM for each button
+    amount: 3000, // Change to 5000, 10000, 20000 for each button
+    date: new Date().toLocaleDateString()
+});
+localStorage.setItem('clickmoni_activations', JSON.stringify(activations));
 
-  <div class="pack">
-    <div class="pack-header">
-      <div class="pack-title"><div class="pack-icon">⭐</div><div><h3>Starter Pack</h3><p style="color:#aaa; font-size:14px;">Earn daily for 365 days</p></div></div>
-      <div class="pack-price"><h3>₦1,000</h3><p style="color:#aaa; font-size:12px;">1 Year validity</p></div>
-    </div>
-    <div class="pack-body">
-      <div class="feature"><span>Daily job reward</span><span>₦270</span></div>
-      <div class="feature"><span>Sponsored job bonus</span><span>₦80</span></div>
-      <div class="feature"><span>Direct affiliate pay</span><span>₦650</span></div>
-      <div class="feature"><span>Withdrawal priority</span><span>Standard</span></div>
-      <a href="https://paystack.shop/pay/clickmoni-starter-2026" class="btn">Upgrade to Starter pack</a>
-    </div>
-  </div>
-
-  <div class="pack">
-    <div class="pack-header" style="background:#2D1B3D;">
-      <div class="pack-title"><div class="pack-icon">👑</div><div><h3>Pro Pack</h3><p style="color:#aaa; font-size:14px;">Earn daily for 365 days</p></div></div>
-      <div class="pack-price"><h3>₦2,000</h3><p style="color:#aaa; font-size:12px;">1 Year validity</p></div>
-    </div>
-    <div class="pack-body">
-      <div class="feature"><span>Daily job reward</span><span>₦420</span></div>
-      <div class="feature"><span>Sponsored job bonus</span><span>₦130</span></div>
-      <div class="feature"><span>Direct affiliate pay</span><span>₦1400</span></div>
-      <div class="feature"><span>Withdrawal priority</span><span>Standard</span></div>
-      <a href="https://paystack.shop/pay/clickmoni-pro-2026" class="btn">Upgrade to Pro pack</a>
-    </div>
-  </div>
-
-  <div class="pack">
-    <div class="pack-header" style="background:#3D2B1B;">
-      <div class="pack-title"><div class="pack-icon">✨</div><div><h3>Royal Pack</h3><p style="color:#aaa; font-size:14px;">Earn daily for 365 days</p></div></div>
-      <div class="pack-price"><h3>₦3,000</h3><p style="color:#aaa; font-size:12px;">1 Year validity</p></div>
-    </div>
-    <div class="pack-body">
-      <div class="feature"><span>Daily job reward</span><span>₦630</span></div>
-      <div class="feature"><span>Sponsored job bonus</span><span>₦220</span></div>
-      <div class="feature"><span>Direct affiliate pay</span><span>₦2000</span></div>
-      <div class="feature"><span>Withdrawal priority</span><span>Standard</span></div>
-      <a href="https://paystack.shop/pay/clickmoni-royal-2026" class="btn">Upgrade to Royal pack</a>
-    </div>
-  </div>
-
-  <div class="pack">
-    <div class="pack-header" style="background:#1B2D3D;">
-      <div class="pack-title"><div class="pack-icon">🪄</div><div><h3>Supreme Pack</h3><p style="color:#aaa; font-size:14px;">Earn daily for 365 days</p></div></div>
-      <div class="pack-price"><h3>₦6,000</h3><p style="color:#aaa; font-size:12px;">1 Year validity</p></div>
-    </div>
-    <div class="pack-body">
-      <div class="feature"><span>Daily job reward</span><span>₦1140</span></div>
-      <div class="feature"><span>Sponsored job bonus</span><span>₦390</span></div>
-      <div class="feature"><span>Direct affiliate pay</span><span>₦4000</span></div>
-      <div class="feature"><span>Withdrawal priority</span><span>Standard</span></div>
-      <a href="https://paystack.shop/pay/clickmoni-supreme-2026" class="btn">Upgrade to Supreme pack</a>
-    </div>
-  </div>
-
-  <div class="bottom-nav">
-    <div class="nav-item"><div>💼</div>Jobs</div>
-    <div class="nav-item"><div>⚡</div>Sponsored</div>
-    <div class="nav-item active"><div>🏠</div>Home</div>
-    <div class="nav-item"><div>📢</div>Ads</div>
-    <div class="nav-item"><div>👤</div>Profile</div>
-  </div>
-
-<script>
-  let user = JSON.parse(localStorage.getItem('clickmoni_user') || '{}');
-  if(user.plan && user.plan !== 'free') {
-    document.getElementById('currentBadge').innerText = '✅ Current: ' + user.plan.toUpperCase();
-    document.getElementById('currentBadge').style.background = '#00C851';
-  }
-</script>
-</body>
-                                                          </html>
+// Update user balance and plan
+localStorage.setItem('clickmoni_pack', 'BRONZE');
+localStorage.setItem('clickmoni_daily', '1000');
