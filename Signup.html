@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Create Account — ClickMoni</title>
+  <style>
+    * { margin:0; padding:0; box-sizing:border-box; font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Arial,sans-serif; }
+    body { background:#0D0D0D; color:#fff; padding:20px; }
+    .container { max-width:500px; margin:auto; }
+    .back { color:#fff; font-size:24px; text-decoration:none; }
+    .header-icon { width:60px; height:60px; background:#FF3B30; border-radius:50%; margin:20px auto; display:flex; align-items:center; justify-content:center; font-size:30px; }
+    h2 { text-align:center; font-size:28px; margin-bottom:10px; }
+    .subtext { text-align:center; color:#aaa; margin-bottom:30px; }
+    .form-box { background:#1C1C1E; padding:25px; border-radius:20px; }
+    .row { display:flex; gap:10px; }
+    .input-group { margin-bottom:15px; flex:1; }
+    label { display:block; color:#aaa; font-size:14px; margin-bottom:8px; }
+    input { width:100%; background:#0D0D0D; border:1px solid #333; color:#fff; padding:14px; border-radius:10px; font-size:16px; }
+    .btn { width:100%; background:#FF3B30; color:#fff; padding:16px; border:none; border-radius:12px; font-weight:600; font-size:16px; margin-top:10px; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <a href="index.html" class="back">←</a>
+    <div class="header-icon">💰</div>
+    <h2>Create account</h2>
+    <p class="subtext">Join thousands of others building their future on our platform.</p>
+    <div class="form-box">
+      <form id="signupForm">
+        <div class="row">
+          <div class="input-group"><label>First name</label><input type="text" id="firstName" placeholder="First name" required></div>
+          <div class="input-group"><label>Last name</label><input type="text" id="lastName" placeholder="Last name" required></div>
+        </div>
+        <div class="input-group"><label>Username</label><input type="text" id="username" placeholder="Choose username" required></div>
+        <div class="input-group"><label>Email address</label><input type="email" id="email" placeholder="you@example.com" required></div>
+        <div class="input-group"><label>Phone number</label><input type="tel" id="phone" placeholder="08012345678" required></div>
+        <div class="input-group"><label>Affiliate (optional)</label><input type="text" id="affiliate" placeholder="Affiliate username"></div>
+        <div class="input-group"><label>Password</label><input type="password" id="password" placeholder="Create password" required></div>
+        <button type="submit" class="btn">Create Account →</button>
+      </form>
+    </div>
+  </div>
+<script>
+  document.getElementById('signupForm').addEventListener('submit', function(e) {
+    e.preventDefault();
+    const urlParams = new URLSearchParams(window.location.search);
+    const ref = urlParams.get('ref');
+    const user = {
+      firstName: firstName.value, lastName: lastName.value, username: username.value,
+      email: email.value, phone: phone.value, affiliate: affiliate.value || ref || '',
+      plan: 'free', balance: 0, kyc: false, joined: Date.now()
+    };
+    localStorage.setItem('clickmoni_user', JSON.stringify(user));
+    localStorage.setItem('show_community_popup', 'true');
+    window.location.href = 'dashboard.html';
+  });
+</script>
+</body>
+                                                               </html>
