@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin Panel — ClickMoni</title>
+  <style>
+    * { margin:0; padding:0; box-sizing:border-box; font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Arial,sans-serif; }
+    body { background:#0D0D0D; color:#fff; padding:20px; }
+    .header { text-align:center; margin-bottom:30px; }
+    .header h1 { color:#FF3B30; }
+    .stats { display:grid; grid-template-columns:repeat(auto-fit,minmax(200px,1fr)); gap:15px; margin-bottom:30px; }
+    .stat-card { background:#1C1C1E; padding:20px; border-radius:15px; text-align:center; }
+    .stat-card h3 { color:#aaa; font-size:14px; margin-bottom:10px; }
+    .stat-card h2 { font-size:28px; color:#FF3B30; }
+    .section { background:#1C1C1E; padding:20px; border-radius:20px; margin-bottom:20px; }
+    .section h2 { margin-bottom:20px; }
+    table { width:100%; border-collapse:collapse; }
+    th, td { padding:12px; text-align:left; border-bottom:1px solid #333; font-size:14px; }
+    th { color:#aaa; }
+    .btn { padding:8px 15px; border:none; border-radius:8px; font-weight:600; font-size:12px; margin:0 5px; }
+    .btn-approve { background:#00C851; color:#fff; }
+    .btn-reject { background:#FF3B30; color:#fff; }
+    .status-pending { color:#FF9500; }
+    .status-paid { color:#00C851; }
+    .login-box { max-width:400px; margin:100px auto; background:#1C1C1E; padding:30px; border-radius:20px; }
+    .login-box input { width:100%; background:#0D0D0D; border:1px solid #333; color:#fff; padding:14px; border-radius:10px; margin:10px 0; }
+    .login-box button { width:100%; background:#FF3B30; color:#fff; padding:14px; border:none; border-radius:10px; font-weight:600; }
+  </style>
+</head>
+<body>
+  <div id="loginScreen">
+    <div class="login-box">
+      <h2 style="text-align:center; margin-bottom:20px;">Admin Login</h2>
+      <input type="password" id="adminPass" placeholder="Enter admin password">
+      <button onclick="login()">Login</button>
+    </div>
+  </div>
+
+  <div id="adminPanel" style="display:none;">
+    <div class="header">
+      <h1>💰 ClickMoni Admin Panel</h1>
+      <p style="color:#aaa;">Manage withdrawals & users</p>
+    </div>
+
+    <div class="stats">
+      <div class="stat-card"><h3>Total Users</h3><h2 id="totalUsers">0</h2></div>
+      <div class="stat-card"><h3>Pending Withdrawals</h3><h2 id="pendingCount">0</h2></div>
+      <div class="stat-card"><h3>Total Paid Out</h3><h2>₦<span id="totalPaid">0</span></h2></div>
+    </div>
+
+    <div class="section">
+      <h2>Pending Withdrawals</h2>
+      <table id="withdrawTable">
+        <thead>
+          <tr><th>User</th><th>Amount</th><th>Bank</th><th>KYC</th><th>Date</th><th>Action</th></tr>
+        </thead>
+        <tbody id="withdrawBody"></tbody>
+      </table>
+    </div>
+  </div>
+
+<script>
+  const ADMIN_PASSWORD = '@Mgbogo123'; // CHANGE THIS PASSWORD!
+
+  function login() {
+    if(document.getElementById('adminPass').value === ADMIN_PASSWORD) {
+      document.getElementById('loginScreen').style.display = 'none';
+      document.getElementById('adminPanel').style.display = 'block';
+      loadData();
+    } else {
+      alert('Wrong password');
+    }
+  }
+
+  function loadData() {
+    let withdrawals = JSON.parse(localStorage.getItem('clickmoni_withdrawals') || '[]');
+    let users = [];
+    
+    // Count users
+    for(let i = 0; i < localStorage.length; i++) {
+      let key = localStorage.key(i);
+      if(key.startsWith('clickmoni_user')) {
+        users.push(JSON.parse(localStorage.getItem(key)));
+      }
+    }
+
+    document.getElementById('totalUsers').innerText = users.length;
+    
+    const pending = withdrawals.filter(w => w.status === 'pending');
+    const paid = withdrawals.filter(w => w.status === 'paid');
+    const totalPaid = paid.reduce((sum, w) => sum + w.amount, 0);
+    
+    document.getElementById('pendingCount').innerText = pending.length;
+    document.getElementById('totalPaid').innerText = totalPaid.toLocaleString();
+
+    const tbody = document.getElementById('withdrawBody');
+    if(pending.length === 0) {
+      tbody.innerHTML = '<tr><td colspan="6" style="text-align:center; color:#777;">No pending withdrawals</td></tr>';
+      return;
+    }
+
+    tbody.innerHTML = pending.map(w => `
+      <tr>
+        <td>${w.name}<br><small style="color:#777;">${w.email}</small></td>
+        <td><strong>₦${w.amount.toLocaleString()}</strong></td>
+        <td>${w.bank}<br><small style="color:#777;">${w.account}</small></td>
+        <td>${w.kyc.type}: ${w.kyc.number}</td>
+        <td>${new Date(w.date).toLocaleDateString()}</td>
+        <td>
+          <button class="btn btn-approve" onclick="approve(${w.id})">Approve</button>
+          <button class="btn btn-reject" onclick="reject(${w.id})">Reject</button>
+        </td>
+      </tr>
+    `).join('');
+  }
+
+  function approve(id) {
+    let withdrawals = JSON.parse(localStorage.getItem('clickmoni_withdrawals') || '[]');
+    let w = withdrawals.find(w => w.id === id);
+    if(w) {
+      w.status = 'paid';
+      localStorage.setItem('clickmoni_withdrawals', JSON.stringify(withdrawals));
+      alert('Approved! Now send ₦' + w.amount + ' to ' + w.accountName + ' - ' + w.bank);
+      loadData();
+    }
+  }
+
+  function reject(id) {
+    let withdrawals = JSON.parse(localStorage.getItem('clickmoni_withdrawals') || '[]');
+    let w = withdrawals.find(w => w.id === id);
+    if(w) {
+      w.status = 'rejected';
+      // Refund balance
+      let user = JSON.parse(localStorage.getItem('clickmoni_user') || '{}');
+      user.balance = (user.balance || 0) + w.amount;
+      localStorage.setItem('clickmoni_user', JSON.stringify(user));
+      localStorage.setItem('clickmoni_withdrawals', JSON.stringify(withdrawals));
+      alert('Rejected. ₦' + w.amount + ' refunded to user.');
+      loadData();
+    }
+  }
+</script>
+</body>
+        </html>
