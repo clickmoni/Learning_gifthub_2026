@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dashboard — ClickMoni</title>
+  <style>
+    * { margin:0; padding:0; box-sizing:border-box; font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Arial,sans-serif; }
+    body { background:#0D0D0D; color:#fff; padding-bottom:80px; }
+    .popup-overlay { position:fixed; top:0; left:0; right:0; bottom:0; background:rgba(0,0,0,0.8); display:none; align-items:center; justify-content:center; z-index:999; padding:20px; }
+    .popup { background:#1C1C1E; padding:30px 25px; border-radius:20px; max-width:400px; width:100%; position:relative; text-align:center; }
+    .popup-close { position:absolute; top:15px; right:15px; background:#333; width:30px; height:30px; border-radius:50%; border:none; color:#fff; font-size:18px; }
+    .popup-icon { width:60px; height:60px; background:#FF3B30; border-radius:50%; margin:0 auto 15px; display:flex; align-items:center; justify-content:center; font-size:30px; }
+    .popup h3 { font-size:22px; margin-bottom:10px; }
+    .popup p { color:#aaa; font-size:14px; margin-bottom:20px; }
+    .popup-btn { width:100%; padding:14px; border-radius:12px; border:none; font-weight:600; font-size:16px; margin:8px 0; }
+    .popup-btn-wp { background:#25D366; color:#fff; }
+    .popup-btn-tg { background:#0088cc; color:#fff; }
+    .popup small { color:#777; font-size:12px; display:block; margin-top:15px; }
+    .header { display:flex; justify-content:space-between; align-items:center; padding:15px 20px; }
+    .logo { display:flex; align-items:center; gap:10px; font-weight:700; }
+    .logo-icon { width:30px; height:30px; background:#FF3B30; border-radius:8px; display:flex; align-items:center; justify-content:center; }
+    .container { padding:0 20px; max-width:500px; margin:auto; }
+    .welcome-card { background:#1C1C1E; padding:15px; border-radius:15px; display:flex; justify-content:space-between; align-items:center; margin:15px 0; }
+    .wallet-card { background:linear-gradient(135deg, #FF3B30, #FF6B6B); padding:20px; border-radius:20px; margin:15px 0; }
+    .wallet-row { display:flex; justify-content:space-between; align-items:center; margin-bottom:15px; }
+    .wallet-amount { font-size:32px; font-weight:700; }
+    .wallet-btns { display:flex; gap:10px; }
+    .btn-sm { background:rgba(0,0,0,0.3); padding:10px 15px; border-radius:10px; border:none; color:#fff; font-weight:600; }
+    .setup-card { background:#1C1C1E; padding:20px; border-radius:20px; margin:20px 0; }
+    .progress-bar { width:100%; height:6px; background:#333; border-radius:3px; margin:10px 0; }
+    .progress { width:50%; height:100%; background:#FF3B30; border-radius:3px; }
+    .activate-btn { width:100%; background:#FF3B30; padding:16px; border-radius:12px; border:none; color:#fff; font-weight:600; font-size:16px; margin-top:15px; }
+    .quick-actions { margin:30px 0; }
+    .section-title { display:flex; justify-content:space-between; align-items:center; margin-bottom:15px; }
+    .grid { display:grid; grid-template-columns:repeat(4,1fr); gap:15px; }
+    .grid-item { background:#1C1C1E; padding:15px 5px; border-radius:15px; text-align:center; font-size:12px; }
+    .grid-icon { width:40px; height:40px; background:#0D0D0D; border-radius:10px; margin:0 auto 8px; display:flex; align-items:center; justify-content:center; }
+    .share-card { background:#FF3B30; padding:20px; border-radius:20px; margin:20px 0; }
+    .share-input { display:flex; gap:10px; margin-top:15px; }
+    .share-input input { flex:1; background:rgba(0,0,0,0.2); border:none; padding:12px; border-radius:10px; color:#fff; }
+    .share-input button { background:#fff; color:#FF3B30; border:none; padding:0 20px; border-radius:10px; font-weight:600; }
+    .bottom-nav { position:fixed; bottom:0; left:0; right:0; background:#1C1C1E; display:flex; justify-content:space-around; padding:10px 0; border-top:1px solid #333; }
+    .nav-item { text-align:center; color:#777; font-size:12px; }
+    .nav-item.active { color:#FF3B30; }
+    .nav-icon { font-size:20px; margin-bottom:3px; }
+  </style>
+</head>
+<body>
+  <div class="popup-overlay" id="communityPopup">
+    <div class="popup">
+      <button class="popup-close" onclick="closePopup()">×</button>
+      <div class="popup-icon">💬</div>
+      <h3>Join the community</h3>
+      <p>Connect with thousands of smart earners and get instant updates directly.</p>
+      <button class="popup-btn popup-btn-wp" onclick="window.open('https://chat.whatsapp.com/YOUR_WHATSAPP_LINK','_blank')">WhatsApp Group →</button>
+      <button class="popup-btn popup-btn-tg" onclick="window.open('https://t.me/YOUR_TELEGRAM_LINK','ClickMoni Official 📢 | CEO: @Monigold
+https://t.me/ClickMoniOfficial')">Telegram Channel →</button>
+      <small>Already joined over 50k+ earners</small>
+    </div>
+  </div>
+
+  <div class="header">
+    <div>☰</div>
+    <div class="logo"><div class="logo-icon">💰</div> ClickMoni</div>
+    <div>🌙 🔔</div>
+  </div>
+
+  <div class="container">
+    <div class="welcome-card">
+      <div><p style="color:#aaa; font-size:14px;">Welcome back,</p><p style="font-size:18px; font-weight:600;" id="userName">User</p></div>
+      <div style="background:#000; padding:8px 12px; border-radius:20px;">🇳🇬 NGN</div>
+    </div>
+
+    <div class="wallet-card">
+      <div class="wallet-row">
+        <div><p style="font-size:14px; opacity:0.8;">Referral Wallet</p><p class="wallet-amount"><span id="balance">0.00</span> <span style="font-size:16px;">ngn</span></p></div>
+        <button class="btn-sm">Add Funds</button>
+      </div>
+      <div class="wallet-btns">
+        <button class="btn-sm">👥 Invite friends</button>
+        <button class="btn-sm" onclick="window.location.href='tiers.html'">Activate</button>
+      </div>
+    </div>
+
+    <div class="setup-card" id="setupCard">
+      <h3>Setup Your Account</h3>
+      <p style="color:#aaa; font-size:14px; margin:5px 0;">Next: Activate Account</p>
+      <div class="progress-bar"><div class="progress" id="progress"></div></div>
+      <p style="color:#FF3B30; font-size:14px;" id="progressText">50% Complete</p>
+      <button class="activate-btn" onclick="window.location.href='tiers.html'">Activate Account →</button>
+    </div>
+
+    <div class="quick-actions">
+      <div class="section-title"><h3>Quick Actions</h3><p style="color:#FF3B30; font-size:14px;">Activity history</p></div>
+      <div class="grid">
+        <div class="grid-item"><div class="grid-icon">💼</div>Jobs</div>
+        <div class="grid-item"><div class="grid-icon">📢</div>Sponsored</div>
+        <div class="grid-item"><div class="grid-icon">👥</div>Referral</div>
+        <div class="grid-item"><div class="grid-icon">🏪</div>Marketplace</div>
+        <div class="grid-item"><div class="grid-icon">📱</div>Airtime</div>
+        <div class="grid-item"><div class="grid-icon">📶</div>Data</div>
+        <div class="grid-item"><div class="grid-icon">⚡</div>Electricity</div>
+        <div class="grid-item"><div class="grid-icon">📺</div>Cable TV</div>
+        <div class="grid-item" onclick="window.location.href='withdraw.html'"><div class="grid-icon">💸</div>Withdraw</div>
+        <div class="grid-item"><div class="grid-icon">🎁</div>Gift card</div>
+      </div>
+    </div>
+
+    <div class="share-card">
+      <h3>Share & Earn</h3>
+      <p style="font-size:14px; opacity:0.8; margin:5px 0;">Get rewards for every successful referral</p>
+      <div class="share-input">
+        <input type="text" id="refLink" readonly>
+        <button onclick="copyRef()">Copy</button>
+        <button>Share</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="bottom-nav">
+    <div class="nav-item"><div class="nav-icon">💼</div>Jobs</div>
+    <div class="nav-item"><div class="nav-icon">⚡</div>Sponsored</div>
+    <div class="nav-item active"><div class="nav-icon">🏠</div>Home</div>
+    <div class="nav-item"><div class="nav-icon">📢</div>Ads</div>
+    <div class="nav-item"><div class="nav-icon">👤</div>Profile</div>
+  </div>
+
+<script>
+  let user = JSON.parse(localStorage.getItem('clickmoni_user') || '{}');
+  
+  const urlParams = new URLSearchParams(window.location.search);
+  if(urlParams.get('paid') === 'true') {
+    user.plan = urlParams.get('plan') || 'starter';
+    user.activated = true;
+    localStorage.setItem('clickmoni_user', JSON.stringify(user));
+    alert('Payment successful! Your ' + user.plan + ' plan is now active.');
+    window.history.replaceState({}, document.title, 'dashboard.html');
+  }
+
+  if(localStorage.getItem('show_community_popup') === 'true') {
+    document.getElementById('communityPopup').style.display = 'flex';
+  }
+
+  function closePopup() {
+    document.getElementById('communityPopup').style.display = 'none';
+    localStorage.removeItem('show_community_popup');
+  }
+
+  document.getElementById('userName').innerText = user.firstName || 'User';
+  document.getElementById('balance').innerText = (user.balance || 0).toFixed(2);
+  document.getElementById('refLink').value = window.location.origin + '/signup.html?ref=' + encodeURIComponent(user.username || 'user');
+  
+  if(user.activated) {
+    document.getElementById('progress').style.width = '100%';
+    document.getElementById('progressText').innerText = '100% Complete';
+    document.getElementById('setupCard').innerHTML = '<h3>✅ Account Activated</h3><p style="color:#aaa; font-size:14px; margin:5px 0;">Plan: ' + user.plan.toUpperCase() + '</p><button class="activate-btn" onclick="window.location.href=\'withdraw.html\'">Withdraw Earnings →</button>';
+  }
+
+  function copyRef() {
+    navigator.clipboard.writeText(document.getElementById('refLink').value);
+    alert('Referral link copied!');
+  }
+</script>
+</body>
+                                                            </html>
