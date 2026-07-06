@@ -27,32 +27,34 @@
      .payout-item {padding: 6px 0; font-size: 0.85rem; color: #8b949e;}
      .payout-item span {color: #00b894; font-weight: bold;}
      .payout-demo {font-size: 0.7rem; color: #484f58; text-align: center; margin-top: 8px;}
+     .plans-grid {display: grid; gap: 16px; margin: 24px 0;}
+     .plan-card {background: #161b22; border: 1px solid #30363d; border-radius: 16px; padding: 20px;}
+     .plan-header {display: flex; justify-content: space-between; align-items: start; margin-bottom: 16px;}
+     .plan-name {font-size: 1.1rem; font-weight: bold;}
+     .plan-price {font-size: 1.4rem; font-weight: bold; color: #ff4757;}
+     .plan-features {margin: 16px 0;}
+     .feature {display: flex; justify-content: space-between; padding: 8px 0; border-bottom: 1px solid #21262d; font-size: 0.85rem;}
+     .feature:last-child {border-bottom: none;}
+     .feature-name {color: #8b949e;}
+     .feature-value {font-weight: bold;}
      .dash-header {background: linear-gradient(135deg, #ff4757, #ff6348); padding: 24px; border-radius: 16px; margin: 20px 0;}
-     .dash-welcome {display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px;}
      .wallet-card {background: rgba(0,0,0,0.2); padding: 16px; border-radius: 12px; margin-top: 16px;}
-     .wallet-label {font-size: 0.9rem; opacity: 0.9;}
      .wallet-amount {font-size: 2rem; font-weight: bold; margin: 8px 0;}
      .tabs {display: flex; gap: 8px; margin: 20px 0; overflow-x: auto;}
      .tab {background: #161b22; border: 1px solid #30363d; padding: 10px 16px; border-radius: 8px; cursor: pointer; font-size: 0.85rem; white-space: nowrap;}
      .tab.active {background: #ff4757; border-color: #ff4757;}
      .tab-content {background: #161b22; border: 1px solid #30363d; padding: 20px; border-radius: 12px; margin-bottom: 80px;}
-     .plan-row {display: flex; justify-content: space-between; padding: 12px 0; border-bottom: 1px solid #21262d;}
-     .plan-row:last-child {border-bottom: none;}
      .form-group {margin-bottom: 16px;}
-     .form-group label {display: block; margin-bottom: 8px; font-size: 0.9rem; color: #8b949e;}
      .form-group input {width: 100%; background: #0d1117; border: 1px solid #30363d; padding: 12px; border-radius: 8px; color: white;}
      .bottom-nav {position: fixed; bottom: 0; left: 0; right: 0; background: #0d1117; border-top: 1px solid #21262d; display: flex; justify-content: space-around; padding: 12px 0;}
      .nav-item {text-align: center; color: #484f58; cursor: pointer;}
      .nav-item.active {color: #ff4757;}
-     .nav-icon {font-size: 1.2rem; margin-bottom: 4px;}
-     .nav-label {font-size: 0.7rem;}
      .info-box {background: #161b22; border: 1px solid #30363d; padding: 16px; border-radius: 12px; margin: 16px 0;}
-     .withdraw-note {background: rgba(0,184,148,0.1); border: 1px solid rgba(0,184,148,0.3); color: #00b894; padding: 12px; border-radius: 8px; font-size: 0.85rem; margin: 12px 0;}
     </style>
 </head>
 <body>
 
-<!-- PUBLIC LANDING - BEFORE PAYMENT -->
+<!-- PUBLIC LANDING -->
 <div id="landingPage">
     <div class="container">
         <div class="header">
@@ -64,7 +66,7 @@
         <div class="hero">
             <div class="badge">⚡ THE NEW STANDARD OF DIGITAL EARNING</div>
             <h1>Pay Smart.<br><span>Live Better.</span></h1>
-            <p>Unlock seamless digital earnings with Nigeria's most transparent platform. Complete tasks, refer friends, and withdraw instantly.</p>
+            <p>Choose your plan and start earning daily. Complete tasks, refer friends, and withdraw instantly.</p>
 
             <div class="payout-ticker">
                 <div class="ticker-content">
@@ -76,231 +78,82 @@
                 </div>
             </div>
             <div class="payout-demo">Live activity updates</div>
+        </div>
 
-            <button class="btn-primary" onclick="window.open('https://paystack.shop/pay/clickmoni_starter', '_blank')">Get Started → ₦750</button>
-            <button class="btn-secondary" onclick="alert('Pay ₦750 first to access dashboard')">Dashboard Login</button>
+        <h3 style="text-align:center; margin-bottom:16px;">Choose Your Plan</h3>
+        <div class="plans-grid">
+            <!-- STARTER -->
+            <div class="plan-card">
+                <div class="plan-header">
+                    <div class="plan-name">⭐ Starter</div>
+                    <div class="plan-price">₦750</div>
+                </div>
+                <div class="plan-features">
+                    <div class="feature"><span class="feature-name">Daily Earn</span><span class="feature-value">₦200</span></div>
+                    <div class="feature"><span class="feature-name">Referral</span><span class="feature-value">₦300</span></div>
+                    <div class="feature"><span class="feature-name">Min Withdraw</span><span class="feature-value">₦9,000</span></div>
+                </div>
+                <button class="btn-primary" onclick="window.open('https://paystack.shop/pay/clickmoni_starter', '_blank')">Select Starter</button>
+            </div>
+
+            <!-- BASIC -->
+            <div class="plan-card">
+                <div class="plan-header">
+                    <div class="plan-name">💼 Basic</div>
+                    <div class="plan-price">₦1,500</div>
+                </div>
+                <div class="plan-features">
+                    <div class="feature"><span class="feature-name">Daily Earn</span><span class="feature-value">₦400</span></div>
+                    <div class="feature"><span class="feature-name">Referral</span><span class="feature-value">₦600</span></div>
+                    <div class="feature"><span class="feature-name">Min Withdraw</span><span class="feature-value">₦15,000</span></div>
+                </div>
+                <button class="btn-primary" onclick="window.open('https://paystack.shop/pay/clickmoni_basic', '_blank')">Select Basic</button>
+            </div>
+
+            <!-- PRO -->
+            <div class="plan-card">
+                <div class="plan-header">
+                    <div class="plan-name">🚀 Pro</div>
+                    <div class="plan-price">₦3,500</div>
+                </div>
+                <div class="plan-features">
+                    <div class="feature"><span class="feature-name">Daily Earn</span><span class="feature-value">₦800</span></div>
+                    <div class="feature"><span class="feature-name">Referral</span><span class="feature-value">₦1,200</span></div>
+                    <div class="feature"><span class="feature-name">Min Withdraw</span><span class="feature-value">₦27,000</span></div>
+                </div>
+                <button class="btn-primary" onclick="window.open('https://paystack.shop/pay/clickmoni_pro', '_blank')">Select Pro</button>
+            </div>
+
+            <!-- PREMIUM -->
+            <div class="plan-card">
+                <div class="plan-header">
+                    <div class="plan-name">👑 Premium</div>
+                    <div class="plan-price">₦5,500</div>
+                </div>
+                <div class="plan-features">
+                    <div class="feature"><span class="feature-name">Daily Earn</span><span class="feature-value">₦1,600</span></div>
+                    <div class="feature"><span class="feature-name">Referral</span><span class="feature-value">₦2,400</span></div>
+                    <div class="feature"><span class="feature-name">Min Withdraw</span><span class="feature-value">₦35,000</span></div>
+                </div>
+                <button class="btn-primary" onclick="window.open('https://paystack.shop/pay/clickmoni_premium', '_blank')">Select Premium</button>
+            </div>
+
+            <!-- VIP -->
+            <div class="plan-card">
+                <div class="plan-header">
+                    <div class="plan-name">💎 VIP</div>
+                    <div class="plan-price">₦11,500</div>
+                </div>
+                <div class="plan-features">
+                    <div class="feature"><span class="feature-name">Daily Earn</span><span class="feature-value">₦3,200</span></div>
+                    <div class="feature"><span class="feature-name">Referral</span><span class="feature-value">₦4,800</span></div>
+                    <div class="feature"><span class="feature-name">Min Withdraw</span><span class="feature-value">₦57,000</span></div>
+                </div>
+                <button class="btn-primary" onclick="window.open('https://paystack.shop/pay/clickmoni_vip', '_blank')">Select VIP</button>
+            </div>
         </div>
     </div>
 </div>
 
-<!-- DASHBOARD - ONLY SHOWS AFTER PAYSTACK PAYMENT -->
-<div id="dashboardPage" class="hidden">
-    <div class="container">
-        <div class="header">
-            <div class="logo">
-                <div class="logo-icon">CM</div>
-                <div class="logo-text">Click<span>Moni</span></div>
-            </div>
-            <div onclick="logout()" style="cursor:pointer;">🚪</div>
-        </div>
-
-        <div class="dash-header">
-            <div class="dash-welcome">
-                <div>
-                    <div style="font-size:0.9rem; opacity:0.9;">Welcome back,</div>
-                    <div style="font-size:1.3rem; font-weight:bold;" id="userName">Member</div>
-                </div>
-                <div style="background:rgba(0,0,0,0.2); padding:6px 12px; border-radius:20px; font-size:0.8rem;">🇳🇬 NGN</div>
-            </div>
-            <div class="wallet-card">
-                <div class="wallet-label">Task Wallet</div>
-                <div class="wallet-amount">₦<span id="taskBalance">0</span></div>
-                <div style="font-size:0.8rem; opacity:0.8;">Min: ₦9,000 | Withdraw: 15th & 30th</div>
-            </div>
-            <div class="wallet-card">
-                <div class="wallet-label">Referral Wallet</div>
-                <div class="wallet-amount">₦<span id="refBalance">0</span></div>
-                <div style="font-size:0.8rem; opacity:0.8;">Min: ₦1,000 | Withdraw: Every Sunday</div>
-            </div>
-        </div>
-
-        <div class="tabs">
-            <div class="tab active" onclick="showTab('home')">🏠 Home</div>
-            <div class="tab" onclick="showTab('tasks')">💼 Jobs</div>
-            <div class="tab" onclick="showTab('plans')">⭐ Upgrade</div>
-            <div class="tab" onclick="showTab('refer')">👥 Refer</div>
-            <div class="tab" onclick="showTab('withdraw')">💰 Withdraw</div>
-        </div>
-
-        <!-- HOME TAB -->
-        <div id="home" class="tab-content">
-            <h3>Quick Actions</h3>
-            <div class="info-box">
-                <h4>📋 Today's Tasks</h4>
-                <p style="color:#8b949e; font-size:0.9rem; margin:8px 0;">Complete tasks to earn ₦100 + ₦100 sponsor bonus</p>
-                <button class="btn-primary" style="padding:12px;" onclick="showTab('tasks')">View Tasks</button>
-            </div>
-            <div class="info-box">
-                <h4>👥 Share & Earn ₦300</h4>
-                <p style="color:#8b949e; font-size:0.9rem; margin:8px 0;">Get ₦300 for every friend who joins Starter</p>
-                <button class="btn-primary" style="padding:12px;" onclick="showTab('refer')">Copy Link</button>
-            </div>
-        </div>
-
-        <!-- TASKS TAB -->
-        <div id="tasks" class="tab-content hidden">
-            <h3>Daily Jobs</h3>
-            <div class="withdraw-note">You earn ₦100 per task + ₦100 sponsor bonus = ₦200 total per task</div>
-            <div class="info-box">
-                <div style="display:flex; justify-content:space-between; align-items:center;">
-                    <div>
-                        <h4>Follow @clickmoni on IG</h4>
-                        <p style="color:#8b949e; font-size:0.8rem;">Follow + Like 3 posts</p>
-                    </div>
-                    <div style="text-align:right;">
-                        <div style="color:#ff4757; font-weight:bold;">₦200</div>
-                        <button style="background:#ff4757; border:none; color:white; padding:6px 12px; border-radius:6px; font-size:0.8rem; margin-top:4px;" onclick="submitTask()">Submit</button>
-                    </div>
-                </div>
-            </div>
-            <div class="info-box">
-                <div style="display:flex; justify-content:space-between; align-items:center;">
-                    <div>
-                        <h4>WhatsApp Status Post</h4>
-                        <p style="color:#8b949e; font-size:0.8rem;">Post flyer for 24hrs</p>
-                    </div>
-                    <div style="text-align:right;">
-                        <div style="color:#ff4757; font-weight:bold;">₦200</div>
-                        <button style="background:#ff4757; border:none; color:white; padding:6px 12px; border-radius:6px; font-size:0.8rem; margin-top:4px;" onclick="submitTask()">Submit</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- PLANS TAB -->
-        <div id="plans" class="tab-content hidden">
-            <h3>Upgrade Plan</h3>
-            <div class="info-box">
-                <div class="plan-row"><span><strong>Starter</strong> - ₦750</span><span style="color:#ff4757;">Current</span></div>
-                <div class="plan-row"><span>Daily: ₦200</span><span>Min Withdraw: ₦9,000</span></div>
-                <div class="plan-row"><span>Referral: ₦300</span><span>2x/month</span></div>
-            </div>
-            <div class="info-box">
-                <div class="plan-row"><span><strong>Basic</strong> - ₦1,500</span><span></span></div>
-                <div class="plan-row"><span>Daily: ₦400</span><span>Min Withdraw: ₦15,000</span></div>
-                <div class="plan-row"><span>Referral: ₦600</span><span>2x/month</span></div>
-                <button class="btn-primary" style="margin-top:12px; padding:12px;" onclick="alert('Contact admin on WhatsApp to upgrade')">Upgrade to Basic</button>
-            </div>
-            <div class="info-box">
-                <div class="plan-row"><span><strong>Pro</strong> - ₦3,500</span><span></span></div>
-                <div class="plan-row"><span>Daily: ₦800</span><span>Min Withdraw: ₦27,000</span></div>
-                <div class="plan-row"><span>Referral: ₦1,200</span><span>2x/month</span></div>
-            </div>
-            <div class="info-box">
-                <div class="plan-row"><span><strong>Premium</strong> - ₦5,500</span><span></span></div>
-                <div class="plan-row"><span>Daily: ₦1,600</span><span>Min Withdraw: ₦35,000</span></div>
-                <div class="plan-row"><span>Referral: ₦2,400</span><span>2x/month</span></div>
-            </div>
-            <div class="info-box">
-                <div class="plan-row"><span><strong>VIP</strong> - ₦11,500</span><span></span></div>
-                <div class="plan-row"><span>Daily: ₦3,200</span><span>Min Withdraw: ₦57,000</span></div>
-                <div class="plan-row"><span>Referral: ₦4,800</span><span>2x/month</span></div>
-            </div>
-        </div>
-
-        <!-- REFER TAB -->
-        <div id="refer" class="tab-content hidden">
-            <h3>Share & Earn ₦300</h3>
-            <p style="color:#8b949e; font-size:0.9rem;">Get ₦300 when someone joins Starter with your link</p>
-            <div class="info-box">
-                <label style="font-size:0.8rem; color:#8b949e;">Your Link:</label>
-                <input type="text" id="refLink" value="clickmoni.github.io/?ref=user" readonly style="width:100%; background:#0d1117; border:1px solid #30363d; padding:12px; border-radius:8px; color:white; margin:8px 0;">
-                <button class="btn-primary" onclick="copyRef()">📋 Copy Link</button>
-            </div>
-            <div class="info-box">
-                <div class="plan-row"><span>Total Referrals</span><span><strong id="refCount">0</strong></span></div>
-                <div class="plan-row"><span>Total Earned</span><span><strong>₦<span id="refEarned">0</span></strong></span></div>
-                <div class="plan-row"><span>Min Withdraw</span><span><strong>₦1,000</strong></span></div>
-                <div class="plan-row"><span>Payout Day</span><span><strong>Every Sunday</strong></span></div>
-            </div>
-        </div>
-
-        <!-- WITHDRAW TAB -->
-        <div id="withdraw" class="tab-content hidden">
-            <h3>Withdraw Earnings</h3>
-            <div class="info-box">
-                <h4>Task Wallet: ₦<span id="taskBal2">0</span></h4>
-                <p style="color:#8b949e; font-size:0.8rem;">Min: ₦9,000 | Next: 15th & 30th</p>
-                <form onsubmit="requestWithdraw(event, 'task')">
-                    <div class="form-group">
-                        <label>Amount</label>
-                        <input type="number" min="9000" placeholder="9000" required>
-                    </div>
-                    <div class="form-group">
-                        <label>Opay Account Number</label>
-                        <input type="text" placeholder="8012345678" required>
-                    </div>
-                    <div class="form-group">
-                        <label>Account Name</label>
-                        <input type="text" placeholder="John Doe" required>
-                    </div>
-                    <button type="submit" class="btn-primary">Request Withdrawal</button>
-                </form>
-            </div>
-            <div class="info-box">
-                <h4>Referral Wallet: ₦<span id="refBal2">0</span></h4>
-                <p style="color:#8b949e; font-size:0.8rem;">Min: ₦1,000 | Next: Sunday</p>
-                <form onsubmit="requestWithdraw(event, 'referral')">
-                    <div class="form-group">
-                        <label>Amount</label>
-                        <input type="number" min="1000" placeholder="1000" required>
-                    </div>
-                    <div class="form-group">
-                        <label>Opay Account Number</label>
-                        <input type="text" placeholder="8012345678" required>
-                    </div>
-                    <div class="form-group">
-                        <label>Account Name</label>
-                        <input type="text" placeholder="John Doe" required>
-                    </div>
-                    <button type="submit" class="btn-primary">Request Withdrawal</button>
-                </form>
-            </div>
-        </div>
-    </div>
-
-    <div class="bottom-nav">
-        <div class="nav-item" onclick="showTab('tasks')"><div class="nav-icon">💼</div><div class="nav-label">Jobs</div></div>
-        <div class="nav-item"><div class="nav-icon">📢</div><div class="nav-label">Sponsored</div></div>
-        <div class="nav-item active" onclick="showTab('home')"><div class="nav-icon">🏠</div><div class="nav-label">Home</div></div>
-        <div class="nav-item"><div class="nav-icon">📺</div><div class="nav-label">Ads</div></div>
-        <div class="nav-item"><div class="nav-icon">👤</div><div class="nav-label">Profile</div></div>
-    </div>
-</div>
-
-<script>
-// AUTO-SHOW DASHBOARD IF FROM PAYSTACK
-if(window.location.hash === '#dashboard' || window.location.search.includes('email=')){
-    document.getElementById('landingPage').classList.add('hidden');
-    document.getElementById('dashboardPage').classList.remove('hidden');
-    const params = new URLSearchParams(window.location.search);
-    const email = params.get('email') || 'member';
-    const username = email.split('@')[0];
-    document.getElementById('userName').innerText = username;
-    document.getElementById('refLink').value = 'clickmoni.github.io/?ref=' + username;
-}
-
-// TABS
-function showTab(tabName){
-    document.querySelectorAll('.tab-content').forEach(t => t.classList.add('hidden'));
-    document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
-    document.getElementById(tabName).classList.remove('hidden');
-    event.target.classList.add('active');
-}
-
-function submitTask(){
-    const proof = prompt('Paste screenshot link or describe proof:');
-    if(proof) alert('Submitted! ✅ Admin will verify and credit ₦200 to Task Wallet within 24hrs');
-}
-
-function requestWithdraw(e, type){
-    e.preventDefault();
-    const amount = e.target.querySelector('input[type=number]').value;
-    const wallet = type === 'task'? 'Task Wallet (Paid 15th & 30th)' : 'Referral Wallet (Paid Sunday)';
-    alert('Withdrawal Requested! ✅\n\nAmount: ₦' + amount + '\nFrom: ' + wallet + '\n\nYou will receive payment on the next payout day.');
-    e.target.reset();
-}
-
-function copyRef(){
-    navigator.clipboard.writeText(document.getElementById('refLink').value);
-    alert('Referral link copied! Share to earn
+<!-- DASHBOARD - SAME AS BEFORE -->
+<div id="dashboardPage" class
