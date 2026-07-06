@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jobs - Lanvars</title>
+    <style>
+        body { font-family: Arial, sans-serif; background: #0a0a0a; color: #fff; padding: 20px; }
+        .job { background: #1a1a1a; border: 1px solid #FFD700; border-radius: 10px; padding: 20px; margin: 15px 0; }
+        .job h3 { color: #FFD700; margin: 0 0 10px 0; }
+        .job p { color: #ccc; margin: 5px 0; }
+        .reward { color: #00ff00; font-weight: bold; }
+        button { background: #FFD700; color: #000; border: none; padding: 10px 20px; border-radius: 5px; font-weight: bold; cursor: pointer; }
+        button:hover { background: #ffed4e; }
+        .back { color: #FFD700; text-decoration: none; }
+        input, textarea { width: 100%; padding: 10px; margin: 10px 0; background: #333; border: 1px solid #FFD700; color: #fff; border-radius: 5px; }
+    </style>
+</head>
+<body>
+    <a href="dashboard.html" class="back">← Back to Dashboard</a>
+    <h1>Available Jobs</h1>
+    
+    <div class="job">
+        <h3>1. Share Lanvars on WhatsApp Status</h3>
+        <p>Post our flyer on your WhatsApp Status for 24 hours</p>
+        <p class="reward">Reward: ₦200</p>
+        <input type="text" id="proof1" placeholder="Paste WhatsApp screenshot link or type DONE">
+        <button onclick="submitJob('WhatsApp Status', 200, 'proof1')">Submit Proof</button>
+    </div>
+
+    <div class="job">
+        <h3>2. Invite 3 Friends to Join Lanvars</h3>
+        <p>Send your referral link to 3 friends. They must sign up.</p>
+        <p class="reward">Reward: ₦500</p>
+        <input type="text" id="proof2" placeholder="Enter phone numbers of friends">
+        <button onclick="submitJob('Refer 3 Friends', 500, 'proof2')">Submit Proof</button>
+    </div>
+
+    <div class="job">
+        <h3>3. Follow Us on Instagram</h3>
+        <p>Follow @lanvars_official and like last 3 posts</p>
+        <p class="reward">Reward: ₦100</p>
+        <input type="text" id="proof3" placeholder="Enter your Instagram username">
+        <button onclick="submitJob('Instagram Follow', 100, 'proof3')">Submit Proof</button>
+    </div>
+
+    <script>
+        function submitJob(jobName, reward, proofId) {
+            const proof = document.getElementById(proofId).value;
+            const user = localStorage.getItem('lanvars_user') || 'Guest';
+            
+            if(!proof) {
+                alert('Please enter proof before submitting');
+                return;
+            }
+            
+            // Save to pending jobs in localStorage for admin to see
+            let pendingJobs = JSON.parse(localStorage.getItem('lanvars_pending_jobs') || '[]');
+            pendingJobs.push({
+                user: user,
+                job: jobName,
+                reward: reward,
+                proof: proof,
+                date: new Date().toLocaleString(),
+                status: 'pending'
+            });
+            localStorage.setItem('lanvars_pending_jobs', JSON.stringify(pendingJobs));
+            
+            alert('Job submitted! Admin will review and credit ₦' + reward + ' if approved.');
+            document.getElementById(proofId).value = '';
+        }
+    </script>
+</body>
+  </html>
