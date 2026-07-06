@@ -3,72 +3,137 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Jobs - Lanvars</title>
+    <title>Daily Jobs - ClickMoni</title>
     <style>
-        body { font-family: Arial, sans-serif; background: #0a0a0a; color: #fff; padding: 20px; }
-        .job { background: #1a1a1a; border: 1px solid #FFD700; border-radius: 10px; padding: 20px; margin: 15px 0; }
-        .job h3 { color: #FFD700; margin: 0 0 10px 0; }
-        .job p { color: #ccc; margin: 5px 0; }
-        .reward { color: #00ff00; font-weight: bold; }
-        button { background: #FFD700; color: #000; border: none; padding: 10px 20px; border-radius: 5px; font-weight: bold; cursor: pointer; }
-        button:hover { background: #ffed4e; }
-        .back { color: #FFD700; text-decoration: none; }
-        input, textarea { width: 100%; padding: 10px; margin: 10px 0; background: #333; border: 1px solid #FFD700; color: #fff; border-radius: 5px; }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Segoe UI', Arial, sans-serif; background: #000; color: #fff; padding: 15px; }
+        .header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; }
+        .logo { color: #FFD700; font-size: 24px; font-weight: 800; }
+        .back { color: #FFD700; text-decoration: none; font-weight: 600; }
+        .warning { background: #330000; border: 2px solid #ff0000; border-radius: 14px; padding: 25px; text-align: center; margin: 40px 0; display: none; }
+        .warning h2 { color: #ff0000; margin-bottom: 15px; }
+        .warning p { color: #ccc; margin-bottom: 20px; line-height: 1.6; }
+        .btn { background: #FFD700; color: #000; border: none; padding: 16px; border-radius: 12px; font-weight: 800; font-size: 16px; cursor: pointer; width: 100%; text-decoration: none; display: block; text-align: center; }
+        .job-card { background: #111; border: 1px solid #FFD700; border-radius: 14px; padding: 20px; margin: 15px 0; }
+        .job-card h3 { color: #FFD700; margin-bottom: 8px; }
+        .job-card p { color: #aaa; font-size: 14px; margin-bottom: 15px; }
+        .reward { color: #00ff00; font-weight: 700; font-size: 18px; margin-bottom: 15px; }
+        .btn-job { background: #FFD700; color: #000; border: none; padding: 14px; border-radius: 10px; font-weight: 700; cursor: pointer; width: 100%; }
+        .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.9); z-index: 999; }
+        .modal-content { background: #111; border: 2px solid #FFD700; border-radius: 18px; padding: 25px; margin: 20% auto; width: 90%; max-width: 400px; }
+        .modal-content h3 { color: #FFD700; margin-bottom: 15px; }
+        .modal-content textarea { width: 100%; height: 100px; background: #000; border: 1px solid #333; border-radius: 8px; color: #fff; padding: 10px; margin: 15px 0; }
+        .close { color: #FFD700; float: right; font-size: 28px; font-weight: bold; cursor: pointer; }
     </style>
 </head>
 <body>
-    <a href="dashboard.html" class="back">← Back to Dashboard</a>
-    <h1>Available Jobs</h1>
-    
-    <div class="job">
-        <h3>1. Share Lanvars on WhatsApp Status</h3>
-        <p>Post our flyer on your WhatsApp Status for 24 hours</p>
-        <p class="reward">Reward: ₦200</p>
-        <input type="text" id="proof1" placeholder="Paste WhatsApp screenshot link or type DONE">
-        <button onclick="submitJob('WhatsApp Status', 200, 'proof1')">Submit Proof</button>
+    <div class="header">
+        <a href="dashboard.html" class="back">← Dashboard</a>
+        <div class="logo">ClickMoni</div>
     </div>
 
-    <div class="job">
-        <h3>2. Invite 3 Friends to Join Lanvars</h3>
-        <p>Send your referral link to 3 friends. They must sign up.</p>
-        <p class="reward">Reward: ₦500</p>
-        <input type="text" id="proof2" placeholder="Enter phone numbers of friends">
-        <button onclick="submitJob('Refer 3 Friends', 500, 'proof2')">Submit Proof</button>
+    <div class="warning" id="activateWarning">
+        <h2>⚠️ Activate Plan First</h2>
+        <p>You must activate a ClickMoni plan before you can perform daily jobs and earn money.</p>
+        <p>Click below to choose your plan and start earning ₦1,000 - ₦8,000 daily.</p>
+        <a href="tiers.html" class="btn">🚀 Activate Plan Now</a>
     </div>
 
-    <div class="job">
-        <h3>3. Follow Us on Instagram</h3>
-        <p>Follow @lanvars_official and like last 3 posts</p>
-        <p class="reward">Reward: ₦100</p>
-        <input type="text" id="proof3" placeholder="Enter your Instagram username">
-        <button onclick="submitJob('Instagram Follow', 100, 'proof3')">Submit Proof</button>
+    <div id="jobsContainer" style="display:none;">
+        <h2 style="color:#FFD700; margin-bottom:20px;">💼 Available Daily Jobs</h2>
+        
+        <div class="job-card">
+            <h3>Facebook Page Like</h3>
+            <p>Like our official Facebook page and take a screenshot as proof</p>
+            <div class="reward">Reward: ₦200</div>
+            <button class="btn-job" onclick="openJob('Facebook Page Like', 200)">Perform Task</button>
+        </div>
+
+        <div class="job-card">
+            <h3>Instagram Follow</h3>
+            <p>Follow @ClickMoniOfficial on Instagram and submit screenshot</p>
+            <div class="reward">Reward: ₦250</div>
+            <button class="btn-job" onclick="openJob('Instagram Follow', 250)">Perform Task</button>
+        </div>
+
+        <div class="job-card">
+            <h3>Telegram Join</h3>
+            <p>Join our Telegram channel @ClickMoniOfficial and send screenshot</p>
+            <div class="reward">Reward: ₦300</div>
+            <button class="btn-job" onclick="openJob('Telegram Join', 300)">Perform Task</button>
+        </div>
+
+        <div class="job-card">
+            <h3>WhatsApp Status Share</h3>
+            <p>Share ClickMoni flyer on your WhatsApp status for 24hrs</p>
+            <div class="reward">Reward: ₦500</div>
+            <button class="btn-job" onclick="openJob('WhatsApp Status Share', 500)">Perform Task</button>
+        </div>
+    </div>
+
+    <div class="modal" id="jobModal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal()">&times;</span>
+            <h3 id="jobTitle">Submit Proof</h3>
+            <p style="color:#aaa; font-size:14px;">Paste your screenshot link or describe your proof:</p>
+            <textarea id="jobProof" placeholder="Paste image link or write details..."></textarea>
+            <button class="btn" onclick="submitJob()">Submit for Review</button>
+        </div>
     </div>
 
     <script>
-        function submitJob(jobName, reward, proofId) {
-            const proof = document.getElementById(proofId).value;
-            const user = localStorage.getItem('lanvars_user') || 'Guest';
-            
-            if(!proof) {
-                alert('Please enter proof before submitting');
+        let currentJob = '';
+        let currentReward = 0;
+
+        // Check if user activated plan
+        window.onload = function() {
+            const userPlan = localStorage.getItem('clickmoni_pack');
+            const user = localStorage.getItem('clickmoni_user');
+
+            if (!userPlan || userPlan === 'None' || !user) {
+                document.getElementById('activateWarning').style.display = 'block';
+                document.getElementById('jobsContainer').style.display = 'none';
+            } else {
+                document.getElementById('activateWarning').style.display = 'none';
+                document.getElementById('jobsContainer').style.display = 'block';
+            }
+        };
+
+        function openJob(jobName, reward) {
+            currentJob = jobName;
+            currentReward = reward;
+            document.getElementById('jobTitle').textContent = jobName;
+            document.getElementById('jobModal').style.display = 'block';
+        }
+
+        function closeModal() {
+            document.getElementById('jobModal').style.display = 'none';
+            document.getElementById('jobProof').value = '';
+        }
+
+        function submitJob() {
+            const proof = document.getElementById('jobProof').value.trim();
+            if (!proof) {
+                alert('Please enter your proof before submitting');
                 return;
             }
+
+            const user = localStorage.getItem('clickmoni_user') || 'Guest';
+            let pendingJobs = JSON.parse(localStorage.getItem('clickmoni_pending_jobs') || '[]');
             
-            // Save to pending jobs in localStorage for admin to see
-            let pendingJobs = JSON.parse(localStorage.getItem('lanvars_pending_jobs') || '[]');
             pendingJobs.push({
                 user: user,
-                job: jobName,
-                reward: reward,
+                job: currentJob,
+                reward: currentReward,
                 proof: proof,
-                date: new Date().toLocaleString(),
+                date: new Date().toLocaleDateString('en-GB'),
                 status: 'pending'
             });
-            localStorage.setItem('lanvars_pending_jobs', JSON.stringify(pendingJobs));
-            
-            alert('Job submitted! Admin will review and credit ₦' + reward + ' if approved.');
-            document.getElementById(proofId).value = '';
+
+            localStorage.setItem('clickmoni_pending_jobs', JSON.stringify(pendingJobs));
+            alert(`Job submitted! ₦${currentReward} will be added after @Monigold approves your proof.`);
+            closeModal();
         }
     </script>
 </body>
-  </html>
+                </html>
