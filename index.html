@@ -1,113 +1,289 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>ClickMoni - Turn Your Social Media Into Income</title>
-  <style>
-    * {margin:0; padding:0; box-sizing:border-box; font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;}
-    body {background:#f8f9fa; color:#212529;}
-    .container {max-width:480px; margin:0 auto; padding:16px;}
-    .header {background:linear-gradient(135deg,#0d6efd,#198754); color:white; padding:32px 16px; text-align:center; border-radius:0 0 24px 24px;}
-    .header h1 {font-size:28px; margin-bottom:8px;}
-    .header p {opacity:0.9; font-size:16px;}
-    .badge {background:rgba(255,255,255,0.2); padding:6px 12px; border-radius:20px; font-size:12px; display:inline-block; margin:4px;}
-    .card {background:white; border-radius:16px; padding:20px; margin:16px 0; box-shadow:0 2px 8px rgba(0,0,0,0.05);}
-    .plan {border:2px solid #e9ecef; position:relative;}
-    .plan.popular {border-color:#0d6efd;}
-    .popular-tag {position:absolute; top:-12px; right:16px; background:#0d6efd; color:white; padding:4px 12px; border-radius:12px; font-size:12px;}
-    .plan h3 {font-size:20px; margin-bottom:4px;}
-    .price {font-size:32px; font-weight:700; color:#0d6efd; margin:8px 0;}
-    .price span {font-size:16px; color:#6c757d; font-weight:400;}
-    .features {margin:16px 0; font-size:14px; color:#495057;}
-    .features li {margin:8px 0; list-style:none;}
-    .features li:before {content:"✓ "; color:#198754; font-weight:bold;}
-    .btn {display:block; width:100%; padding:14px; background:#0d6efd; color:white; text-align:center; border-radius:12px; text-decoration:none; font-weight:600; border:none; font-size:16px; margin-top:12px;}
-    .btn:active {background:#0b5ed7;}
-    .footer {text-align:center; font-size:12px; color:#6c757d; padding:24px 16px;}
-    .trust {display:flex; justify-content:center; gap:16px; margin:24px 0; flex-wrap:wrap;}
-    .trust-item {font-size:12px; text-align:center;}
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ClickMoni - Task & Earn Platform</title>
+    <style>
+        * {margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', sans-serif;}
+        body {background: #f5f7fa;}
+       .hidden {display: none!important;}
+
+        /* PRICING PAGE */
+       .pricing {padding: 40px 20px; max-width: 1200px; margin: 0 auto;}
+       .header {text-align: center; margin-bottom: 40px;}
+       .header h1 {font-size: 2.5rem; color: #0a2540; margin-bottom: 10px;}
+       .header span {color: #00b894;}
+       .plans {display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px;}
+       .plan {background: white; padding: 30px; border-radius: 12px; box-shadow: 0 4px 12px rgba(0,0,0,0.08); text-align: center;}
+       .plan h3 {color: #0a2540; font-size: 1.5rem; margin-bottom: 10px;}
+       .price {font-size: 2rem; color: #00b894; font-weight: bold; margin: 15px 0;}
+       .plan ul {list-style: none; margin: 20px 0; text-align: left;}
+       .plan li {padding: 8px 0; border-bottom: 1px solid #eee;}
+       .plan li:before {content: "✓"; color: #00b894; font-weight: bold; margin-right: 10px;}
+       .btn {background: #00b894; color: white; border: none; padding: 12px 30px; border-radius: 8px; font-size: 1rem; cursor: pointer; width: 100%; font-weight: bold;}
+       .btn:hover {background: #009975;}
+       .btn-disabled {background: #ccc; cursor: not-allowed;}
+
+        /* DASHBOARD */
+       .dashboard {max-width: 1000px; margin: 0 auto; padding: 20px;}
+       .dash-header {background: #0a2540; color: white; padding: 20px; border-radius: 12px; margin-bottom: 20px; display: flex; justify-content: space-between; align-items: center;}
+       .tabs {display: flex; gap: 10px; margin-bottom: 20px; overflow-x: auto;}
+       .tab {background: white; border: 2px solid #ddd; padding: 12px 20px; border-radius: 8px; cursor: pointer; font-weight: bold; white-space: nowrap;}
+       .tab.active {background: #00b894; color: white; border-color: #00b894;}
+       .tab-content {background: white; padding: 30px; border-radius: 12px; box-shadow: 0 4px 12px rgba(0,0,0,0.08);}
+       .task {border: 1px solid #eee; padding: 15px; border-radius: 8px; margin-bottom: 15px; display: flex; justify-content: space-between; align-items: center;}
+       .task-info h4 {color: #0a2540; margin-bottom: 5px;}
+       .task-info p {color: #666; font-size: 0.9rem;}
+       .task-pay {color: #00b894; font-weight: bold;}
+       .form-group {margin-bottom: 15px;}
+       .form-group label {display: block; margin-bottom: 5px; color: #0a2540; font-weight: bold;}
+       .form-group input {width: 100%; padding: 10px; border: 2px solid #ddd; border-radius: 8px;}
+       .balance {background: #e8f8f5; padding: 20px; border-radius: 8px; text-align: center; margin-bottom: 20px;}
+       .balance h2 {color: #00b894; font-size: 2.5rem;}
+       .ref-box {background: #f8f9fa; padding: 15px; border-radius: 8px; border: 2px dashed #00b894; margin: 15px 0;}
+       .ref-link {word-break: break-all; color: #0a2540; font-weight: bold;}
+       .logout {background: #ff4757; padding: 8px 16px; border-radius: 6px; color: white; border: none; cursor: pointer;}
+    </style>
 </head>
 <body>
-  <div class="header">
-    <h1>ClickMoni</h1>
-    <p>Turn Your Social Media Into Daily Income</p>
-    <div>
-      <span class="badge">Port Harcourt Based</span>
-      <span class="badge">Withdrawals 15th & 30th</span>
+
+<!-- PRICING PAGE - SHOWS FIRST -->
+<div id="pricingPage" class="pricing">
+    <div class="header">
+        <h1>Welcome to <span>ClickMoni</span></h1>
+        <p>Complete simple tasks. Earn daily. Withdraw to Opay/Bank.</p>
     </div>
-  </div>
-  <div class="container">
-    <div class="card">
-      <h2 style="margin-bottom:8px;">How It Works</h2>
-      <p style="font-size:14px; color:#495057;">1. Activate with N750–N11k → Get digital kit<br>2. Complete simple brand tasks daily<br>3. Refer friends & earn N300–N6,500 per person</p>
+    <div class="plans">
+        <div class="plan">
+            <h3>Starter</h3>
+            <div class="price">₦750</div>
+            <ul>
+                <li>3 Tasks Daily</li>
+                <li>₦50 - ₦200 Per Task</li>
+                <li>WhatsApp Support</li>
+                <li>Referral Bonus: ₦100</li>
+            </ul>
+            <button class="btn" onclick="window.open('https://paystack.shop/pay/clickmoni_starter', '_blank')">Activate Starter</button>
+        </div>
+        <div class="plan">
+            <h3>Basic</h3>
+            <div class="price">₦1,500</div>
+            <ul>
+                <li>5 Tasks Daily</li>
+                <li>₦100 - ₦400 Per Task</li>
+                <li>Priority Support</li>
+                <li>Referral Bonus: ₦200</li>
+            </ul>
+            <button class="btn btn-disabled">Coming Soon</button>
+        </div>
+        <div class="plan">
+            <h3>Pro</h3>
+            <div class="price">₦3,500</div>
+            <ul>
+                <li>8 Tasks Daily</li>
+                <li>₦200 - ₦800 Per Task</li>
+                <li>VIP Group Access</li>
+                <li>Referral Bonus: ₦500</li>
+            </ul>
+            <button class="btn btn-disabled">Coming Soon</button>
+        </div>
+        <div class="plan">
+            <h3>Premium</h3>
+            <div class="price">₦5,500</div>
+            <ul>
+                <li>12 Tasks Daily</li>
+                <li>₦300 - ₦1200 Per Task</li>
+                <li>1-on-1 Mentorship</li>
+                <li>Referral Bonus: ₦800</li>
+            </ul>
+            <button class="btn btn-disabled">Coming Soon</button>
+        </div>
+        <div class="plan">
+            <h3>VIP</h3>
+            <div class="price">₦11,000</div>
+            <ul>
+                <li>Unlimited Tasks</li>
+                <li>₦500 - ₦3000 Per Task</li>
+                <li>Personal Account Manager</li>
+                <li>Referral Bonus: ₦1500</li>
+            </ul>
+            <button class="btn btn-disabled">Coming Soon</button>
+        </div>
     </div>
-    <h2 style="margin:24px 0 8px 0;">Choose Your Plan</h2>
-    <div class="card plan">
-      <h3>Starter</h3>
-      <div class="price">N750 <span>/once</span></div>
-      <ul class="features">
-        <li>IG Growth Kit PDF</li>
-        <li>Earn up to N200/day from tasks</li>
-        <li>N300 per referral</li>
-      </ul>
-      <a href="#" class="btn">Activate Starter</a>
+</div>
+
+<!-- DASHBOARD - SHOWS AFTER PAYMENT -->
+<div id="dashboardPage" class="dashboard hidden">
+    <div class="dash-header">
+        <div>
+            <h2>👑 ClickMoni Dashboard</h2>
+            <p id="userEmail">Welcome back!</p>
+        </div>
+        <button class="logout" onclick="logout()">Logout</button>
     </div>
-    <div class="card plan">
-      <h3>Basic</h3>
-      <div class="price">N1,500 <span>/once</span></div>
-      <ul class="features">
-        <li>Everything in Starter</li>
-        <li>30 Canva Templates</li>
-        <li>Earn up to N400/day</li>
-        <li>N700 per referral</li>
-      </ul>
-      <a href="#" class="btn">Activate Basic</a>
+
+    <div class="tabs">
+        <div class="tab active" onclick="showTab('tasks')">📋 Tasks</div>
+        <div class="tab" onclick="showTab('withdraw')">💰 Withdraw</div>
+        <div class="tab" onclick="showTab('refer')">👥 Refer & Earn</div>
+        <div class="tab" onclick="showTab('kit')">📦 Digital Kit</div>
     </div>
-    <div class="card plan popular">
-      <span class="popular-tag">MOST POPULAR</span>
-      <h3>Pro</h3>
-      <div class="price">N3,500 <span>/once</span></div>
-      <ul class="features">
-        <li>Everything in Basic</li>
-        <li>Brand Deals Course 1hr</li>
-        <li>Earn up to N900/day</li>
-        <li>N1,800 per referral</li>
-      </ul>
-      <a href="#" class="btn">Activate Pro</a>
+
+    <!-- TASKS TAB -->
+    <div id="tasks" class="tab-content">
+        <h3>Today's Tasks - Complete & Earn</h3>
+        <div class="task">
+            <div class="task-info">
+                <h4>Follow @clickmoni on Instagram</h4>
+                <p>Follow our page + Like last 3 posts</p>
+            </div>
+            <div>
+                <div class="task-pay">₦50</div>
+                <button class="btn" style="width:auto; padding:8px 16px; margin-top:5px;" onclick="submitTask('IG Follow')">Submit Proof</button>
+            </div>
+        <div class="task">
+            <div class="task-info">
+                <h4>WhatsApp Status Post</h4>
+                <p>Post our flyer on your WhatsApp status for 24hrs</p>
+            </div>
+            <div>
+                <div class="task-pay">₦100</div>
+                <button class="btn" style="width:auto; padding:8px 16px; margin-top:5px;" onclick="submitTask('WA Status')">Submit Proof</button>
+            </div>
+        <div class="task">
+            <div class="task-info">
+                <h4>Comment on Facebook Post</h4>
+                <p>Drop meaningful comment on our latest post</p>
+            </div>
+            <div>
+                <div class="task-pay">₦50</div>
+                <button class="btn" style="width:auto; padding:8px 16px; margin-top:5px;" onclick="submitTask('FB Comment')">Submit Proof</button>
+            </div>
+        </div>
     </div>
-    <div class="card plan">
-      <h3>Premium</h3>
-      <div class="price">N5,500 <span>/once</span></div>
-      <ul class="features">
-        <li>Everything in Pro</li>
-        <li>30-Day Content Calendar</li>
-        <li>Earn up to N1,500/day</li>
-        <li>N3,000 per referral</li>
-      </ul>
-      <a href="#" class="btn">Activate Premium</a>
+
+    <!-- WITHDRAW TAB -->
+    <div id="withdraw" class="tab-content hidden">
+        <div class="balance">
+            <p>Available Balance</p>
+            <h2 id="balanceAmount">₦0</h2>
+            <p style="color:#666; font-size:0.9rem;">Withdrawals processed every Friday</p>
+        </div>
+        <h3>Request Withdrawal</h3>
+        <form onsubmit="requestWithdraw(event)">
+            <div class="form-group">
+                <label>Amount (₦500 minimum)</label>
+                <input type="number" id="withdrawAmount" min="500" placeholder="500" required>
+            </div>
+            <div class="form-group">
+                <label>Opay Account Number</label>
+                <input type="text" id="opayNumber" placeholder="8012345678" required>
+            </div>
+            <div class="form-group">
+                <label>Account Name</label>
+                <input type="text" id="accountName" placeholder="John Doe" required>
+            </div>
+            <button type="submit" class="btn">Request Withdrawal</button>
+        </form>
     </div>
-    <div class="card plan">
-      <h3>VIP</h3>
-      <div class="price">N11,000 <span>/once</span></div>
-      <ul class="features">
-        <li>Everything in Premium</li>
-        <li>1-on-1 Strategy Call 30min</li>
-        <li>Earn up to N3,000/day</li>
-        <li>N6,500 per referral</li>
-      </ul>
-      <a href="#" class="btn">Activate VIP</a>
+
+    <!-- REFER TAB -->
+    <div id="refer" class="tab-content hidden">
+        <h3>Refer & Earn ₦100 Per Person</h3>
+        <p>Share your unique link. When they pay N750, you get N100 instantly.</p>
+        <div class="ref-box">
+            <p style="margin-bottom:10px; color:#666;">Your Referral Link:</p>
+            <div class="ref-link" id="refLink">https://clickmoni.github.io/Learning_gifthub_2026/?ref=user123</div>
+        </div>
+        <button class="btn" onclick="copyRef()">📋 Copy Link</button>
+        <div style="margin-top:20px; padding:15px; background:#e8f8f5; border-radius:8px;">
+            <h4 style="color:#0a2540;">Your Stats</h4>
+            <p>Total Referrals: <strong id="refCount">0</strong></p>
+            <p>Total Earned: <strong id="refEarned">₦0</strong></p>
+        </div>
     </div>
-    <div class="trust">
-      <div class="trust-item">🔒<br>Secure Paystack</div>
-      <div class="trust-item">📱<br>Mobile Tasks</div>
-      <div class="trust-item">💸<br>Real Payouts</div>
+
+    <!-- KIT TAB -->
+    <div id="kit" class="tab-content hidden">
+        <h3>📦 Your Digital Kit</h3>
+        <p>Download these tools to grow your ClickMoni earnings:</p>
+        <div style="margin-top:20px;">
+            <div class="task">
+                <div class="task-info">
+                    <h4>Instagram Growth Kit PDF</h4>
+                    <p>50+ caption templates + hashtag lists</p>
+                </div>
+                <button class="btn" style="width:auto;" onclick="alert('Upload your PDF to Google Drive and replace this alert with window.open(DRIVE_LINK)')">Download</button>
+            </div>
+            <div class="task">
+                <div class="task-info">
+                    <h4>WhatsApp Sales Scripts</h4>
+                    <p>Copy-paste messages that close sales</p>
+                </div>
+                <button class="btn" style="width:auto;" onclick="alert('Upload your PDF to Google Drive and replace this alert with window.open(DRIVE_LINK)')">Download</button>
+            </div>
+        </div>
     </div>
-  </div>
-  <div class="footer">
-    © 2026 ClickMoni Digital Services. Port Harcourt, Rivers State.<br>
-    Not a bank. Not an investment scheme. N750–N11,000 pays for digital products only.
-  </div>
+</div>
+
+<script>
+// CHECK IF USER CAME FROM PAYSTACK
+if(window.location.hash === '#dashboard'){
+    document.getElementById('pricingPage').classList.add('hidden');
+    document.getElementById('dashboardPage').classList.remove('hidden');
+
+    // GET EMAIL FROM URL IF PAYSTACK SENDS IT
+    const urlParams = new URLSearchParams(window.location.search);
+    const email = urlParams.get('email') || 'ClickMoni Member';
+    document.getElementById('userEmail').innerText = 'Welcome, ' + email;
+
+    // GENERATE REF LINK
+    const refCode = email.split('@')[0] || 'user' + Math.floor(Math.random()*1000);
+    document.getElementById('refLink').innerText = 'https://clickmoni.github.io/Learning_gifthub_2026/?ref=' + refCode;
+}
+
+// TAB SWITCHING
+function showTab(tabName){
+    document.querySelectorAll('.tab-content').forEach(t => t.classList.add('hidden'));
+    document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+    document.getElementById(tabName).classList.remove('hidden');
+    event.target.classList.add('active');
+}
+
+// TASK SUBMIT
+function submitTask(taskName){
+    const proof = prompt('Paste screenshot link or describe proof for: ' + taskName);
+    if(proof){
+        alert('Proof submitted! ✅ Admin will verify and credit your balance within 24hrs.');
+        // IN REAL VERSION: Send to your email/database
+    }
+}
+
+// WITHDRAW
+function requestWithdraw(e){
+    e.preventDefault();
+    const amount = document.getElementById('withdrawAmount').value;
+    const opay = document.getElementById('opayNumber').value;
+    const name = document.getElementById('accountName').value;
+    alert('Withdrawal Requested! ✅\n\nAmount: ₦' + amount + '\nOpay: ' + opay + '\nName: ' + name + '\n\nYou will receive payment Friday. We will contact you on WhatsApp.');
+    // IN REAL VERSION: Send to your email/Google Sheets
+    e.target.reset();
+}
+
+// COPY REF LINK
+function copyRef(){
+    const link = document.getElementById('refLink').innerText;
+    navigator.clipboard.writeText(link);
+    alert('Referral link copied! 📋\n\nShare on WhatsApp, Facebook, Instagram to earn ₦100 per signup.');
+}
+
+// LOGOUT
+function logout(){
+    window.location.hash = '';
+    window.location.reload();
+}
+</script>
+
 </body>
-        </html>
+  </html>
