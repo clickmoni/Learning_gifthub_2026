@@ -5,83 +5,117 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sponsor & Referral - ClickMoni</title>
     <style>
-        body { font-family: Arial, sans-serif; background: #000; color: #fff; padding: 15px; }
+        body { font-family: 'Segoe UI', Arial, sans-serif; background: #000; color: #fff; padding: 15px; }
+        .back { color: #FFD700; text-decoration: none; font-weight: 600; display: block; margin-bottom: 20px; }
+        .logo { color: #FFD700; font-size: 24px; font-weight: 800; text-align: center; margin-bottom: 20px; }
+        .warning { background: #330000; border: 2px solid #ff0000; border-radius: 14px; padding: 25px; text-align: center; margin: 40px 0; display: none; }
+        .warning h2 { color: #ff0000; margin-bottom: 15px; }
+        .warning p { color: #ccc; margin-bottom: 20px; line-height: 1.6; }
+        .btn { background: #FFD700; color: #000; border: none; padding: 16px; border-radius: 12px; font-weight: 800; font-size: 16px; cursor: pointer; width: 100%; text-decoration: none; display: block; text-align: center; }
         .box { background: #111; border: 2px solid #FFD700; border-radius: 18px; padding: 25px; margin: 18px 0; }
         h1 { color: #FFD700; text-align: center; margin-bottom: 20px; font-size: 24px; }
         h3 { color: #FFD700; margin-bottom: 12px; font-size: 18px; }
         .link-box { background: #000; padding: 15px; border-radius: 10px; margin: 15px 0; word-break: break-all; font-size: 13px; border: 1px solid #333; }
-        .btn { background: #FFD700; color: #000; border: none; padding: 14px 25px; border-radius: 12px; font-weight: 700; cursor: pointer; width: 100%; margin: 8px 0; font-size: 15px; }
         .stats { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin: 20px 0; }
         .stat { background: #000; border: 1px solid #FFD700; border-radius: 14px; padding: 18px; text-align: center; }
         .stat p { color: #666; font-size: 11px; font-weight: 600; }
         .stat h3 { color: #FFD700; font-size: 22px; margin-top: 6px; }
-        .back { color: #FFD700; text-decoration: none; font-weight: 600; }
         .tg { color: #0088cc; font-weight: 700; text-decoration: none; }
     </style>
 </head>
 <body>
     <a href="dashboard.html" class="back">← Back to Dashboard</a>
-    <h1>👥 ClickMoni Referral Program</h1>
-    
-    <div class="box">
-        <h3>Your Invite Link</h3>
-        <div class="link-box" id="refLink">Loading...</div>
-        <button class="btn" onclick="copyLink()">📋 Copy Link</button>
-        <button class="btn" onclick="shareWhatsApp()">📱 Share on WhatsApp</button>
-        <button class="btn" onclick="shareTelegram()">📢 Share on Telegram</button>
+    <div class="logo">ClickMoni</div>
+
+    <div class="warning" id="activateWarning">
+        <h2>⚠️ Activate Plan First</h2>
+        <p>You must activate a ClickMoni plan before you can invite friends and earn referral commissions.</p>
+        <p>Activate now to unlock your referral link and earn 10% on every person you refer.</p>
+        <a href="tiers.html" class="btn">🚀 Activate Plan Now</a>
     </div>
 
-    <div class="box">
-        <h3>How You Earn</h3>
-        <p style="color:#aaa;line-height:1.7;font-size:15px;">
-        1. Share your link<br>
-        2. Friend signs up & activates plan<br>
-        3. You get <strong style="color:#00ff00;">10% instant commission</strong><br>
-        4. Money adds to balance automatically
-        </p>
-    </div>
+    <div id="sponsorContainer" style="display:none;">
+        <h1>👥 ClickMoni Referral Program</h1>
+        
+        <div class="box">
+            <h3>Your Invite Link</h3>
+            <div class="link-box" id="refLink">Loading...</div>
+            <button class="btn" onclick="copyLink()">📋 Copy Link</button>
+            <button class="btn" onclick="shareWhatsApp()" style="margin-top:10px;">📱 Share on WhatsApp</button>
+            <button class="btn" onclick="shareTelegram()" style="margin-top:10px;">📢 Share on Telegram</button>
+        </div>
 
-    <div class="box">
-        <h3>Your Stats</h3>
-        <div class="stats">
-            <div class="stat">
-                <p>TOTAL INVITES</p>
-                <h3 id="refCount">0</h3>
+        <div class="box">
+            <h3>How You Earn</h3>
+            <p style="color:#aaa;line-height:1.7;font-size:15px;">
+            1. Share your link<br>
+            2. Friend signs up & activates plan<br>
+            3. You get <strong style="color:#00ff00;">10% instant commission</strong><br>
+            4. Money adds to balance automatically
+            </p>
+        </div>
+
+        <div class="box">
+            <h3>Your Stats</h3>
+            <div class="stats">
+                <div class="stat">
+                    <p>TOTAL INVITES</p>
+                    <h3 id="refCount">0</h3>
+                </div>
+                <div class="stat">
+                    <p>TOTAL EARNED</p>
+                    <h3>₦<span id="refEarned">0</span></h3>
+                </div>
             </div>
-            <div class="stat">
-                <p>TOTAL EARNED</p>
-                <h3>₦<span id="refEarned">0</span></h3>
-            </div>
+        </div>
+
+        <div class="box" style="text-align:center;">
+            <h3>Need Help?</h3>
+            <p style="color:#aaa;">Contact CEO: <a href="https://t.me/Monigold" class="tg" target="_blank">@Monigold</a></p>
+            <p style="color:#aaa;">Join Channel: <a href="https://t.me/ClickMoniOfficial" class="tg" target="_blank">@ClickMoniOfficial</a></p>
         </div>
     </div>
 
-    <div class="box" style="text-align:center;">
-        <h3>Need Help?</h3>
-        <p style="color:#aaa;">Contact CEO: <a href="https://t.me/Monigold" class="tg" target="_blank">@Monigold</a></p>
-        <p style="color:#aaa;">Join Channel: <a href="https://t.me/ClickMoniOfficial" class="tg" target="_blank">@ClickMoniOfficial</a></p>
-    </div>
-
     <script>
-        const userPhone = localStorage.getItem('clickmoni_user') || 'yourID';
-        const refLink = `https://clickmoni.github.io/Learning_gifthub_2026/signup.html?ref=${userPhone}`;
-        document.getElementById('refLink').textContent = refLink;
-        document.getElementById('refCount').textContent = localStorage.getItem('clickmoni_ref_count') || '0';
-        document.getElementById('refEarned').textContent = localStorage.getItem('clickmoni_ref_earned') || '0';
+        // Check if user activated plan
+        window.onload = function() {
+            const userPlan = localStorage.getItem('clickmoni_pack');
+            const user = localStorage.getItem('clickmoni_user');
+
+            if (!userPlan || userPlan === 'None' || !user) {
+                document.getElementById('activateWarning').style.display = 'block';
+                document.getElementById('sponsorContainer').style.display = 'none';
+            } else {
+                document.getElementById('activateWarning').style.display = 'none';
+                document.getElementById('sponsorContainer').style.display = 'block';
+                loadSponsorData();
+            }
+        };
+
+        function loadSponsorData() {
+            const userPhone = localStorage.getItem('clickmoni_user') || 'yourID';
+            const refLink = `https://clickmoni.github.io/Learning_gifthub_2026/signup.html?ref=${userPhone}`;
+            document.getElementById('refLink').textContent = refLink;
+            document.getElementById('refCount').textContent = localStorage.getItem('clickmoni_ref_count') || '0';
+            document.getElementById('refEarned').textContent = localStorage.getItem('clickmoni_ref_earned') || '0';
+        }
 
         function copyLink() {
+            const refLink = document.getElementById('refLink').textContent;
             navigator.clipboard.writeText(refLink);
             alert('ClickMoni link copied! Start sharing 💰');
         }
 
         function shareWhatsApp() {
+            const refLink = document.getElementById('refLink').textContent;
             const text = `Join ClickMoni and earn daily with me! 💰\n\nMy link: ${refLink}\n\nOfficial Telegram: https://t.me/ClickMoniOfficial`;
             window.open(`https://wa.me/?text=${encodeURIComponent(text)}`);
         }
 
         function shareTelegram() {
-            const text = `Join ClickMoni and earn daily! 💰\n\nMy link: ${refLink}`;
+            const refLink = document.getElementById('refLink').textContent;
             window.open(`https://t.me/share/url?url=${encodeURIComponent(refLink)}&text=${encodeURIComponent('Join ClickMoni and earn daily! 💰')}`);
         }
     </script>
 </body>
-            </html>
+    </html>
