@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Withdraw — ClickMoni</title>
+  <style>
+    * { margin:0; padding:0; box-sizing:border-box; font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Arial,sans-serif; }
+    body { background:#0D0D0D; color:#fff; padding:20px 20px 100px; }
+    .header { display:flex; justify-content:space-between; align-items:center; margin-bottom:20px; }
+    .back { color:#fff; font-size:24px; text-decoration:none; }
+    .container { max-width:500px; margin:auto; }
+    .balance-card { background:linear-gradient(135deg, #FF3B30, #FF6B6B); padding:20px; border-radius:20px; text-align:center; margin-bottom:20px; }
+    .balance-card h3 { font-size:14px; opacity:0.8; }
+    .balance-card h2 { font-size:36px; margin:10px 0; }
+    .form-box { background:#1C1C1E; padding:25px; border-radius:20px; }
+    .input-group { margin-bottom:15px; }
+    label { display:block; color:#aaa; font-size:14px; margin-bottom:8px; }
+    input, select { width:100%; background:#0D0D0D; border:1px solid #333; color:#fff; padding:14px; border-radius:10px; font-size:16px; }
+    .btn { width:100%; background:#FF3B30; color:#fff; padding:16px; border:none; border-radius:12px; font-weight:600; font-size:16px; margin-top:10px; }
+    .kyc-box { background:#1C1C1E; padding:25px; border-radius:20px; margin-bottom:20px; border:2px solid #FF3B30; }
+    .kyc-box h3 { color:#FF3B30; margin-bottom:15px; }
+    .history { margin-top:30px; }
+    .history-item { background:#1C1C1E; padding:15px; border-radius:12px; margin:10px 0; display:flex; justify-content:space-between; align-items:center; }
+    .status { padding:5px 12px; border-radius:20px; font-size:12px; font-weight:600; }
+    .status-pending { background:#FF9500; color:#000; }
+    .status-paid { background:#00C851; color:#fff; }
+    .status-rejected { background:#FF3B30; color:#fff; }
+    .note { background:#1C1C1E; padding:15px; border-radius:12px; font-size:13px; color:#aaa; margin-top:15px; border-left:3px solid #FF3B30; }
+  </style>
+</head>
+<body>
+  <div class="header">
+    <a href="dashboard.html" class="back">←</a>
+    <h2>Withdraw Funds</h2>
+    <div></div>
+  </div>
+
+  <div class="container">
+    <div class="balance-card">
+      <h3>Available Balance</h3>
+      <h2>₦<span id="balance">0.00</span></h2>
+    </div>
+
+    <div id="kycSection" style="display:none;">
+      <div class="kyc-box">
+        <h3>⚠️ KYC Verification Required</h3>
+        <p style="color:#aaa; font-size:14px; margin-bottom:20px;">Complete KYC once to process your first withdrawal. Next withdrawals won't need this.</p>
+        <div class="input-group">
+          <label>Full Name</label>
+          <input type="text" id="kycName" readonly>
+        </div>
+        <div class="input-group">
+          <label>ID Type</label>
+          <select id="idType">
+            <option value="NIN">NIN - National ID</option>
+            <option value="BVN">BVN - Bank Verification</option>
+          </select>
+        </div>
+        <div class="input-group">
+          <label>ID Number</label>
+          <input type="text" id="idNumber" placeholder="Enter your NIN or BVN" required>
+        </div>
+      </div>
+    </div>
+
+    <div class="form-box">
+      <form id="withdrawForm">
+        <div class="input-group">
+          <label>Amount (₦)</label>
+          <input type="number" id="amount" placeholder="Minimum ₦1,000" min="1000" required>
+        </div>
+        <div class="input-group">
+          <label>Bank Name</label>
+          <select id="bank" required>
+            <option value="">Select Bank</option>
+            <option>Access Bank</option><option>GTBank</option><option>First Bank</option>
+            <option>UBA</option><option>Zenith Bank</option><option>Fidelity Bank</option>
+            <option>Opay</option><option>Palmpay</option><option>Kuda</option>
+          </select>
+        </div>
+        <div class="input-group">
+          <label>Account Number</label>
+          <input type="text" id="account" placeholder="10-digit account number" maxlength="10" required>
+        </div>
+        <div class="input-group">
+          <label>Account Name</label>
+          <input type="text" id="accountName" placeholder="Account name" required>
+        </div>
+        <button type="submit" class="btn">Request Withdrawal</button>
+      </form>
+      <div class="note">⚠️ All withdrawals are manually reviewed. Processing takes 24-48 hours after approval.</div>
+    </div>
+
+    <div class="history">
+      <h3 style="margin-bottom:15px;">Withdrawal History</h3>
+      <div id="historyList"></div>
+    </div>
+  </div>
+
+<script>
+  let user = JSON.parse(localStorage.getItem('clickmoni_user') || '{}');
+  let withdrawals = JSON.parse(localStorage.getItem('clickmoni_withdrawals') || '[]');
+  
+  document.getElementById('balance').innerText = (user.balance || 0).toFixed(2);
+  document.getElementById('kycName').value = (user.firstName || '') + ' ' + (user.lastName || '');
+  
+  // Show KYC form if user hasn't done KYC
+  if(!user.kyc) {
+    document.getElementById('kycSection').style.display = 'block';
+  }
+
+  // Load history
+  function loadHistory() {
+    const list = document.getElementById('historyList');
+    const userWithdrawals = withdrawals.filter(w => w.email === user.email);
+    if(userWithdrawals.length === 0) {
+      list.innerHTML = '<p style="color:#777; text-align:center;">No withdrawals yet</p>';
+      return;
+    }
+    list.innerHTML = userWithdrawals.reverse().map(w => `
+      <div class="history-item">
+        <div>
+          <p style="font-weight:600;">₦${w.amount.toLocaleString()}</p>
+          <p style="color:#777; font-size:12px;">${w.bank} - ${w.account} • ${new Date(w.date).toLocaleDateString()}</p>
+        </div>
+        <span class="status status-${w.status}">${w.status.toUpperCase()}</span>
+      </div>
+    `).join('');
+  }
+  loadHistory();
+
+  document.getElementById('withdrawForm').addEventListener('submit', function(e) {
+    e.preventDefault();
+    const amount = parseFloat(document.getElementById('amount').value);
+    
+    if(amount > (user.balance || 0)) {
+      alert('Insufficient balance');
+      return;
+    }
+    
+    if(amount < 1000) {
+      alert('Minimum withdrawal is ₦1,000');
+      return;
+    }
+
+    // Check KYC on first withdrawal
+    if(!user.kyc) {
+      const idNumber = document.getElementById('idNumber').value;
+      if(!idNumber || idNumber.length < 10) {
+        alert('Please complete KYC. Enter valid NIN or BVN.');
+        return;
+      }
+      user.kyc = true;
+      user.idType = document.getElementById('idType').value;
+      user.idNumber = idNumber;
+    }
+
+    // Create withdrawal request
+    const withdrawal = {
+      id: Date.now(),
+      email: user.email,
+      name: user.firstName + ' ' + user.lastName,
+      amount: amount,
+      bank: document.getElementById('bank').value,
+      account: document.getElementById('account').value,
+      accountName: document.getElementById('accountName').value,
+      status: 'pending',
+      date: Date.now(),
+      kyc: { type: user.idType, number: user.idNumber }
+    };
+
+    withdrawals.push(withdrawal);
+    user.balance -= amount;
+    
+    localStorage.setItem('clickmoni_withdrawals', JSON.stringify(withdrawals));
+    localStorage.setItem('clickmoni_user', JSON.stringify(user));
+    
+    alert('Withdrawal request submitted! Awaiting admin approval.');
+    window.location.reload();
+  });
+</script>
+</body>
+  </html>
