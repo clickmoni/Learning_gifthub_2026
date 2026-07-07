@@ -7,26 +7,33 @@
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body { font-family: 'Segoe UI', Arial, sans-serif; background: #000; color: #fff; padding: 15px; }
-      .back { color: #FFD700; text-decoration: none; font-weight: 600; display: block; margin-bottom: 20px; }
-      .logo { color: #FFD700; font-size: 24px; font-weight: 800; text-align: center; margin-bottom: 20px; }
-      .warning { background: #330000; border: 2px solid #ff0000; border-radius: 14px; padding: 25px; text-align: center; margin: 40px 0; display: none; }
-      .warning h2 { color: #ff0000; margin-bottom: 15px; }
-      .box { background: #111; border: 2px solid #FFD700; border-radius: 18px; padding: 25px; margin: 18px 0; }
+    .back { color: #FFD700; text-decoration: none; font-weight: 600; display: block; margin-bottom: 20px; }
+    .logo { color: #FFD700; font-size: 24px; font-weight: 800; text-align: center; margin-bottom: 20px; }
+    .warning { background: #330000; border: 2px solid #ff0000; border-radius: 14px; padding: 25px; text-align: center; margin: 40px 0; display: none; }
+    .box { background: #111; border: 2px solid #FFD700; border-radius: 18px; padding: 25px; margin: 18px 0; }
         h1 { color: #FFD700; text-align: center; margin-bottom: 20px; font-size: 24px; }
         h3 { color: #FFD700; margin-bottom: 15px; font-size: 18px; }
-      .balance { color: #00ff00; font-size: 32px; font-weight: 800; text-align: center; margin: 20px 0; }
-      .input-group { margin: 15px 0; }
-      .input-group label { color: #FFD700; font-size: 14px; font-weight: 600; display: block; margin-bottom: 8px; }
-      .input-group input,.input-group select { width: 100%; padding: 14px; background: #000; border: 1px solid #333; border-radius: 10px; color: #fff; font-size: 16px; }
-      .btn { background: #FFD700; color: #000; border: none; padding: 16px; border-radius: 12px; font-weight: 800; font-size: 17px; cursor: pointer; width: 100%; margin-top: 20px; }
-      .btn:disabled { background: #333; color: #666; cursor: not-allowed; }
-      .info { background: #001a33; border: 1px solid #0088cc; border-radius: 10px; padding: 15px; margin: 20px 0; font-size: 14px; color: #aaa; }
-      .info strong { color: #FFD700; }
-      .tabs { display: flex; gap: 10px; margin-bottom: 20px; }
-      .tab { background: #111; color: #FFD700; border: 1px solid #FFD700; padding: 12px; border-radius: 10px; cursor: pointer; font-weight: 600; flex: 1; text-align: center; }
-      .tab.active { background: #FFD700; color: #000; }
-      .error { color: #ff0000; font-size: 13px; margin-top: 8px; display: none; }
-      .limit-info { color: #ffaa00; font-size: 13px; text-align: center; margin: 10px 0; }
+    .balance { color: #00ff00; font-size: 32px; font-weight: 800; text-align: center; margin: 15px 0; }
+    .input-group { margin: 15px 0; }
+    .input-group label { color: #FFD700; font-size: 14px; font-weight: 600; display: block; margin-bottom: 8px; }
+    .input-group input,.input-group select { width: 100%; padding: 14px; background: #000; border: 1px solid #333; border-radius: 10px; color: #fff; font-size: 15px; }
+    .btn { background: #FFD700; color: #000; border: none; padding: 16px; border-radius: 12px; font-weight: 800; font-size: 17px; cursor: pointer; width: 100%; margin-top: 15px; }
+    .btn:disabled { background: #333; color: #666; cursor: not-allowed; }
+    .info { background: #001a33; border: 1px solid #0088cc; border-radius: 10px; padding: 15px; margin: 20px 0; font-size: 14px; color: #aaa; }
+    .info strong { color: #FFD700; }
+    .tabs { display: flex; gap: 10px; margin: 20px 0; }
+    .tab { flex: 1; background: #111; color: #FFD700; border: 1px solid #FFD700; padding: 12px; border-radius: 10px; cursor: pointer; font-weight: 600; text-align: center; }
+    .tab.active { background: #FFD700; color: #000; }
+    .tab-content { display: none; }
+    .tab-content.active { display: block; }
+    .history { margin-top: 30px; }
+    .history-item { background: #111; border: 1px solid #333; border-radius: 10px; padding: 15px; margin: 10px 0; }
+    .history-header { display: flex; justify-content: space-between; margin-bottom: 8px; }
+    .history-amount { color: #00ff00; font-weight: 700; }
+    .history-status { padding: 4px 10px; border-radius: 6px; font-size: 12px; font-weight: 700; }
+    .status-pending { background: #ffaa00; color: #000; }
+    .status-approved { background: #00ff00; color: #000; }
+    .status-rejected { background: #ff0000; color: #fff; }
     </style>
 </head>
 <body>
@@ -35,116 +42,128 @@
 
     <div class="warning" id="activateWarning">
         <h2>⚠️ Activate Plan First</h2>
-        <p>You must activate a ClickMoni plan before you can withdraw earnings.</p>
+        <p>You must activate a ClickMoni plan before you can withdraw.</p>
         <a href="tiers.html" class="btn">🚀 Activate Plan Now</a>
     </div>
 
     <div id="withdrawContainer" style="display:none;">
-        <h1>💸 Withdraw Money</h1>
+        <h1>💰 Withdraw Funds</h1>
 
         <div class="tabs">
-            <div class="tab active" onclick="switchTab('normal')">Task Earnings</div>
-            <div class="tab" onclick="switchTab('affiliate')">Affiliate Earnings</div>
+            <div class="tab active" onclick="showTab('task')">Task Balance</div>
+            <div class="tab" onclick="showTab('affiliate')">Affiliate Balance</div>
         </div>
 
-        <!-- TASK WITHDRAWAL -->
-        <div class="box" id="normalTab">
-            <h3>Withdraw Task Balance</h3>
-            <div class="balance">₦<span id="taskBalance">0</span></div>
-            <div class="limit-info" id="taskLimitInfo">Your Plan: <span id="userPlan">None</span></div>
+        <div class="tab-content active" id="taskTab">
+            <div class="box">
+                <h3>Task Balance Withdrawal</h3>
+                <div class="balance">₦<span id="taskBalance">0</span></div>
+                <div class="info">
+                    <strong>Your Plan:</strong> <span id="taskPlan">None</span><br>
+                    <strong>Min Withdraw:</strong> ₦<span id="taskMin">0</span><br>
+                    <strong>Withdrawals:</strong> <span id="taskLimit">2 times per month</span>
+                </div>
 
-            <div class="info">
-                <strong id="minTaskText">Minimum Withdrawal: Loading...</strong><br>
-                <strong>Frequency: 2 times per month</strong><br>
-                <span id="taskNextDate">Next withdrawal available: Loading...</span>
+                <div class="input-group">
+                    <label>Amount to Withdraw</label>
+                    <input type="number" id="taskAmount" placeholder="Enter amount" oninput="checkTaskAmount()">
+                </div>
+
+                <div class="input-group">
+                    <label>Bank Name</label>
+                    <select id="taskBank">
+                        <option value="">Select Bank</option>
+                        <option value="Access Bank">Access Bank</option>
+                        <option value="GTBank">GTBank</option>
+                        <option value="First Bank">First Bank</option>
+                        <option value="UBA">UBA</option>
+                        <option value="Zenith Bank">Zenith Bank</option>
+                        <option value="Opay">Opay</option>
+                        <option value="Palmpay">Palmpay</option>
+                        <option value="Kuda">Kuda</option>
+                    </select>
+                </div>
+
+                <div class="input-group">
+                    <label>Account Number</label>
+                    <input type="text" id="taskAccount" placeholder="0123456789" maxlength="10">
+                </div>
+
+                <div class="input-group">
+                    <label>Account Name</label>
+                    <input type="text" id="taskName" placeholder="Your full name">
+                </div>
+
+                <button class="btn" id="taskBtn" onclick="submitTaskWithdraw()" disabled>Submit Withdrawal</button>
             </div>
-
-            <div class="input-group">
-                <label>Amount to Withdraw</label>
-                <input type="number" id="normalAmount" placeholder="Enter amount" oninput="checkNormalMin()">
-                <div class="error" id="normalError"></div>
-            </div>
-
-            <div class="input-group">
-                <label>Bank Name</label>
-                <select id="normalBank">
-                    <option value="">Select Bank</option>
-                    <option>Access Bank</option><option>GTBank</option><option>First Bank</option>
-                    <option>UBA</option><option>Zenith Bank</option><option>Opay</option>
-                    <option>Palmpay</option><option>Kuda</option><option>Moniepoint</option>
-                </select>
-            </div>
-
-            <div class="input-group">
-                <label>Account Number</label>
-                <input type="text" id="normalAccount" placeholder="10 digit account number" maxlength="10">
-            </div>
-
-            <div class="input-group">
-                <label>Account Name</label>
-                <input type="text" id="normalName" placeholder="Your account name">
-            </div>
-
-            <button class="btn" id="normalBtn" onclick="submitNormal()" disabled>Request Withdrawal</button>
         </div>
 
-        <!-- AFFILIATE WITHDRAWAL -->
-        <div class="box" id="affiliateTab" style="display:none;">
-            <h3>Withdraw Affiliate Balance</h3>
-            <div class="balance">₦<span id="affiliateBalance">0</span></div>
+        <div class="tab-content" id="affiliateTab">
+            <div class="box">
+                <h3>Affiliate Balance Withdrawal</h3>
+                <div class="balance">₦<span id="affiliateBalance">0</span></div>
+                <div class="info">
+                    <strong>Min Withdraw:</strong> ₦1,000<br>
+                    <strong>Withdrawals:</strong> Every 2 days
+                </div>
 
-            <div class="info">
-                <strong>Minimum Withdrawal: ₦1,000</strong><br>
-                <strong>Frequency: Every 2 days</strong><br>
-                <span id="affiliateNextDate">Next withdrawal available: Loading...</span>
+                <div class="input-group">
+                    <label>Amount to Withdraw</label>
+                    <input type="number" id="affiliateAmount" placeholder="Enter amount" oninput="checkAffiliateAmount()">
+                </div>
+
+                <div class="input-group">
+                    <label>Bank Name</label>
+                    <select id="affiliateBank">
+                        <option value="">Select Bank</option>
+                        <option value="Access Bank">Access Bank</option>
+                        <option value="GTBank">GTBank</option>
+                        <option value="First Bank">First Bank</option>
+                        <option value="UBA">UBA</option>
+                        <option value="Zenith Bank">Zenith Bank</option>
+                        <option value="Opay">Opay</option>
+                        <option value="Palmpay">Palmpay</option>
+                        <option value="Kuda">Kuda</option>
+                    </select>
+                </div>
+
+                <div class="input-group">
+                    <label>Account Number</label>
+                    <input type="text" id="affiliateAccount" placeholder="0123456789" maxlength="10">
+                </div>
+
+                <div class="input-group">
+                    <label>Account Name</label>
+                    <input type="text" id="affiliateName" placeholder="Your full name">
+                </div>
+
+                <button class="btn" id="affiliateBtn" onclick="submitAffiliateWithdraw()" disabled>Submit Withdrawal</button>
             </div>
+        </div>
 
-            <div class="input-group">
-                <label>Amount to Withdraw</label>
-                <input type="number" id="affiliateAmount" placeholder="Enter amount" oninput="checkAffiliateMin()">
-                <div class="error" id="affiliateError"></div>
-            </div>
-
-            <div class="input-group">
-                <label>Bank Name</label>
-                <select id="affiliateBank">
-                    <option value="">Select Bank</option>
-                    <option>Access Bank</option><option>GTBank</option><option>First Bank</option>
-                    <option>UBA</option><option>Zenith Bank</option><option>Opay</option>
-                    <option>Palmpay</option><option>Kuda</option><option>Moniepoint</option>
-                </select>
-            </div>
-
-            <div class="input-group">
-                <label>Account Number</label>
-                <input type="text" id="affiliateAccount" placeholder="10 digit account number" maxlength="10">
-            </div>
-
-            <div class="input-group">
-                <label>Account Name</label>
-                <input type="text" id="affiliateName" placeholder="Your account name">
-            </div>
-
-            <button class="btn" id="affiliateBtn" onclick="submitAffiliate()" disabled>Request Affiliate Withdrawal</button>
+        <div class="history">
+            <h3>Withdrawal History</h3>
+            <div id="withdrawHistory"></div>
         </div>
     </div>
 
     <script>
-        // YOUR CLICKMONI RULES
+        // YOUR CLICKMONI RULES - FINAL CORRECTED
         const PLAN_MINIMUMS = {
             'TEST': 1000, // ₦100 plan → Min ₦1,000
             'STARTER': 10000, // ₦1,000 plan → Min ₦10,000
             'BRONZE': 18000, // ₦3,000 plan → Min ₦18,000
-            'SILVER': 6000, // ₦5,000 plan → Min ₦6,000
-            'GOLD': 6000, // ₦10,000 plan → Min ₦6,000
-            'PLATINUM': 6000 // ₦20,000 plan → Min ₦6,000
+            'SILVER': 30000, // ₦5,000 plan → Min ₦30,000 CORRECTED
+            'GOLD': 50000, // ₦10,000 plan → Min ₦50,000 CORRECTED
+            'PLATINUM': 80000 // ₦20,000 plan → Min ₦80,000 CORRECTED
         };
         const MIN_AFFILIATE = 1000;
-        const TASK_WITHDRAW_LIMIT = 2; // times per month
-        const AFFILIATE_DAYS_LIMIT = 2; // every 2 days
+        const TASK_WITHDRAW_LIMIT = 2;
+        const AFFILIATE_DAYS_LIMIT = 2;
 
         let userPlan = '';
-        let minTaskWithdrawal = 0;
+        let taskBalance = 0;
+        let affiliateBalance = 0;
 
         window.onload = function() {
             userPlan = localStorage.getItem('clickmoni_pack') || 'None';
@@ -156,135 +175,53 @@
             } else {
                 document.getElementById('activateWarning').style.display = 'none';
                 document.getElementById('withdrawContainer').style.display = 'block';
-                setupWithdrawRules();
                 loadBalances();
+                loadHistory();
             }
         };
 
-        function setupWithdrawRules() {
-            minTaskWithdrawal = PLAN_MINIMUMS[userPlan] || 1000;
-            document.getElementById('userPlan').textContent = userPlan;
-            document.getElementById('minTaskText').textContent = `Minimum Withdrawal: ₦${minTaskWithdrawal.toLocaleString()}`;
-            checkWithdrawalDates();
-        }
-
         function loadBalances() {
-            document.getElementById('taskBalance').textContent = parseInt(localStorage.getItem('clickmoni_balance') || '0').toLocaleString();
-            document.getElementById('affiliateBalance').textContent = parseInt(localStorage.getItem('clickmoni_ref_earned') || '0').toLocaleString();
+            taskBalance = parseInt(localStorage.getItem('clickmoni_balance') || '0');
+            affiliateBalance = parseInt(localStorage.getItem('clickmoni_ref_earned') || '0');
+            const taskMin = PLAN_MINIMUMS[userPlan] || 0;
+
+            document.getElementById('taskBalance').textContent = taskBalance.toLocaleString();
+            document.getElementById('affiliateBalance').textContent = affiliateBalance.toLocaleString();
+            document.getElementById('taskPlan').textContent = userPlan;
+            document.getElementById('taskMin').textContent = taskMin.toLocaleString();
         }
 
-        function checkWithdrawalDates() {
-            // Check Task Withdrawal: 2 times per month
-            let taskWithdrawals = JSON.parse(localStorage.getItem('clickmoni_task_withdrawals') || '[]');
-            let thisMonth = new Date().getMonth();
-            let thisYear = new Date().getFullYear();
-            let thisMonthWithdrawals = taskWithdrawals.filter(w => {
-                let d = new Date(w.date);
-                return d.getMonth() === thisMonth && d.getFullYear() === thisYear;
-            });
-
-            if (thisMonthWithdrawals.length >= TASK_WITHDRAW_LIMIT) {
-                document.getElementById('taskNextDate').textContent = 'Limit reached: 2/2 used this month';
-                document.getElementById('normalBtn').disabled = true;
-            } else {
-                document.getElementById('taskNextDate').textContent = `Withdrawals left this month: ${TASK_WITHDRAW_LIMIT - thisMonthWithdrawals.length}`;
-            }
-
-            // Check Affiliate Withdrawal: Every 2 days
-            let affiliateWithdrawals = JSON.parse(localStorage.getItem('clickmoni_affiliate_withdrawals') || '[]');
-            if (affiliateWithdrawals.length > 0) {
-                let lastDate = new Date(affiliateWithdrawals[affiliateWithdrawals.length - 1].date);
-                let nextDate = new Date(lastDate);
-                nextDate.setDate(nextDate.getDate() + AFFILIATE_DAYS_LIMIT);
-
-                if (new Date() < nextDate) {
-                    document.getElementById('affiliateNextDate').textContent = `Next withdrawal: ${nextDate.toLocaleDateString('en-GB')}`;
-                    document.getElementById('affiliateBtn').disabled = true;
-                } else {
-                    document.getElementById('affiliateNextDate').textContent = 'Available now';
-                }
-            } else {
-                document.getElementById('affiliateNextDate').textContent = 'Available now';
-            }
-        }
-
-        function switchTab(tab) {
-            document.getElementById('normalTab').style.display = tab === 'normal'? 'block' : 'none';
-            document.getElementById('affiliateTab').style.display = tab === 'affiliate'? 'block' : 'none';
+        function showTab(tab) {
             document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
-            event.target.classList.add('active');
-        }
+            document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
 
-        function checkNormalMin() {
-            const amount = parseInt(document.getElementById('normalAmount').value) || 0;
-            const balance = parseInt(localStorage.getItem('clickmoni_balance') || '0');
-            const error = document.getElementById('normalError');
-            const btn = document.getElementById('normalBtn');
-
-            // Check monthly limit first
-            let taskWithdrawals = JSON.parse(localStorage.getItem('clickmoni_task_withdrawals') || '[]');
-            let thisMonth = new Date().getMonth();
-            let thisMonthWithdrawals = taskWithdrawals.filter(w => new Date(w.date).getMonth() === thisMonth);
-            if (thisMonthWithdrawals.length >= TASK_WITHDRAW_LIMIT) {
-                error.textContent = 'Monthly limit reached: 2 withdrawals used';
-                error.style.display = 'block';
-                btn.disabled = true;
-                return;
-            }
-
-            if (amount < minTaskWithdrawal) {
-                error.textContent = `Minimum withdrawal for ${userPlan} plan is ₦${minTaskWithdrawal.toLocaleString()}`;
-                error.style.display = 'block';
-                btn.disabled = true;
-            } else if (amount > balance) {
-                error.textContent = 'Insufficient task balance';
-                error.style.display = 'block';
-                btn.disabled = true;
+            if (tab === 'task') {
+                document.querySelectorAll('.tab')[0].classList.add('active');
+                document.getElementById('taskTab').classList.add('active');
             } else {
-                error.style.display = 'none';
-                btn.disabled = false;
+                document.querySelectorAll('.tab')[1].classList.add('active');
+                document.getElementById('affiliateTab').classList.add('active');
             }
         }
 
-        function checkAffiliateMin() {
+        function checkTaskAmount() {
+            const amount = parseInt(document.getElementById('taskAmount').value) || 0;
+            const min = PLAN_MINIMUMS[userPlan] || 0;
+            const btn = document.getElementById('taskBtn');
+            btn.disabled = amount < min || amount > taskBalance || amount === 0;
+        }
+
+        function checkAffiliateAmount() {
             const amount = parseInt(document.getElementById('affiliateAmount').value) || 0;
-            const balance = parseInt(localStorage.getItem('clickmoni_ref_earned') || '0');
-            const error = document.getElementById('affiliateError');
             const btn = document.getElementById('affiliateBtn');
-
-            // Check 2-day limit first
-            let affiliateWithdrawals = JSON.parse(localStorage.getItem('clickmoni_affiliate_withdrawals') || '[]');
-            if (affiliateWithdrawals.length > 0) {
-                let lastDate = new Date(affiliateWithdrawals[affiliateWithdrawals.length - 1].date);
-                let nextDate = new Date(lastDate);
-                nextDate.setDate(nextDate.getDate() + AFFILIATE_DAYS_LIMIT);
-                if (new Date() < nextDate) {
-                    error.textContent = `Next withdrawal available: ${nextDate.toLocaleDateString('en-GB')}`;
-                    error.style.display = 'block';
-                    btn.disabled = true;
-                    return;
-                }
-            }
-
-            if (amount < MIN_AFFILIATE) {
-                error.textContent = `Minimum affiliate withdrawal is ₦${MIN_AFFILIATE.toLocaleString()}`;
-                error.style.display = 'block';
-                btn.disabled = true;
-            } else if (amount > balance) {
-                error.textContent = 'Insufficient affiliate balance';
-                error.style.display = 'block';
-                btn.disabled = true;
-            } else {
-                error.style.display = 'none';
-                btn.disabled = false;
-            }
+            btn.disabled = amount < MIN_AFFILIATE || amount > affiliateBalance || amount === 0;
         }
 
-        function submitNormal() {
-            const amount = parseInt(document.getElementById('normalAmount').value);
-            const bank = document.getElementById('normalBank').value;
-            const account = document.getElementById('normalAccount').value;
-            const name = document.getElementById('normalName').value;
+        function submitTaskWithdraw() {
+            const amount = parseInt(document.getElementById('taskAmount').value);
+            const bank = document.getElementById('taskBank').value;
+            const account = document.getElementById('taskAccount').value;
+            const name = document.getElementById('taskName').value;
 
             if (!bank ||!account ||!name) {
                 alert('Fill all bank details');
@@ -292,34 +229,26 @@
             }
 
             let withdrawals = JSON.parse(localStorage.getItem('clickmoni_withdrawals') || '[]');
-            let taskWithdrawals = JSON.parse(localStorage.getItem('clickmoni_task_withdrawals') || '[]');
-
-            const withdrawalData = {
+            withdrawals.push({
                 user: localStorage.getItem('clickmoni_user'),
+                type: 'task',
                 amount: amount,
                 bank: bank,
                 account: account,
                 name: name,
-                type: 'task',
                 plan: userPlan,
                 date: new Date().toISOString(),
                 status: 'pending'
-            };
-
-            withdrawals.push(withdrawalData);
-            taskWithdrawals.push(withdrawalData);
+            });
 
             localStorage.setItem('clickmoni_withdrawals', JSON.stringify(withdrawals));
-            localStorage.setItem('clickmoni_task_withdrawals', JSON.stringify(taskWithdrawals));
+            localStorage.setItem('clickmoni_balance', taskBalance - amount);
 
-            let balance = parseInt(localStorage.getItem('clickmoni_balance') || '0');
-            localStorage.setItem('clickmoni_balance', balance - amount);
-
-            alert(`Task withdrawal submitted!\n\n₦${amount.toLocaleString()} to ${bank}\n\nCEO @Monigold will process in 24-48hrs`);
-            window.location.href = 'dashboard.html';
+            alert('Withdrawal submitted! CEO @Monigold will process within 24 hours.');
+            location.reload();
         }
 
-        function submitAffiliate() {
+        function submitAffiliateWithdraw() {
             const amount = parseInt(document.getElementById('affiliateAmount').value);
             const bank = document.getElementById('affiliateBank').value;
             const account = document.getElementById('affiliateAccount').value;
@@ -331,30 +260,46 @@
             }
 
             let withdrawals = JSON.parse(localStorage.getItem('clickmoni_withdrawals') || '[]');
-            let affiliateWithdrawals = JSON.parse(localStorage.getItem('clickmoni_affiliate_withdrawals') || '[]');
-
-            const withdrawalData = {
+            withdrawals.push({
                 user: localStorage.getItem('clickmoni_user'),
+                type: 'affiliate',
                 amount: amount,
                 bank: bank,
                 account: account,
                 name: name,
-                type: 'affiliate',
                 date: new Date().toISOString(),
                 status: 'pending'
-            };
-
-            withdrawals.push(withdrawalData);
-            affiliateWithdrawals.push(withdrawalData);
+            });
 
             localStorage.setItem('clickmoni_withdrawals', JSON.stringify(withdrawals));
-            localStorage.setItem('clickmoni_affiliate_withdrawals', JSON.stringify(affiliateWithdrawals));
+            localStorage.setItem('clickmoni_ref_earned', affiliateBalance - amount);
 
-            let balance = parseInt(localStorage.getItem('clickmoni_ref_earned') || '0');
-            localStorage.setItem('clickmoni_ref_earned', balance - amount);
+            alert('Withdrawal submitted! CEO @Monigold will process within 24 hours.');
+            location.reload();
+        }
 
-            alert(`Affiliate withdrawal submitted!\n\n₦${amount.toLocaleString()} to ${bank}\n\nCEO @Monigold will process in 24-48hrs`);
-            window.location.href = 'dashboard.html';
+        function loadHistory() {
+            const withdrawals = JSON.parse(localStorage.getItem('clickmoni_withdrawals') || '[]');
+            const container = document.getElementById('withdrawHistory');
+
+            if (withdrawals.length === 0) {
+                container.innerHTML = '<p style="color:#666; text-align:center; padding:20px;">No withdrawal history</p>';
+                return;
+            }
+
+            container.innerHTML = withdrawals.reverse().map(w => `
+                <div class="history-item">
+                    <div class="history-header">
+                        <div class="history-amount">₦${w.amount.toLocaleString()}</div>
+                        <div class="history-status status-${w.status}">${w.status}</div>
+                    </div>
+                    <div style="color:#aaa; font-size:14px;">
+                        ${w.type === 'task'? 'Task Balance' : 'Affiliate Balance'}<br>
+                        ${w.bank} - ${w.account}<br>
+                        ${new Date(w.date).toLocaleDateString('en-GB')}
+                    </div>
+                </div>
+            `).join('');
         }
     </script>
 </body>
