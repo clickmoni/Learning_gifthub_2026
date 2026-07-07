@@ -22,8 +22,10 @@
      .input-group { margin: 20px 0; }
      .input-group label { color: #FFD700; font-size: 14px; font-weight: 600; display: block; margin-bottom: 8px; }
      .input-group input { width: 100%; padding: 14px; background: #000; border: 1px solid #333; border-radius: 10px; color: #fff; font-size: 15px; }
-     .btn { background: #FFD700; color: #000; border: none; padding: 16px; border-radius: 12px; font-weight: 800; font-size: 17px; cursor: pointer; width: 100%; margin-top: 15px; }
+     .input-group input:focus { border-color: #FFD700; outline: none; }
+     .btn { background: #FFD700; color: #000; border: none; padding: 16px; border-radius: 12px; font-weight: 800; font-size: 17px; cursor: pointer; width: 100%; margin-top: 15px; transition: all 0.3s; }
      .btn:disabled { background: #333; color: #666; cursor: not-allowed; }
+     .btn:not(:disabled):hover { background: #ffed4e; transform: scale(1.02); }
      .info { background: #001a33; border: 1px solid #0088cc; border-radius: 10px; padding: 15px; margin: 20px 0; font-size: 14px; color: #aaa; }
      .info strong { color: #FFD700; }
      .success { background: #003300; border: 2px solid #00ff00; border-radius: 14px; padding: 25px; text-align: center; margin: 20px 0; display: none; }
@@ -31,6 +33,8 @@
      .approved { background: #002200; border: 2px solid #00ff00; border-radius: 14px; padding: 25px; text-align: center; margin: 20px 0; display: none; }
      .approved h2 { color: #00ff00; margin-bottom: 10px; }
      .link-display { background: #000; border: 1px solid #00ff00; border-radius: 10px; padding: 12px; margin: 15px 0; color: #00aaff; word-break: break-all; }
+     .valid-hint { color: #00ff00; font-size: 12px; margin-top: 5px; display: none; }
+     .invalid-hint { color: #ff0000; font-size: 12px; margin-top: 5px; display: none; }
     </style>
 </head>
 <body>
@@ -60,7 +64,7 @@
             <div class="step">
                 <div class="step-title"><span class="step-num">1</span>Join Our Telegram Community</div>
                 <div class="step-desc">
-                    Join <a href="https://t.me/ClickMoniOfficial" target="_blank">@ClickMoniOfficial</a> to download daily marketing flyers.
+                    Join <a href="https:                                                                                                    
                 </div>
             </div>
 
@@ -74,14 +78,16 @@
             <div class="step">
                 <div class="step-title"><span class="step-num">3</span>Submit Your Profile Link ONCE</div>
                 <div class="step-desc">
-                    Paste your profile link below. Example: https://facebook.com/yourname<br>
+                    Paste your profile link below. Example: https:                           
                     CEO @Monigold will verify once. After approval, you earn ₦<span id="earnAmount1">0</span> DAILY automatically.
                 </div>
             </div>
 
             <div class="input-group">
                 <label>Your Social Media Profile Link</label>
-                <input type="url" id="profileLink" placeholder="https://facebook.com/yourname" oninput="checkLink()">
+                <input type="url" id="profileLink" placeholder="https://facebook.com/yourname" oninput="checkLink()" onpaste="setTimeout(checkLink, 100)">
+                <div class="valid-hint" id="validHint">✅ Valid social media link detected</div>
+                <div class="invalid-hint" id="invalidHint">❌ Please enter a valid Facebook, Instagram, TikTok or Twitter profile link</div>
             </div>
 
             <button class="btn" id="submitBtn" onclick="submitProfile()" disabled>Submit Profile For Approval</button>
@@ -100,7 +106,7 @@
             <h2>⏳ Profile Submitted!</h2>
             <p>Your social media profile is under review by CEO @Monigold.</p>
             <div class="link-display" id="submittedLink"></div>
-            <p style="color:#aaa; margin-top:10px;">Once approved, you will receive ₦<span id="earnAmount3">0</span> daily automatically.</p>
+            <p style="color:                                                                                                                   
         </div>
 
         <div class="approved" id="approvedBox">
@@ -108,7 +114,7 @@
             <p>Your social media task is ACTIVE.</p>
             <div class="link-display" id="approvedLink"></div>
             <p style="color:#00ff00; margin-top:15px; font-weight:700;">₦<span id="earnAmount4">0</span> will be added to your balance every 24 hours.</p>
-            <p style="color:#aaa; margin-top:10px;">Remember: Post ClickMoni flyer on this profile daily to keep earning.</p>
+            <p style="color:                                                                                                 
             <p style="color:#ffaa00; margin-top:15px;">Last payment: <span id="lastPayment">Never</span></p>
         </div>
     </div>
@@ -163,18 +169,42 @@
         }
 
         function checkLink() {
-            const link = document.getElementById('profileLink').value;
+            const link = document.getElementById('profileLink').value.trim();
             const btn = document.getElementById('submitBtn');
+            const validHint = document.getElementById('validHint');
+            const invalidHint = document.getElementById('invalidHint');
 
-            if (link.length > 15 && (link.includes('facebook.com') || link.includes('instagram.com') || link.includes('tiktok.com') || link.includes('twitter.com') || link.includes('x.com'))) {
+            // FIXED: Better validation - accepts more formats
+            const isValid = link.length > 10 && (
+                link.includes('facebook.com/') || 
+                link.includes('fb.com/') ||
+                link.includes('instagram.com/') || 
+                link.includes('tiktok.com/') || 
+                link.includes('twitter.com/') || 
+                link.includes('x.com/')
+            ) && link.startsWith('http');
+
+            if (isValid) {
                 btn.disabled = false;
+                validHint.style.display = 'block';
+                invalidHint.style.display = 'none';
+                document.getElementById('profileLink').style.borderColor = '         
             } else {
                 btn.disabled = true;
+                if (link.length > 0) {
+                    validHint.style.display = 'none';
+                    invalidHint.style.display = 'block';
+                    document.getElementById('profileLink').style.borderColor = '#ff0000';
+                } else {
+                    validHint.style.display = 'none';
+                    invalidHint.style.display = 'none';
+                    document.getElementById('profileLink').style.borderColor = '      
+                }
             }
         }
 
         function submitProfile() {
-            const link = document.getElementById('profileLink').value;
+            const link = document.getElementById('profileLink').value.trim();
             if (!link) return;
 
             const user = localStorage.getItem('clickmoni_user');
@@ -233,4 +263,4 @@
         }
     </script>
 </body>
-                </html>
+</html>
