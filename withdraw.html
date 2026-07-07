@@ -7,26 +7,26 @@
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body { font-family: 'Segoe UI', Arial, sans-serif; background: #000; color: #fff; padding: 15px; }
-       .back { color: #FFD700; text-decoration: none; font-weight: 600; display: block; margin-bottom: 20px; }
-       .logo { color: #FFD700; font-size: 24px; font-weight: 800; text-align: center; margin-bottom: 20px; }
-       .warning { background: #330000; border: 2px solid #ff0000; border-radius: 14px; padding: 25px; text-align: center; margin: 40px 0; display: none; }
-       .warning h2 { color: #ff0000; margin-bottom: 15px; }
-       .box { background: #111; border: 2px solid #FFD700; border-radius: 18px; padding: 25px; margin: 18px 0; }
+      .back { color: #FFD700; text-decoration: none; font-weight: 600; display: block; margin-bottom: 20px; }
+      .logo { color: #FFD700; font-size: 24px; font-weight: 800; text-align: center; margin-bottom: 20px; }
+      .warning { background: #330000; border: 2px solid #ff0000; border-radius: 14px; padding: 25px; text-align: center; margin: 40px 0; display: none; }
+      .warning h2 { color: #ff0000; margin-bottom: 15px; }
+      .box { background: #111; border: 2px solid #FFD700; border-radius: 18px; padding: 25px; margin: 18px 0; }
         h1 { color: #FFD700; text-align: center; margin-bottom: 20px; font-size: 24px; }
         h3 { color: #FFD700; margin-bottom: 15px; font-size: 18px; }
-       .balance { color: #00ff00; font-size: 32px; font-weight: 800; text-align: center; margin: 20px 0; }
-       .input-group { margin: 15px 0; }
-       .input-group label { color: #FFD700; font-size: 14px; font-weight: 600; display: block; margin-bottom: 8px; }
-       .input-group input,.input-group select { width: 100%; padding: 14px; background: #000; border: 1px solid #333; border-radius: 10px; color: #fff; font-size: 16px; }
-       .btn { background: #FFD700; color: #000; border: none; padding: 16px; border-radius: 12px; font-weight: 800; font-size: 17px; cursor: pointer; width: 100%; margin-top: 20px; }
-       .btn:disabled { background: #333; color: #666; cursor: not-allowed; }
-       .info { background: #001a33; border: 1px solid #0088cc; border-radius: 10px; padding: 15px; margin: 20px 0; font-size: 14px; color: #aaa; }
-       .info strong { color: #FFD700; }
-       .tabs { display: flex; gap: 10px; margin-bottom: 20px; }
-       .tab { background: #111; color: #FFD700; border: 1px solid #FFD700; padding: 12px; border-radius: 10px; cursor: pointer; font-weight: 600; flex: 1; text-align: center; }
-       .tab.active { background: #FFD700; color: #000; }
-       .error { color: #ff0000; font-size: 13px; margin-top: 8px; display: none; }
-       .limit-info { color: #ffaa00; font-size: 13px; text-align: center; margin: 10px 0; }
+      .balance { color: #00ff00; font-size: 32px; font-weight: 800; text-align: center; margin: 20px 0; }
+      .input-group { margin: 15px 0; }
+      .input-group label { color: #FFD700; font-size: 14px; font-weight: 600; display: block; margin-bottom: 8px; }
+      .input-group input,.input-group select { width: 100%; padding: 14px; background: #000; border: 1px solid #333; border-radius: 10px; color: #fff; font-size: 16px; }
+      .btn { background: #FFD700; color: #000; border: none; padding: 16px; border-radius: 12px; font-weight: 800; font-size: 17px; cursor: pointer; width: 100%; margin-top: 20px; }
+      .btn:disabled { background: #333; color: #666; cursor: not-allowed; }
+      .info { background: #001a33; border: 1px solid #0088cc; border-radius: 10px; padding: 15px; margin: 20px 0; font-size: 14px; color: #aaa; }
+      .info strong { color: #FFD700; }
+      .tabs { display: flex; gap: 10px; margin-bottom: 20px; }
+      .tab { background: #111; color: #FFD700; border: 1px solid #FFD700; padding: 12px; border-radius: 10px; cursor: pointer; font-weight: 600; flex: 1; text-align: center; }
+      .tab.active { background: #FFD700; color: #000; }
+      .error { color: #ff0000; font-size: 13px; margin-top: 8px; display: none; }
+      .limit-info { color: #ffaa00; font-size: 13px; text-align: center; margin: 10px 0; }
     </style>
 </head>
 <body>
@@ -71,7 +71,7 @@
                     <option value="">Select Bank</option>
                     <option>Access Bank</option><option>GTBank</option><option>First Bank</option>
                     <option>UBA</option><option>Zenith Bank</option><option>Opay</option>
-                    <option>Palmpay</option><option>Kuda</option>
+                    <option>Palmpay</option><option>Kuda</option><option>Moniepoint</option>
                 </select>
             </div>
 
@@ -111,7 +111,7 @@
                     <option value="">Select Bank</option>
                     <option>Access Bank</option><option>GTBank</option><option>First Bank</option>
                     <option>UBA</option><option>Zenith Bank</option><option>Opay</option>
-                    <option>Palmpay</option><option>Kuda</option>
+                    <option>Palmpay</option><option>Kuda</option><option>Moniepoint</option>
                 </select>
             </div>
 
@@ -130,12 +130,14 @@
     </div>
 
     <script>
-        // YOUR RULES SET HERE
+        // YOUR CLICKMONI RULES
         const PLAN_MINIMUMS = {
-            'BRONZE': 18000,
-            'SILVER': 30000,
-            'GOLD': 60000,
-            'PLATINUM': 120000
+            'TEST': 1000, // ₦100 plan → Min ₦1,000
+            'STARTER': 10000, // ₦1,000 plan → Min ₦10,000
+            'BRONZE': 18000, // ₦3,000 plan → Min ₦18,000
+            'SILVER': 6000, // ₦5,000 plan → Min ₦6,000
+            'GOLD': 6000, // ₦10,000 plan → Min ₦6,000
+            'PLATINUM': 6000 // ₦20,000 plan → Min ₦6,000
         };
         const MIN_AFFILIATE = 1000;
         const TASK_WITHDRAW_LIMIT = 2; // times per month
@@ -160,7 +162,7 @@
         };
 
         function setupWithdrawRules() {
-            minTaskWithdrawal = PLAN_MINIMUMS[userPlan] || 18000;
+            minTaskWithdrawal = PLAN_MINIMUMS[userPlan] || 1000;
             document.getElementById('userPlan').textContent = userPlan;
             document.getElementById('minTaskText').textContent = `Minimum Withdrawal: ₦${minTaskWithdrawal.toLocaleString()}`;
             checkWithdrawalDates();
@@ -289,7 +291,6 @@
                 return;
             }
 
-            // Save withdrawal record
             let withdrawals = JSON.parse(localStorage.getItem('clickmoni_withdrawals') || '[]');
             let taskWithdrawals = JSON.parse(localStorage.getItem('clickmoni_task_withdrawals') || '[]');
 
@@ -311,7 +312,6 @@
             localStorage.setItem('clickmoni_withdrawals', JSON.stringify(withdrawals));
             localStorage.setItem('clickmoni_task_withdrawals', JSON.stringify(taskWithdrawals));
 
-            // Deduct balance
             let balance = parseInt(localStorage.getItem('clickmoni_balance') || '0');
             localStorage.setItem('clickmoni_balance', balance - amount);
 
@@ -330,7 +330,6 @@
                 return;
             }
 
-            // Save withdrawal record
             let withdrawals = JSON.parse(localStorage.getItem('clickmoni_withdrawals') || '[]');
             let affiliateWithdrawals = JSON.parse(localStorage.getItem('clickmoni_affiliate_withdrawals') || '[]');
 
@@ -351,7 +350,6 @@
             localStorage.setItem('clickmoni_withdrawals', JSON.stringify(withdrawals));
             localStorage.setItem('clickmoni_affiliate_withdrawals', JSON.stringify(affiliateWithdrawals));
 
-            // Deduct balance
             let balance = parseInt(localStorage.getItem('clickmoni_ref_earned') || '0');
             localStorage.setItem('clickmoni_ref_earned', balance - amount);
 
@@ -360,4 +358,4 @@
         }
     </script>
 </body>
-                                                                      </html>
+    </html>
