@@ -3,250 +3,104 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Admin Panel - ClickMoni</title>
+    <title>ClickMoni Admin</title>
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body { font-family: 'Segoe UI', Arial, sans-serif; background: #000; color: #fff; padding: 15px; }
-       .header { text-align: center; margin-bottom: 25px; }
-       .header h1 { color: #FFD700; font-size: 28px; font-weight: 800; }
-       .header p { color: #888; font-size: 13px; margin-top: 5px; }
-       .stats { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 25px; }
-       .stat-card { background: #111; border: 1px solid #333; border-radius: 14px; padding: 18px; text-align: center; }
-       .stat-card p { color: #666; font-size: 12px; font-weight: 600; }
-       .stat-card h2 { color: #FFD700; font-size: 28px; margin-top: 8px; font-weight: 800; }
-       .section { background: #111; border: 1px solid #333; border-radius: 14px; padding: 20px; margin: 20px 0; }
-       .section h2 { color: #FFD700; font-size: 18px; margin-bottom: 15px; }
-        table { width: 100%; border-collapse: collapse; font-size: 13px; }
-        th { color: #FFD700; text-align: left; padding: 10px 5px; border-bottom: 1px solid #333; }
-        td { color: #ccc; padding: 12px 5px; border-bottom: 1px solid #222; }
-       .btn { padding: 6px 12px; border: none; border-radius: 6px; font-weight: 600; cursor: pointer; font-size: 12px; }
-       .btn-approve { background: #00ff00; color: #000; }
-       .btn-reject { background: #ff0000; color: #fff; }
-       .empty { color: #666; text-align: center; padding: 20px; }
-       .tabs { display: flex; gap: 8px; margin-bottom: 20px; flex-wrap: wrap; }
-       .tab { background: #111; color: #FFD700; border: 1px solid #FFD700; padding: 10px 15px; border-radius: 10px; cursor: pointer; font-weight: 600; font-size: 13px; }
-       .tab.active { background: #FFD700; color: #000; }
+    .logo { color: #FFD700; font-size: 24px; font-weight: 800; text-align: center; margin-bottom: 20px; }
+    .tabs { display: flex; gap: 10px; margin: 20px 0; overflow-x: auto; }
+    .tab { background: #111; color: #FFD700; border: 1px solid #FFD700; padding: 12px 20px; border-radius: 10px; cursor: pointer; font-weight: 600; white-space: nowrap; }
+    .tab.active { background: #FFD700; color: #000; }
+    .tab-content { display: none; }
+    .tab-content.active { display: block; }
+    .box { background: #111; border: 2px solid #FFD700; border-radius: 18px; padding: 20px; margin: 15px 0; }
+    .box h3 { color: #FFD700; margin-bottom: 15px; }
+    .item { background: #000; border: 1px solid #333; border-radius: 10px; padding: 15px; margin: 10px 0; }
+    .item-header { display: flex; justify-content: space-between; margin-bottom: 10px; }
+    .item-user { color: #FFD700; font-weight: 700; }
+    .item-amount { color: #00ff00; font-weight: 700; }
+    .item-details { color: #aaa; font-size: 14px; line-height: 1.6; }
+    .item-actions { display: flex; gap: 10px; margin-top: 12px; }
+    .btn { padding: 8px 16px; border: none; border-radius: 8px; font-weight: 700; cursor: pointer; }
+    .btn-approve { background: #00ff00; color: #000; }
+    .btn-reject { background: #ff0000; color: #fff; }
+    .stats { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; margin: 20px 0; }
+    .stat { background: #111; border: 1px solid #FFD700; border-radius: 14px; padding: 20px; text-align: center; }
+    .stat p { color: #666; font-size: 12px; font-weight: 600; }
+    .stat h3 { color: #FFD700; font-size: 24px; margin-top: 8px; }
+    .link-box { background: #001a33; border: 1px solid #0088cc; border-radius: 8px; padding: 10px; margin: 8px 0; word-break: break-all; color: #00aaff; }
     </style>
 </head>
 <body>
-    <div class="header">
-        <h1>💰 ClickMoni Admin Panel</h1>
-        <p>CEO: @Monigold | Manage everything</p>
-    </div>
+    <div class="logo">ClickMoni Admin</div>
 
     <div class="stats">
-        <div class="stat-card">
+        <div class="stat">
             <p>TOTAL USERS</p>
-            <h2 id="totalUsers">0</h2>
+            <h3 id="totalUsers">0</h3>
         </div>
-        <div class="stat-card">
-            <p>ACTIVATIONS</p>
-            <h2 id="totalActivations">0</h2>
-        </div>
-        <div class="stat-card">
+        <div class="stat">
             <p>PENDING JOBS</p>
-            <h2 id="pendingJobs">0</h2>
+            <h3 id="pendingJobs">0</h3>
         </div>
-        <div class="stat-card">
-            <p>TOTAL REVENUE</p>
-            <h2>₦<span id="totalRevenue">0</span></h2>
+        <div class="stat">
+            <p>PENDING WITHDRAWALS</p>
+            <h3 id="pendingWithdraws">0</h3>
+        </div>
+        <div class="stat">
+            <p>TOTAL PAID</p>
+            <h3>₦<span id="totalPaid">0</span></h3>
         </div>
     </div>
 
     <div class="tabs">
-        <button class="tab active" onclick="showTab('activations')">Activations</button>
-        <button class="tab" onclick="showTab('jobs')">Pending Jobs</button>
-        <button class="tab" onclick="showTab('withdrawals')">Withdrawals</button>
-        <button class="tab" onclick="showTab('referrals')">Referrals</button>
+        <div class="tab active" onclick="showTab('jobs')">Jobs/Profiles</div>
+        <div class="tab" onclick="showTab('withdrawals')">Withdrawals</div>
+        <div class="tab" onclick="showTab('users')">Users</div>
     </div>
 
-    <div class="section" id="activationsTab">
-        <h2>Account Activations</h2>
-        <table>
-            <thead>
-                <tr>
-                    <th>User</th>
-                    <th>Plan</th>
-                    <th>Amount</th>
-                    <th>Date</th>
-                    <th>Status</th>
-                </tr>
-            </thead>
-            <tbody id="activationsBody">
-                <tr><td colspan="5" class="empty">No activations yet</td></tr>
-            </tbody>
-        </table>
+    <div class="tab-content active" id="jobsTab">
+        <div class="box">
+            <h3>Pending Social Media Profiles & Jobs</h3>
+            <div id="jobsList"></div>
+        </div>
     </div>
 
-    <div class="section" id="jobsTab" style="display:none;">
-        <h2>Pending Jobs</h2>
-        <table>
-            <thead>
-                <tr>
-                    <th>User</th>
-                    <th>Job</th>
-                    <th>Reward</th>
-                    <th>Proof</th>
-                    <th>Date</th>
-                    <th>Action</th>
-                </tr>
-            </thead>
-            <tbody id="jobsBody">
-                <tr><td colspan="6" class="empty">No pending jobs</td></tr>
-            </tbody>
-        </table>
+    <div class="tab-content" id="withdrawalsTab">
+        <div class="box">
+            <h3>Pending Withdrawals</h3>
+            <div id="withdrawalsList"></div>
+        </div>
     </div>
 
-    <div class="section" id="withdrawalsTab" style="display:none;">
-        <h2>Pending Withdrawals</h2>
-        <table>
-            <thead>
-                <tr>
-                    <th>User</th>
-                    <th>Amount</th>
-                    <th>Bank</th>
-                    <th>Account</th>
-                    <th>Date</th>
-                    <th>Action</th>
-                </tr>
-            </thead>
-            <tbody id="withdrawalsBody">
-                <tr><td colspan="6" class="empty">No pending withdrawals</td></tr>
-            </tbody>
-        </table>
-    </div>
-
-    <div class="section" id="referralsTab" style="display:none;">
-        <h2>Referral Activity</h2>
-        <table>
-            <thead>
-                <tr>
-                    <th>Sponsor</th>
-                    <th>New User</th>
-                    <th>Plan Bought</th>
-                    <th>Commission</th>
-                    <th>Date</th>
-                </tr>
-            </thead>
-            <tbody id="referralsBody">
-                <tr><td colspan="5" class="empty">No referrals yet</td></tr>
-            </tbody>
-        </table>
+    <div class="tab-content" id="usersTab">
+        <div class="box">
+            <h3>All Users</h3>
+            <div id="usersList"></div>
+        </div>
     </div>
 
     <script>
-        function loadData() {
-            // Load activations
-            let activations = JSON.parse(localStorage.getItem('clickmoni_activations') || '[]');
-            document.getElementById('totalActivations').textContent = activations.length;
+        window.onload = function() {
+            loadStats();
+            loadJobs();
+            loadWithdrawals();
+            loadUsers();
+        };
 
-            let totalRevenue = activations.reduce((sum, a) => sum + a.amount, 0);
-            document.getElementById('totalRevenue').textContent = totalRevenue.toLocaleString();
-
-            let actHTML = '';
-            activations.slice().reverse().forEach(a => {
-                actHTML += `
-                    <tr>
-                        <td>${a.user}</td>
-                        <td>${a.plan}</td>
-                        <td>₦${a.amount.toLocaleString()}</td>
-                        <td>${a.date}</td>
-                        <td style="color:#00ff00;">Active</td>
-                    </tr>
-                `;
-            });
-            if(actHTML) document.getElementById('activationsBody').innerHTML = actHTML;
-
-            // Load pending jobs
-            let pendingJobs = JSON.parse(localStorage.getItem('clickmoni_pending_jobs') || '[]');
-            document.getElementById('pendingJobs').textContent = pendingJobs.filter(j => j.status === 'pending').length;
-
-            let jobsHTML = '';
-            pendingJobs.filter(j => j.status === 'pending').forEach((job, index) => {
-                jobsHTML += `
-                    <tr>
-                        <td>${job.user}</td>
-                        <td>${job.job}</td>
-                        <td>₦${job.reward}</td>
-                        <td>${job.proof.substring(0,20)}...</td>
-                        <td>${job.date}</td>
-                        <td>
-                            <button class="btn btn-approve" onclick="approveJob(${index})">Approve</button>
-                            <button class="btn btn-reject" onclick="rejectJob(${index})">Reject</button>
-                        </td>
-                    </tr>
-                `;
-            });
-            if(jobsHTML) document.getElementById('jobsBody').innerHTML = jobsHTML;
-
-            // Load withdrawals
-            let withdrawals = JSON.parse(localStorage.getItem('clickmoni_withdrawals') || '[]');
-            let withdrawHTML = '';
-            withdrawals.filter(w => w.status === 'pending').forEach((w, index) => {
-                withdrawHTML += `
-                    <tr>
-                        <td>${w.user}</td>
-                        <td>₦${w.amount}</td>
-                        <td>${w.bank}</td>
-                        <td>${w.account}</td>
-                        <td>${w.date}</td>
-                        <td>
-                            <button class="btn btn-approve" onclick="approveWithdraw(${index})">Paid</button>
-                            <button class="btn btn-reject" onclick="rejectWithdraw(${index})">Reject</button>
-                        </td>
-                    </tr>
-                `;
-            });
-            if(withdrawHTML) document.getElementById('withdrawalsBody').innerHTML = withdrawHTML;
-
-            // Count users
-            let allUsers = new Set(activations.map(a => a.user));
-            document.getElementById('totalUsers').textContent = allUsers.size || '1';
-        }
-
-        function approveJob(index) {
-            let pendingJobs = JSON.parse(localStorage.getItem('clickmoni_pending_jobs') || '[]');
-            let job = pendingJobs[index];
-            job.status = 'approved';
-            localStorage.setItem('clickmoni_pending_jobs', JSON.stringify(pendingJobs));
-            alert(`Approved! ₦${job.reward} will be added to ${job.user}'s balance`);
-            loadData();
-        }
-
-        function rejectJob(index) {
-            let pendingJobs = JSON.parse(localStorage.getItem('clickmoni_pending_jobs') || '[]');
-            pendingJobs.splice(index, 1);
-            localStorage.setItem('clickmoni_pending_jobs', JSON.stringify(pendingJobs));
-            loadData();
-        }
-
-        function approveWithdraw(index) {
-            let withdrawals = JSON.parse(localStorage.getItem('clickmoni_withdrawals') || '[]');
-            withdrawals[index].status = 'paid';
-            localStorage.setItem('clickmoni_withdrawals', JSON.stringify(withdrawals));
-            loadData();
-        }
-
-        function rejectWithdraw(index) {
-            let withdrawals = JSON.parse(localStorage.getItem('clickmoni_withdrawals') || '[]');
-            withdrawals.splice(index, 1);
-            localStorage.setItem('clickmoni_withdrawals', JSON.stringify(withdrawals));
-            loadData();
-        }
-
-        function showTab(tabName) {
-            document.getElementById('activationsTab').style.display = 'none';
-            document.getElementById('jobsTab').style.display = 'none';
-            document.getElementById('withdrawalsTab').style.display = 'none';
-            document.getElementById('referralsTab').style.display = 'none';
-            document.getElementById(tabName + 'Tab').style.display = 'block';
-
+        function showTab(tab) {
             document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+            document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
+
             event.target.classList.add('active');
+            document.getElementById(tab + 'Tab').classList.add('active');
         }
 
-        loadData();
-        setInterval(loadData, 3000);
-    </script>
-</body>
-          </html>
+        function loadStats() {
+            const users = JSON.parse(localStorage.getItem('clickmoni_users') || '[]');
+            const jobs = JSON.parse(localStorage.getItem('clickmoni_pending_jobs') || '[]');
+            const withdrawals = JSON.parse(localStorage.getItem('clickmoni_withdrawals') || '[]');
+
+            document.getElementById('totalUsers').textContent = users.length;
+            document.getElementById('pendingJobs').textContent = jobs.filter(j => j.status === 'pending').length;
+            document.getElementById('pendingWithdraws').textContent = withdrawals.filter(w
