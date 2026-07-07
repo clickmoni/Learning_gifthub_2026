@@ -3,79 +3,93 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ClickMoni Admin</title>
+    <title>ClickMoni Admin - @Monigold</title>
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body { font-family: 'Segoe UI', Arial, sans-serif; background: #000; color: #fff; padding: 15px; }
-    .logo { color: #FFD700; font-size: 24px; font-weight: 800; text-align: center; margin-bottom: 20px; }
-    .tabs { display: flex; gap: 10px; margin: 20px 0; overflow-x: auto; }
-    .tab { background: #111; color: #FFD700; border: 1px solid #FFD700; padding: 12px 20px; border-radius: 10px; cursor: pointer; font-weight: 600; white-space: nowrap; }
-    .tab.active { background: #FFD700; color: #000; }
-    .tab-content { display: none; }
-    .tab-content.active { display: block; }
-    .box { background: #111; border: 2px solid #FFD700; border-radius: 18px; padding: 20px; margin: 15px 0; }
-    .box h3 { color: #FFD700; margin-bottom: 15px; }
-    .item { background: #000; border: 1px solid #333; border-radius: 10px; padding: 15px; margin: 10px 0; }
-    .item-header { display: flex; justify-content: space-between; margin-bottom: 10px; }
-    .item-user { color: #FFD700; font-weight: 700; }
-    .item-amount { color: #00ff00; font-weight: 700; }
-    .item-details { color: #aaa; font-size: 14px; line-height: 1.6; }
-    .item-actions { display: flex; gap: 10px; margin-top: 12px; }
-    .btn { padding: 8px 16px; border: none; border-radius: 8px; font-weight: 700; cursor: pointer; }
-    .btn-approve { background: #00ff00; color: #000; }
-    .btn-reject { background: #ff0000; color: #fff; }
-    .stats { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; margin: 20px 0; }
-    .stat { background: #111; border: 1px solid #FFD700; border-radius: 14px; padding: 20px; text-align: center; }
-    .stat p { color: #666; font-size: 12px; font-weight: 600; }
-    .stat h3 { color: #FFD700; font-size: 24px; margin-top: 8px; }
-    .link-box { background: #001a33; border: 1px solid #0088cc; border-radius: 8px; padding: 10px; margin: 8px 0; word-break: break-all; color: #00aaff; }
+   .header { text-align: center; margin-bottom: 25px; }
+   .logo { color: #FFD700; font-size: 26px; font-weight: 800; margin-bottom: 5px; }
+   .ceo { color: #00ff00; font-size: 14px; font-weight: 600; }
+   .stats { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; margin: 20px 0; }
+   .stat { background: #111; border: 1px solid #FFD700; border-radius: 14px; padding: 20px; text-align: center; cursor: pointer; }
+   .stat:hover { background: #1a1a1a; }
+   .stat p { color: #666; font-size: 12px; font-weight: 600; }
+   .stat h3 { color: #FFD700; font-size: 22px; margin-top: 8px; }
+   .tabs { display: flex; gap: 10px; margin: 20px 0; overflow-x: auto; }
+   .tab { background: #111; color: #FFD700; border: 1px solid #FFD700; padding: 12px 20px; border-radius: 10px; cursor: pointer; font-weight: 600; white-space: nowrap; }
+   .tab.active { background: #FFD700; color: #000; }
+   .tab-content { display: none; }
+   .tab-content.active { display: block; }
+   .box { background: #111; border: 2px solid #FFD700; border-radius: 18px; padding: 20px; margin: 15px 0; }
+   .box h3 { color: #FFD700; margin-bottom: 15px; font-size: 18px; }
+   .item { background: #000; border: 1px solid #333; border-radius: 12px; padding: 15px; margin: 12px 0; }
+   .item-header { display: flex; justify-content: space-between; margin-bottom: 10px; }
+   .item-user { color: #FFD700; font-weight: 700; font-size: 16px; }
+   .item-amount { color: #00ff00; font-weight: 700; font-size: 16px; }
+   .item-details { color: #aaa; font-size: 14px; line-height: 1.6; }
+   .item-details strong { color: #fff; }
+   .link-box { background: #001a33; border: 1px solid #0088cc; border-radius: 8px; padding: 10px; margin: 10px 0; }
+   .link-box a { color: #00aaff; word-break: break-all; text-decoration: none; }
+   .item-actions { display: flex; gap: 10px; margin-top: 15px; }
+   .btn { padding: 12px 20px; border: none; border-radius: 10px; font-weight: 800; cursor: pointer; flex: 1; font-size: 15px; }
+   .btn-approve { background: #00ff00; color: #000; }
+   .btn-reject { background: #ff0000; color: #fff; }
+   .btn:hover { opacity: 0.8; }
+   .empty { color: #666; text-align: center; padding: 40px 20px; }
+   .status { padding: 4px 10px; border-radius: 6px; font-size: 12px; font-weight: 700; display: inline-block; }
+   .status-pending { background: #ffaa00; color: #000; }
+   .status-approved { background: #00ff00; color: #000; }
+   .status-rejected { background: #ff0000; color: #fff; }
     </style>
 </head>
 <body>
-    <div class="logo">ClickMoni Admin</div>
+    <div class="header">
+        <div class="logo">ClickMoni Admin</div>
+        <div class="ceo">CEO @Monigold Control Panel</div>
+    </div>
 
     <div class="stats">
+        <div class="stat" onclick="showTab('withdrawals')">
+            <p>PENDING WITHDRAWALS</p>
+            <h3 id="pendingWithdrawals">0</h3>
+        </div>
+        <div class="stat" onclick="showTab('profiles')">
+            <p>PENDING PROFILES</p>
+            <h3 id="pendingProfiles">0</h3>
+        </div>
         <div class="stat">
             <p>TOTAL USERS</p>
             <h3 id="totalUsers">0</h3>
         </div>
         <div class="stat">
-            <p>PENDING JOBS</p>
-            <h3 id="pendingJobs">0</h3>
-        </div>
-        <div class="stat">
-            <p>PENDING WITHDRAWALS</p>
-            <h3 id="pendingWithdraws">0</h3>
-        </div>
-        <div class="stat">
-            <p>TOTAL PAID</p>
-            <h3>₦<span id="totalPaid">0</span></h3>
+            <p>TOTAL PAID OUT</p>
+            <h3>₦<span id="totalPayout">0</span></h3>
         </div>
     </div>
 
     <div class="tabs">
-        <div class="tab active" onclick="showTab('jobs')">Jobs/Profiles</div>
-        <div class="tab" onclick="showTab('withdrawals')">Withdrawals</div>
-        <div class="tab" onclick="showTab('users')">Users</div>
+        <div class="tab active" onclick="showTab('withdrawals')">💰 Withdrawals</div>
+        <div class="tab" onclick="showTab('profiles')">👤 Social Profiles</div>
+        <div class="tab" onclick="showTab('users')">👥 Users</div>
     </div>
 
-    <div class="tab-content active" id="jobsTab">
+    <div class="tab-content active" id="withdrawalsTab">
         <div class="box">
-            <h3>Pending Social Media Profiles & Jobs</h3>
-            <div id="jobsList"></div>
+            <h3>Pending Withdrawal Requests</h3>
+            <div id="withdrawalsList"></div>
         </div>
     </div>
 
-    <div class="tab-content" id="withdrawalsTab">
+    <div class="tab-content" id="profilesTab">
         <div class="box">
-            <h3>Pending Withdrawals</h3>
-            <div id="withdrawalsList"></div>
+            <h3>Pending Social Profile Approvals</h3>
+            <div id="profilesList"></div>
         </div>
     </div>
 
     <div class="tab-content" id="usersTab">
         <div class="box">
-            <h3>All Users</h3>
+            <h3>All Registered Users</h3>
             <div id="usersList"></div>
         </div>
     </div>
@@ -83,8 +97,8 @@
     <script>
         window.onload = function() {
             loadStats();
-            loadJobs();
             loadWithdrawals();
+            loadProfiles();
             loadUsers();
         };
 
@@ -97,10 +111,190 @@
         }
 
         function loadStats() {
-            const users = JSON.parse(localStorage.getItem('clickmoni_users') || '[]');
-            const jobs = JSON.parse(localStorage.getItem('clickmoni_pending_jobs') || '[]');
             const withdrawals = JSON.parse(localStorage.getItem('clickmoni_withdrawals') || '[]');
+            const pendingWithdrawals = withdrawals.filter(w => w.status === 'pending').length;
+            const totalPayout = withdrawals.filter(w => w.status === 'approved').reduce((sum, w) => sum + w.amount, 0);
 
-            document.getElementById('totalUsers').textContent = users.length;
-            document.getElementById('pendingJobs').textContent = jobs.filter(j => j.status === 'pending').length;
-            document.getElementById('pendingWithdraws').textContent = withdrawals.filter(w
+            let pendingProfiles = 0;
+            let totalUsers = 0;
+
+            for (let i = 0; i < localStorage.length; i++) {
+                const key = localStorage.key(i);
+                if (key.startsWith('clickmoni_social_profile_')) {
+                    totalUsers++;
+                    const profile = JSON.parse(localStorage.getItem(key));
+                    if (profile.status === 'pending') pendingProfiles++;
+                }
+            }
+
+            document.getElementById('pendingWithdrawals').textContent = pendingWithdrawals;
+            document.getElementById('pendingProfiles').textContent = pendingProfiles;
+            document.getElementById('totalUsers').textContent = totalUsers;
+            document.getElementById('totalPayout').textContent = totalPayout.toLocaleString();
+        }
+
+        function loadWithdrawals() {
+            const withdrawals = JSON.parse(localStorage.getItem('clickmoni_withdrawals') || '[]');
+            const pending = withdrawals.filter(w => w.status === 'pending').reverse();
+            const container = document.getElementById('withdrawalsList');
+
+            if (pending.length === 0) {
+                container.innerHTML = '<div class="empty">No pending withdrawals</div>';
+                return;
+            }
+
+            container.innerHTML = pending.map((w, index) => `
+                <div class="item">
+                    <div class="item-header">
+                        <div class="item-user">${w.user}</div>
+                        <div class="item-amount">₦${w.amount.toLocaleString()}</div>
+                    </div>
+                    <div class="item-details">
+                        <strong>Type:</strong> ${w.type === 'task'? 'Task Balance' : 'Affiliate Balance'}<br>
+                        <strong>Plan:</strong> ${w.plan || 'N/A'}<br>
+                        <strong>Bank:</strong> ${w.bank}<br>
+                        <strong>Account:</strong> ${w.account}<br>
+                        <strong>Name:</strong> ${w.name}<br>
+                        <strong>Date:</strong> ${new Date(w.date).toLocaleString('en-GB')}
+                    </div>
+                    <div class="item-actions">
+                        <button class="btn btn-approve" onclick="approveWithdrawal(${withdrawals.indexOf(w)})">✅ Approve</button>
+                        <button class="btn btn-reject" onclick="rejectWithdrawal(${withdrawals.indexOf(w)})">❌ Reject</button>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function loadProfiles() {
+            let profiles = [];
+            for (let i = 0; i < localStorage.length; i++) {
+                const key = localStorage.key(i);
+                if (key.startsWith('clickmoni_social_profile_')) {
+                    const profile = JSON.parse(localStorage.getItem(key));
+                    if (profile.status === 'pending') {
+                        profiles.push({...profile, key: key});
+                    }
+                }
+            }
+
+            const container = document.getElementById('profilesList');
+            if (profiles.length === 0) {
+                container.innerHTML = '<div class="empty">No pending profiles</div>';
+                return;
+            }
+
+            container.innerHTML = profiles.map(p => `
+                <div class="item">
+                    <div class="item-header">
+                        <div class="item-user">${p.user}</div>
+                        <div class="item-amount">₦${p.daily}/day</div>
+                    </div>
+                    <div class="item-details">
+                        <strong>Plan:</strong> ${p.plan}<br>
+                        <strong>Submitted:</strong> ${new Date(p.date).toLocaleString('en-GB')}<br>
+                        <strong>Profile Link:</strong>
+                    </div>
+                    <div class="link-box">
+                        <a href="${p.link}" target="_blank">${p.link}</a>
+                    </div>
+                    <div class="item-actions">
+                        <button class="btn btn-approve" onclick="approveProfile('${p.key}')">✅ Approve Profile</button>
+                        <button class="btn btn-reject" onclick="rejectProfile('${p.key}')">❌ Reject</button>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function loadUsers() {
+            let users = [];
+            for (let i = 0; i < localStorage.length; i++) {
+                const key = localStorage.key(i);
+                if (key.startsWith('clickmoni_social_profile_')) {
+                    const profile = JSON.parse(localStorage.getItem(key));
+                    const balance = parseInt(localStorage.getItem('clickmoni_balance') || '0');
+                    const refEarned = parseInt(localStorage.getItem('clickmoni_ref_earned') || '0');
+                    users.push({
+                        phone: profile.user,
+                        plan: profile.plan,
+                        status: profile.status,
+                        balance: balance + refEarned,
+                        link: profile.link
+                    });
+                }
+            }
+
+            const container = document.getElementById('usersList');
+            if (users.length === 0) {
+                container.innerHTML = '<div class="empty">No users yet</div>';
+                return;
+            }
+
+            container.innerHTML = users.map(u => `
+                <div class="item">
+                    <div class="item-header">
+                        <div class="item-user">${u.phone}</div>
+                        <div class="item-amount">₦${u.balance.toLocaleString()}</div>
+                    </div>
+                    <div class="item-details">
+                        <strong>Plan:</strong> ${u.plan}<br>
+                        <strong>Status:</strong> <span class="status status-${u.status}">${u.status}</span><br>
+                        <strong>Profile:</strong> <a href="${u.link}" target="_blank" style="color:#00aaff;">View Link</a>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function approveWithdrawal(index) {
+            let withdrawals = JSON.parse(localStorage.getItem('clickmoni_withdrawals') || '[]');
+            withdrawals[index].status = 'approved';
+            localStorage.setItem('clickmoni_withdrawals', JSON.stringify(withdrawals));
+            alert('Withdrawal approved! User will be notified.');
+            loadStats();
+            loadWithdrawals();
+        }
+
+        function rejectWithdrawal(index) {
+            let withdrawals = JSON.parse(localStorage.getItem('clickmoni_withdrawals') || '[]');
+            const w = withdrawals[index];
+
+            // Refund money
+            if (w.type === 'task') {
+                let balance = parseInt(localStorage.getItem('clickmoni_balance') || '0');
+                localStorage.setItem('clickmoni_balance', balance + w.amount);
+            } else {
+                let refEarned = parseInt(localStorage.getItem('clickmoni_ref_earned') || '0');
+                localStorage.setItem('clickmoni_ref_earned', refEarned + w.amount);
+            }
+
+            withdrawals[index].status = 'rejected';
+            localStorage.setItem('clickmoni_withdrawals', JSON.stringify(withdrawals));
+            alert('Withdrawal rejected. Money refunded to user.');
+            loadStats();
+            loadWithdrawals();
+        }
+
+        function approveProfile(key) {
+            let profile = JSON.parse(localStorage.getItem(key));
+            profile.status = 'approved';
+            profile.lastPayment = new Date().toLocaleDateString('en-GB');
+            localStorage.setItem(key, JSON.stringify(profile));
+
+            // Remove from pending jobs
+            let pendingJobs = JSON.parse(localStorage.getItem('clickmoni_pending_jobs') || '[]');
+            pendingJobs = pendingJobs.filter(j =>!(j.user === profile.user && j.type === 'profile_setup'));
+            localStorage.setItem('clickmoni_pending_jobs', JSON.stringify(pendingJobs));
+
+            alert(`Profile approved! ${profile.user} will now earn ₦${profile.daily} daily.`);
+            loadStats();
+            loadProfiles();
+        }
+
+        function rejectProfile(key) {
+            localStorage.removeItem(key);
+            alert('Profile rejected and removed.');
+            loadStats();
+            loadProfiles();
+        }
+    </script>
+</body>
+        </html>
