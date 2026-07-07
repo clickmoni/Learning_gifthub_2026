@@ -64,7 +64,7 @@
             <div class="step">
                 <div class="step-title"><span class="step-num">1</span>Join Our Telegram Community</div>
                 <div class="step-desc">
-                    Join <a href="https:                                                                                                    
+                    Join <a href="https://t.me/ClickMoniOfficial" target="_blank">@ClickMoniOfficial</a> to download daily marketing flyers.
                 </div>
             </div>
 
@@ -78,7 +78,7 @@
             <div class="step">
                 <div class="step-title"><span class="step-num">3</span>Submit Your Profile Link ONCE</div>
                 <div class="step-desc">
-                    Paste your profile link below. Example: https:                           
+                    Paste your profile link below. Example: https://facebook.com/yourname<br>
                     CEO @Monigold will verify once. After approval, you earn ₦<span id="earnAmount1">0</span> DAILY automatically.
                 </div>
             </div>
@@ -106,7 +106,7 @@
             <h2>⏳ Profile Submitted!</h2>
             <p>Your social media profile is under review by CEO @Monigold.</p>
             <div class="link-display" id="submittedLink"></div>
-            <p style="color:                                                                                                                   
+            <p style="color:#aaa; margin-top:10px;">Once approved, you will receive ₦<span id="earnAmount3">0</span> daily automatically.</p>
         </div>
 
         <div class="approved" id="approvedBox">
@@ -114,7 +114,7 @@
             <p>Your social media task is ACTIVE.</p>
             <div class="link-display" id="approvedLink"></div>
             <p style="color:#00ff00; margin-top:15px; font-weight:700;">₦<span id="earnAmount4">0</span> will be added to your balance every 24 hours.</p>
-            <p style="color:                                                                                                 
+            <p style="color:#aaa; margin-top:10px;">Remember: Post ClickMoni flyer on this profile daily to keep earning.</p>
             <p style="color:#ffaa00; margin-top:15px;">Last payment: <span id="lastPayment">Never</span></p>
         </div>
     </div>
@@ -174,7 +174,6 @@
             const validHint = document.getElementById('validHint');
             const invalidHint = document.getElementById('invalidHint');
 
-            // FIXED: Better validation - accepts more formats
             const isValid = link.length > 10 && (
                 link.includes('facebook.com/') || 
                 link.includes('fb.com/') ||
@@ -188,7 +187,7 @@
                 btn.disabled = false;
                 validHint.style.display = 'block';
                 invalidHint.style.display = 'none';
-                document.getElementById('profileLink').style.borderColor = '         
+                document.getElementById('profileLink').style.borderColor = '#00ff00';
             } else {
                 btn.disabled = true;
                 if (link.length > 0) {
@@ -198,7 +197,7 @@
                 } else {
                     validHint.style.display = 'none';
                     invalidHint.style.display = 'none';
-                    document.getElementById('profileLink').style.borderColor = '      
+                    document.getElementById('profileLink').style.borderColor = '#333';
                 }
             }
         }
@@ -263,4 +262,4 @@
         }
     </script>
 </body>
-</html>
+                    </html>
