@@ -17,13 +17,17 @@
         .form-group label { display: block; margin-bottom: 5px; color: #cbd5e1; font-weight: 600; }
         .form-group input { width: 100%; padding: 12px; border-radius: 8px; border: 1px solid #334155; background: #0f172a; color: white; font-size: 16px; }
         .plans { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 24px; margin-top: 30px; }
-        .plan { background: #1e293b; padding: 30px 25px; border-radius: 16px; text-align: center; border: 2px solid #334155; }
+        .plan { background: #1e293b; padding: 30px 25px; border-radius: 16px; text-align: center; border: 2px solid #334155; position: relative; }
+        .plan.popular { border: 2px solid #ef4444; transform: scale(1.02); }
+        .popular-badge { position: absolute; top: -12px; left: 50%; transform: translateX(-50%); background: #ef4444; padding: 4px 12px; border-radius: 20px; font-size: 12px; font-weight: 700; }
         .price { font-size: 2.5rem; color: #ef4444; margin: 20px 0; font-weight: 700; }
         .btn { background: #ef4444; color: white; padding: 14px 20px; border: none; border-radius: 8px; font-weight: 600; cursor: pointer; width: 100%; font-size: 16px; }
         .btn:hover { background: #dc2626; }
+        .btn:disabled { background: #475569; cursor: not-allowed; }
         .btn-back { background: #334155; margin-top: 10px; }
         ul { text-align: left; margin: 20px 0; padding-left: 20px; color: #cbd5e1; }
         li { margin: 8px 0; }
+        .error { color: #ef4444; font-size: 14px; margin-top: 5px; display: none; }
     </style>
 </head>
 <body>
@@ -33,34 +37,65 @@
 
         <div id="plansSection">
             <div class="plans">
+                <div class="plan popular">
+                    <div class="popular-badge">MOST POPULAR</div>
+                    <h3>Starter Plan</h3>
+                    <div class="price">₦100</div>
+                    <ul>
+                        <li>₦50 Daily Tasks</li>
+                        <li>₦50 Referral Bonus</li>
+                        <li>Basic Support</li>
+                    </ul>
+                    <button class="btn" onclick="showPaymentForm(10000, 'Starter')">Select Starter</button>
+                </div>
                 <div class="plan">
                     <h3>Standard Plan</h3>
                     <div class="price">₦1,000</div>
-                    <ul><li>Premium Tasks Access</li><li>₦200 Referral Bonus</li><li>Priority Support</li></ul>
+                    <ul>
+                        <li>Premium Tasks Access</li>
+                        <li>₦200 Referral Bonus</li>
+                        <li>Priority Support</li>
+                    </ul>
                     <button class="btn" onclick="showPaymentForm(100000, 'Standard')">Select Standard</button>
                 </div>
                 <div class="plan">
                     <h3>Pro Plan</h3>
                     <div class="price">₦3,000</div>
-                    <ul><li>VIP Tasks Access</li><li>₦500 Referral Bonus</li><li>24/7 VIP Support</li></ul>
+                    <ul>
+                        <li>VIP Tasks Access</li>
+                        <li>₦500 Referral Bonus</li>
+                        <li>24/7 VIP Support</li>
+                    </ul>
                     <button class="btn" onclick="showPaymentForm(300000, 'Pro')">Select Pro</button>
                 </div>
                 <div class="plan">
                     <h3>Silver Plan</h3>
                     <div class="price">₦5,000</div>
-                    <ul><li>All Pro Features</li><li>₦1,000 Referral Bonus</li><li>Dedicated Manager</li></ul>
+                    <ul>
+                        <li>All Pro Features</li>
+                        <li>₦1,000 Referral Bonus</li>
+                        <li>Dedicated Manager</li>
+                    </ul>
                     <button class="btn" onclick="showPaymentForm(500000, 'Silver')">Select Silver</button>
                 </div>
                 <div class="plan">
                     <h3>Gold Plan</h3>
                     <div class="price">₦10,000</div>
-                    <ul><li>All Silver Features</li><li>₦2,000 Referral Bonus</li><li>Early Access</li></ul>
+                    <ul>
+                        <li>All Silver Features</li>
+                        <li>₦2,000 Referral Bonus</li>
+                        <li>Early Access</li>
+                    </ul>
                     <button class="btn" onclick="showPaymentForm(1000000, 'Gold')">Select Gold</button>
                 </div>
                 <div class="plan">
                     <h3>Platinum Plan</h3>
                     <div class="price">₦20,000</div>
-                    <ul><li>All Gold Features</li><li>₦5,000 Referral Bonus</li><li>Custom Tasks</li></ul>
+                    <ul>
+                        <li>All Gold Features</li>
+                        <li>₦5,000 Referral Bonus</li>
+                        <li>Custom Tasks</li>
+                    </ul>
                     <button class="btn" onclick="showPaymentForm(2000000, 'Platinum')">Select Platinum</button>
                 </div>
             </div>
@@ -70,15 +105,18 @@
             <h3>Enter Your Details for <span id="selectedPlan"></span> Plan</h3>
             <div class="form-group">
                 <label>Full Name *</label>
-                <input type="text" id="userName" placeholder="John Doe" required>
+                <input type="text" id="userName" placeholder="John Doe" required oninput="validateForm()">
+                <div class="error" id="nameError">Name is required</div>
             </div>
             <div class="form-group">
                 <label>Email Address *</label>
-                <input type="email" id="userEmail" placeholder="john@example.com" required>
+                <input type="email" id="userEmail" placeholder="john@example.com" required oninput="validateForm()">
+                <div class="error" id="emailError">Valid email is required</div>
             </div>
             <div class="form-group">
                 <label>Phone Number *</label>
-                <input type="tel" id="userPhone" placeholder="08123456789" required>
+                <input type="tel" id="userPhone" placeholder="08123456789" required oninput="validateForm()">
+                <div class="error" id="phoneError">Phone is required</div>
             </div>
             <div class="form-group">
                 <label>Bank Account Number (For Withdrawals)</label>
@@ -88,7 +126,7 @@
                 <label>Bank Name</label>
                 <input type="text" id="bankName" placeholder="GTBank">
             </div>
-            <button class="btn" onclick="payWithPaystack()">Pay <span id="selectedAmount"></span> Now</button>
+            <button class="btn" id="payBtn" onclick="payWithPaystack()" disabled>Pay <span id="selectedAmount"></span> Now</button>
             <button class="btn btn-back" onclick="goBack()">← Back to Plans</button>
         </div>
     </div>
@@ -105,11 +143,45 @@
             document.getElementById('plansSection').style.display = 'none';
             document.getElementById('paymentForm').style.display = 'block';
             window.scrollTo(0, 0);
+            validateForm();
         }
 
         function goBack() {
             document.getElementById('paymentForm').style.display = 'none';
             document.getElementById('plansSection').style.display = 'block';
+        }
+
+        function validateForm() {
+            const name = document.getElementById('userName').value.trim();
+            const email = document.getElementById('userEmail').value.trim();
+            const phone = document.getElementById('userPhone').value.trim();
+            const payBtn = document.getElementById('payBtn');
+            
+            let valid = true;
+            
+            if (!name) {
+                document.getElementById('nameError').style.display = 'block';
+                valid = false;
+            } else {
+                document.getElementById('nameError').style.display = 'none';
+            }
+            
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!email || !emailRegex.test(email)) {
+                document.getElementById('emailError').style.display = 'block';
+                valid = false;
+            } else {
+                document.getElementById('emailError').style.display = 'none';
+            }
+            
+            if (!phone || phone.length < 11) {
+                document.getElementById('phoneError').style.display = 'block';
+                valid = false;
+            } else {
+                document.getElementById('phoneError').style.display = 'none';
+            }
+            
+            payBtn.disabled = !valid;
         }
 
         function payWithPaystack() {
@@ -118,16 +190,10 @@
             const phone = document.getElementById('userPhone').value.trim();
             const bankAccount = document.getElementById('bankAccount').value.trim();
             const bankName = document.getElementById('bankName').value.trim();
-
-            if (!name || !email || !phone) {
-                alert('Please fill in Name, Email, and Phone Number');
-                return;
-            }
-
             const ref_by = localStorage.getItem('clickmoni_ref') || '';
             
             let handler = PaystackPop.setup({
-                key: 'pk_live_9cf9be02d532580b4f87d000c52b6893de05362c', // YOUR LIVE KEY
+                key: 'pk_live_9cf9be02d532580b4f87d000c52b6893de05362c',
                 email: email,
                 amount: selectedAmount,
                 currency: 'NGN',
@@ -158,4 +224,4 @@
         }
     </script>
 </body>
-    </html>
+                    </html>
