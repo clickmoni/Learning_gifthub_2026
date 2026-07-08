@@ -99,8 +99,8 @@
             const userEmail = localStorage.getItem('clickmoni_email') || 'customer@clickmoni.com';
             const userPhone = localStorage.getItem('clickmoni_user') || '08100000000';
             
-            let handler = PaystackPop.setup({
-                key: 'REPLACE_WITH_YOUR_REAL_PK_TEST_KEY', // ← PUT YOUR TEST KEY HERE
+            let handler = PaystackPop.setup({ 
+                key: 'REPLACE_WITH_YOUR_REAL_PK_TEST_KEY'pk_live_9cf9be02d532580b4f87d000c52b6893de05362c, // ←  
                 email: userEmail,
                 amount: amount, // Amount in kobo: 100000 = ₦1,000
                 currency: 'NGN',
