@@ -1,211 +1,128 @@
-<!DOCTYPE html>
+ <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Choose Plan - ClickMoni</title>
-    <script src="https://js.paystack.co/v1/inline.js"></script>
+    <title>ClickMoni - Choose Plan</title>
     <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { font-family: 'Segoe UI', Arial, sans-serif; background: #000; color: #fff; padding: 15px; }
-  .back { color: #FFD700; text-decoration: none; font-weight: 600; display: block; margin-bottom: 20px; }
-  .logo { color: #FFD700; font-size: 24px; font-weight: 800; text-align: center; margin-bottom: 20px; }
-  h1 { color: #FFD700; text-align: center; margin-bottom: 10px; font-size: 24px; }
-  .subtitle { color: #aaa; text-align: center; margin-bottom: 25px; font-size: 15px; }
-  .tier { background: #111; border: 2px solid #FFD700; border-radius: 18px; padding: 25px; margin: 18px 0; position: relative; }
-  .tier.best { border-color: #00ff00; box-shadow: 0 0 20px rgba(0,255,0,0.3); }
-  .tier-badge { background: #00ff00; color: #000; padding: 6px 15px; border-radius: 20px; font-weight: 700; font-size: 12px; position: absolute; top: -12px; right: 20px; }
-  .tier h3 { color: #FFD700; font-size: 22px; margin-bottom: 8px; }
-  .tier-price { color: #fff; font-size: 32px; font-weight: 800; margin: 10px 0; }
-  .tier-profit { color: #00ff00; font-size: 18px; font-weight: 700; margin-bottom: 15px; }
-  .tier-features { color: #aaa; font-size: 14px; line-height: 1.8; margin: 15px 0; }
-  .tier-features strong { color: #FFD700; }
-  .btn { background: #FFD700; color: #000; border: none; padding: 16px; border-radius: 12px; font-weight: 800; font-size: 17px; cursor: pointer; width: 100%; margin-top: 15px; }
-  .btn:hover { background: #ffed4e; transform: scale(1.02); }
-  .btn:disabled { background: #333; color: #666; cursor: not-allowed; }
-  .current { background: #003300; border-color: #00ff00; }
-  .current .btn { background: #00ff00; color: #000; }
-  .loading { display: none; text-align: center; color: #FFD700; margin-top: 10px; }
+        body { font-family: Arial, sans-serif; background: #0a0a0a; color: #fff; padding: 20px; }
+        .container { max-width: 1200px; margin: 0 auto; text-align: center; }
+        h1 { color: #00ff88; margin-bottom: 10px; }
+        .test-note { background: #ffaa00; color: #000; padding: 10px; border-radius: 5px; margin-bottom: 20px; font-weight: bold; }
+        .plans { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; }
+        .plan { background: #1a1a1a; border: 2px solid #00ff88; border-radius: 10px; padding: 20px; }
+        .plan h3 { color: #00ff88; font-size: 24px; margin: 0 0 10px 0; }
+        .price { font-size: 32px; font-weight: bold; color: #fff; margin: 15px 0; }
+        ul { text-align: left; list-style: none; padding: 0; }
+        li { padding: 8px 0; border-bottom: 1px solid #333; }
+        .btn { background: #00ff88; color: #000; border: none; padding: 15px 30px; font-size: 16px; font-weight: bold; border-radius: 5px; cursor: pointer; width: 100%; margin-top: 15px; }
+        .btn:hover { background: #00cc6a; }
     </style>
 </head>
 <body>
-    <a href="dashboard.html" class="back">← Back to Dashboard</a>
-    <div class="logo">ClickMoni</div>
-    <h1>💎 Choose Your Plan</h1>
-    <p class="subtitle">Activate a plan to start earning daily profits</p>
+    <div class="container">
+        <h1>Choose Your ClickMoni Plan</h1>
+        <div class="test-note">🧪 TEST MODE: Use card 4084 0840 8408 8408 | CVV 408 | Exp 12/30 | PIN 0000</div>
+        
+        <div class="plans">
+            <!-- PLAN 1: ₦1,000 -->
+            <div class="plan">
+                <h3>Standard Plan</h3>
+                <div class="price">₦1,000</div>
+                <ul>
+                    <li>✅ Premium Tasks Access</li>
+                    <li>✅ ₦200 Referral Bonus</li>
+                    <li>✅ Priority Support</li>
+                    <li>✅ 15 Tasks Daily</li>
+                </ul>
+                <button class="btn" onclick="payWithPaystack(100000, 'Standard')">Buy Standard - ₦1,000</button>
+            </div>
 
-    <div class="tier" data-plan="TEST" data-amount="100" data-profit="50">
-        <h3>🧪 TEST PLAN</h3>
-        <div class="tier-price">₦100</div>
-        <div class="tier-profit">Earn ₦50 Daily</div>
-        <div class="tier-features">
-            <strong>✓</strong> Daily Task Rewards<br>
-            <strong>✓</strong> ₦1,000 Min Withdrawal<br>
-            <strong>✓</strong> 20% Referral Commission<br>
-            <strong>✓</strong> 2 Withdrawals/Month
+            <!-- PLAN 2: ₦3,000 -->
+            <div class="plan">
+                <h3>Pro Plan</h3>
+                <div class="price">₦3,000</div>
+                <ul>
+                    <li>✅ VIP Tasks Access</li>
+                    <li>✅ ₦500 Referral Bonus</li>
+                    <li>✅ 24/7 VIP Support</li>
+                    <li>✅ 30 Tasks Daily</li>
+                </ul>
+                <button class="btn" onclick="payWithPaystack(300000, 'Pro')">Buy Pro - ₦3,000</button>
+            </div>
+
+            <!-- PLAN 3: ₦5,000 -->
+            <div class="plan">
+                <h3>Silver Plan</h3>
+                <div class="price">₦5,000</div>
+                <ul>
+                    <li>✅ All Pro Features</li>
+                    <li>✅ ₦1,000 Referral Bonus</li>
+                    <li>✅ Dedicated Account Manager</li>
+                    <li>✅ 50 Tasks Daily</li>
+                </ul>
+                <button class="btn" onclick="payWithPaystack(500000, 'Silver')">Buy Silver - ₦5,000</button>
+            </div>
+
+            <!-- PLAN 4: ₦10,000 -->
+            <div class="plan">
+                <h3>Gold Plan</h3>
+                <div class="price">₦10,000</div>
+                <ul>
+                    <li>✅ All Silver Features</li>
+                    <li>✅ ₦2,000 Referral Bonus</li>
+                    <li>✅ Early Access Features</li>
+                    <li>✅ 100 Tasks Daily</li>
+                </ul>
+                <button class="btn" onclick="payWithPaystack(1000000, 'Gold')">Buy Gold - ₦10,000</button>
+            </div>
+
+            <!-- PLAN 5: ₦20,000 -->
+            <div class="plan">
+                <h3>Platinum Plan</h3>
+                <div class="price">₦20,000</div>
+                <ul>
+                    <li>✅ All Gold Features</li>
+                    <li>✅ ₦5,000 Referral Bonus</li>
+                    <li>✅ Custom Tasks Request</li>
+                    <li>✅ Unlimited Tasks Daily</li>
+                </ul>
+                <button class="btn" onclick="payWithPaystack(2000000, 'Platinum')">Buy Platinum - ₦20,000</button>
+            </div>
         </div>
-        <button class="btn" onclick="payWithPaystack('TEST', 100, 50)">🚀 Activate TEST</button>
-        <div class="loading" id="load-TEST">Processing payment...</div>
     </div>
 
-    <div class="tier" data-plan="STARTER" data-amount="1000" data-profit="200">
-        <h3>⭐ STARTER PLAN</h3>
-        <div class="tier-price">₦1,000</div>
-        <div class="tier-profit">Earn ₦200 Daily</div>
-        <div class="tier-features">
-            <strong>✓</strong> Daily Task Rewards<br>
-            <strong>✓</strong> ₦10,000 Min Withdrawal<br>
-            <strong>✓</strong> 20% Referral Commission<br>
-            <strong>✓</strong> 2 Withdrawals/Month
-        </div>
-        <button class="btn" onclick="payWithPaystack('STARTER', 1000, 200)">🚀 Activate STARTER</button>
-        <div class="loading" id="load-STARTER">Processing payment...</div>
-    </div>
-
-    <div class="tier" data-plan="BRONZE" data-amount="3000" data-profit="500">
-        <h3>🥉 BRONZE PLAN</h3>
-        <div class="tier-price">₦3,000</div>
-        <div class="tier-profit">Earn ₦500 Daily</div>
-        <div class="tier-features">
-            <strong>✓</strong> Daily Task Rewards<br>
-            <strong>✓</strong> ₦18,000 Min Withdrawal<br>
-            <strong>✓</strong> 20% Referral Commission<br>
-            <strong>✓</strong> 2 Withdrawals/Month
-        </div>
-        <button class="btn" onclick="payWithPaystack('BRONZE', 3000, 500)">🚀 Activate BRONZE</button>
-        <div class="loading" id="load-BRONZE">Processing payment...</div>
-    </div>
-
-    <div class="tier best" data-plan="SILVER" data-amount="5000" data-profit="1000">
-        <div class="tier-badge">MOST POPULAR</div>
-        <h3>🥈 SILVER PLAN</h3>
-        <div class="tier-price">₦5,000</div>
-        <div class="tier-profit">Earn ₦1,000 Daily</div>
-        <div class="tier-features">
-            <strong>✓</strong> Daily Task Rewards<br>
-            <strong>✓</strong> ₦30,000 Min Withdrawal<br>
-            <strong>✓</strong> 20% Referral Commission<br>
-            <strong>✓</strong> 2 Withdrawals/Month
-        </div>
-        <button class="btn" onclick="payWithPaystack('SILVER', 5000, 1000)">🚀 Activate SILVER</button>
-        <div class="loading" id="load-SILVER">Processing payment...</div>
-    </div>
-
-    <div class="tier" data-plan="GOLD" data-amount="10000" data-profit="1500">
-        <h3>🥇 GOLD PLAN</h3>
-        <div class="tier-price">₦10,000</div>
-        <div class="tier-profit">Earn ₦1,500 Daily</div>
-        <div class="tier-features">
-            <strong>✓</strong> Daily Task Rewards<br>
-            <strong>✓</strong> ₦50,000 Min Withdrawal<br>
-            <strong>✓</strong> 20% Referral Commission<br>
-            <strong>✓</strong> 2 Withdrawals/Month
-        </div>
-        <button class="btn" onclick="payWithPaystack('GOLD', 10000, 1500)">🚀 Activate GOLD</button>
-        <div class="loading" id="load-GOLD">Processing payment...</div>
-    </div>
-
-    <div class="tier" data-plan="PLATINUM" data-amount="20000" data-profit="2000">
-        <h3>💎 PLATINUM PLAN</h3>
-        <div class="tier-price">₦20,000</div>
-        <div class="tier-profit">Earn ₦2,000 Daily</div>
-        <div class="tier-features">
-            <strong>✓</strong> Daily Task Rewards<br>
-            <strong>✓</strong> ₦80,000 Min Withdrawal<br>
-            <strong>✓</strong> 20% Referral Commission<br>
-            <strong>✓</strong> 2 Withdrawals/Month<br>
-            <strong>✓</strong> Priority Support
-        </div>
-        <button class="btn" onclick="payWithPaystack('PLATINUM', 20000, 2000)">🚀 Activate PLATINUM</button>
-        <div class="loading" id="load-PLATINUM">Processing payment...</div>
-    </div>
-
+    <!-- PAYSTACK SCRIPT -->
+    <script src="https://js.paystack.co/v1/inline.js"></script>
     <script>
-        // YOUR LIVE PAYSTACK KEY - ALREADY INSERTED
-        const PAYSTACK_PUBLIC_KEY = 'pk_live_9cf9be02d532580b4f87d000c52b6893de05362c'; 
-
-        function payWithPaystack(plan, amount, dailyProfit) {
-            const user = localStorage.getItem('clickmoni_user');
-            const email = user + '@clickmoni.com';
-
-            if (!user) {
-                alert('Please login first');
-                window.location.href = 'index.html';
-                return;
-            }
-
-            document.getElementById('load-' + plan).style.display = 'block';
-
+        function payWithPaystack(amount, planName) {
+            const userEmail = localStorage.getItem('clickmoni_email') || 'customer@clickmoni.com';
+            const userPhone = localStorage.getItem('clickmoni_user') || '08100000000';
+            
             let handler = PaystackPop.setup({
-                key: PAYSTACK_PUBLIC_KEY,
-                email: email,
-                amount: amount * 100,
+                key: 'REPLACE_WITH_YOUR_REAL_PK_TEST_KEY', // ← PUT YOUR TEST KEY HERE
+                email: userEmail,
+                amount: amount, // Amount in kobo: 100000 = ₦1,000
                 currency: 'NGN',
-                ref: 'CLICKMONI_' + plan + '_' + Date.now(),
+                ref: 'CM_'+planName+'_'+Math.floor((Math.random() * 1000000000) + 1),
                 metadata: {
                     custom_fields: [
-                        {
-                            display_name: "Phone Number",
-                            variable_name: "phone",
-                            value: user
-                        },
-                        {
-                            display_name: "Plan",
-                            variable_name: "plan",
-                            value: plan
-                        }
+                        { display_name: "Phone", variable_name: "phone", value: userPhone },
+                        { display_name: "Plan", variable_name: "plan", value: planName }
                     ]
                 },
                 callback: function(response) {
-                    activatePlan(plan, amount, dailyProfit, response.reference);
+                    alert('Payment successful! Reference: ' + response.reference + '\nWelcome to ' + planName + ' Plan 🎉');
+                    localStorage.setItem('clickmoni_paid', 'true');
+                    localStorage.setItem('clickmoni_plan', planName);
+                    window.location.href = 'dashboard.html';
                 },
                 onClose: function() {
-                    document.getElementById('load-' + plan).style.display = 'none';
-                    alert('Payment cancelled');
+                    alert('Payment cancelled. You can try again anytime.');
                 }
             });
             handler.openIframe();
         }
-
-        function activatePlan(plan, amount, dailyProfit, reference) {
-            const user = localStorage.getItem('clickmoni_user');
-            
-            localStorage.setItem('clickmoni_pack', plan);
-            localStorage.setItem('clickmoni_daily', dailyProfit);
-            localStorage.setItem('clickmoni_active_date', new Date().toLocaleDateString('en-GB'));
-            localStorage.setItem('clickmoni_payment_ref', reference);
-            localStorage.setItem('clickmoni_amount_paid', amount);
-
-            const referrer = localStorage.getItem('clickmoni_referred_by');
-            if (referrer) {
-                let refEarned = parseInt(localStorage.getItem('clickmoni_ref_earned_' + referrer) || '0');
-                const commission = Math.floor(amount * 0.2);
-                localStorage.setItem('clickmoni_ref_earned_' + referrer, refEarned + commission);
-                
-                let refCount = parseInt(localStorage.getItem('clickmoni_ref_count_' + referrer) || '0');
-                localStorage.setItem('clickmoni_ref_count_' + referrer, refCount + 1);
-            }
-
-            document.getElementById('load-' + plan).style.display = 'none';
-            alert(`🎉 Payment Successful!\n\n${plan} Plan Activated!\n\nYou will now earn ₦${dailyProfit.toLocaleString()} daily.\n\nRef: ${reference}`);
-            
-            setTimeout(() => {
-                window.location.href = 'dashboard.html';
-            }, 2000);
-        }
-
-        window.onload = function() {
-            const currentPlan = localStorage.getItem('clickmoni_pack');
-            if (currentPlan && currentPlan !== 'None') {
-                document.querySelectorAll('.tier').forEach(tier => {
-                    if (tier.dataset.plan === currentPlan) {
-                        tier.classList.add('current');
-                        tier.querySelector('.btn').textContent = '✅ Current Plan';
-                        tier.querySelector('.btn').disabled = true;
-                    }
-                });
-            }
-        };
     </script>
 </body>
     </html>
