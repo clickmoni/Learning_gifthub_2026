@@ -3,122 +3,85 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Invite Friends - ClickMoni</title>
+    <title>ClickMoni - Earn Daily Income</title>
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { font-family: 'Segoe UI', Arial, sans-serif; background: #000; color: #fff; padding: 15px; }
-  .back { color: #FFD700; text-decoration: none; font-weight: 600; display: block; margin-bottom: 20px; }
-  .logo { color: #FFD700; font-size: 24px; font-weight: 800; text-align: center; margin-bottom: 20px; }
-  .box { background: #111; border: 2px solid #FFD700; border-radius: 18px; padding: 25px; margin: 18px 0; }
-        h1 { color: #FFD700; text-align: center; margin-bottom: 20px; font-size: 24px; }
-        h3 { color: #FFD700; margin-bottom: 15px; font-size: 18px; }
-  .earnings { color: #00ff00; font-size: 32px; font-weight: 800; margin: 15px 0; text-align: center; }
-  .ref-code { background: #000; border: 2px dashed #FFD700; border-radius: 12px; padding: 20px; text-align: center; margin: 20px 0; }
-  .ref-code h4 { color: #FFD700; margin-bottom: 10px; font-size: 14px; }
-  .ref-code p { color: #fff; font-size: 24px; font-weight: 800; letter-spacing: 2px; }
-  .btn { background: #FFD700; color: #000; border: none; padding: 16px; border-radius: 12px; font-weight: 800; font-size: 17px; cursor: pointer; width: 100%; margin-top: 15px; }
-  .btn-secondary { background: #111; color: #FFD700; border: 1px solid #FFD700; }
-  .info { background: #001a33; border: 1px solid #0088cc; border-radius: 10px; padding: 15px; margin: 20px 0; font-size: 14px; color: #aaa; }
-  .info strong { color: #FFD700; }
-  .stats { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; margin: 20px 0; }
-  .stat { background: #000; border: 1px solid #333; border-radius: 12px; padding: 18px; text-align: center; }
-  .stat p { color: #666; font-size: 12px; font-weight: 600; }
-  .stat h3 { color: #FFD700; font-size: 20px; margin-top: 8px; }
-  .copy-success { color: #00ff00; font-size: 14px; text-align: center; margin-top: 10px; display: none; }
+        body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Arial, sans-serif; background: #0f172a; color: white; text-align: center; padding: 40px 20px; }
+        .container { max-width: 600px; margin: 0 auto; }
+        h1 { color: #ef4444; font-size: 3rem; margin: 20px 0; }
+        .btn { background: #ef4444; color: white; padding: 16px 32px; border: none; border-radius: 10px; font-weight: 700; cursor: pointer; font-size: 18px; margin: 10px; text-decoration: none; display: inline-block; }
+        .btn:hover { background: #dc2626; }
+        .feature { background: #1e293b; padding: 20px; border-radius: 12px; margin: 15px 0; }
+        
+        /* REFERRAL BOX */
+        .ref-box { background: #1e293b; padding: 25px; border-radius: 16px; margin: 30px 0; border: 2px solid #ef4444; display: none; }
+        .ref-box h3 { color: #ef4444; margin-bottom: 15px; }
+        .ref-link { background: #0f172a; padding: 12px; border-radius: 8px; margin: 15px 0; word-break: break-all; border: 1px solid #334155; }
+        .share-btns { display: flex; gap: 10px; justify-content: center; flex-wrap: wrap; }
+        .share-btn { padding: 12px 20px; border: none; border-radius: 8px; font-weight: 600; cursor: pointer; color: white; }
+        .copy { background: #334155; }
+        .whatsapp { background: #25D366; }
+        .telegram { background: #0088cc; }
     </style>
 </head>
 <body>
-    <a href="dashboard.html" class="back">← Back to Dashboard</a>
-    <div class="logo">ClickMoni</div>
+    <div class="container">
+        <h1>💰 ClickMoni</h1>
+        <p style="font-size: 1.2rem; margin: 20px 0; color: #cbd5e1;">Earn daily income with tasks & referrals</p>
+        
+        <a href="register.html" class="btn">Get Started Free</a>
+        <a href="tiers.html" class="btn">View Paid Plans</a>
 
-    <h1>👥 Invite Friends & Earn</h1>
+        <div class="feature"><h3>📱 Daily Tasks</h3><p>Get paid for simple tasks</p></div>
+        <div class="feature"><h3>🎁 Referral Bonus</h3><p>₦200 - ₦5,000 per referral</p></div>
+        <div class="feature"><h3>⚡ Instant Payout</h3><p>Withdraw to your bank 24/7</p></div>
 
-    <div class="box">
-        <div class="earnings">₦<span id="refEarned">0</span></div>
-        <p style="color:#aaa; text-align:center; font-size:14px;">Total Referral Earnings</p>
-
-        <div class="stats">
-            <div class="stat">
-                <p>TOTAL REFERRALS</p>
-                <h3><span id="totalRefs">0</span></h3>
+        <!-- REFERRAL SECTION - SHOWS AFTER USER REGISTERS -->
+        <div id="refBox" class="ref-box">
+            <h3>🎉 Your Referral Link</h3>
+            <p>Share and earn ₦500+ per friend who joins!</p>
+            <div class="ref-link" id="refLink">Loading...</div>
+            <div class="share-btns">
+                <button class="share-btn copy" onclick="copyRef()">📋 Copy Link</button>
+                <button class="share-btn whatsapp" onclick="shareWhatsApp()">💬 WhatsApp</button>
+                <button class="share-btn telegram" onclick="shareTelegram()">✈️ Telegram</button>
             </div>
-            <div class="stat">
-                <p>ACTIVE REFERRALS</p>
-                <h3><span id="activeRefs">0</span></h3>
-            </div>
-        </div>
-    </div>
-
-    <div class="box">
-        <h3>Your Referral Code</h3>
-        <div class="ref-code">
-            <h4>SHARE THIS CODE</h4>
-            <p id="refCode">CLICK000</p>
-        </div>
-        <button class="btn" onclick="copyCode()">📋 Copy Referral Code</button>
-        <button class="btn btn-secondary" onclick="shareWhatsApp()">📱 Share on WhatsApp</button>
-        <div class="copy-success" id="copySuccess">✅ Code copied!</div>
-    </div>
-
-    <div class="box">
-        <h3>How It Works</h3>
-        <div class="info">
-            <strong>1. Share Your Code</strong><br>
-            Send your referral code to friends<br><br>
-            <strong>2. They Activate a Plan</strong><br>
-            Friend signs up and activates any plan<br><br>
-            <strong>3. You Earn Instantly</strong><br>
-            Get 20% commission: ₦20 to ₦4,000 per referral<br><br>
-            <strong>4. Withdraw Anytime</strong><br>
-            Min ₦1,000. Withdraw every 2 days
-        </div>
-    </div>
-
-    <div class="box">
-        <h3>Commission Rates</h3>
-        <div class="info">
-            <strong>TEST ₦100:</strong> You earn ₦20<br>
-            <strong>STARTER ₦1,000:</strong> You earn ₦200<br>
-            <strong>BRONZE ₦3,000:</strong> You earn ₦600<br>
-            <strong>SILVER ₦5,000:</strong> You earn ₦1,000<br>
-            <strong>GOLD ₦10,000:</strong> You earn ₦2,000<br>
-            <strong>PLATINUM ₦20,000:</strong> You earn ₦4,000
         </div>
     </div>
 
     <script>
-        window.onload = function() {
-            const user = localStorage.getItem('clickmoni_user') || 'USER';
-            const refEarned = parseInt(localStorage.getItem('clickmoni_ref_earned') || '0');
-            const totalRefs = parseInt(localStorage.getItem('clickmoni_ref_count') || '0');
-            const activeRefs = parseInt(localStorage.getItem('clickmoni_active_refs') || '0');
+        // SAFE REFERRAL SYSTEM - BLOCKS BAD LINKS
+        const urlParams = new URLSearchParams(window.location.search);
+        const ref = urlParams.get('ref');
+        if (ref && /^[a-zA-Z0-9]{3,20}$/.test(ref)) { 
+            localStorage.setItem('clickmoni_ref', ref);
+        }
 
-            // Generate referral code from phone number
-            const refCode = 'CLICK' + user.slice(-4);
-            document.getElementById('refCode').textContent = refCode;
-            document.getElementById('refEarned').textContent = refEarned.toLocaleString();
-            document.getElementById('totalRefs').textContent = totalRefs;
-            document.getElementById('activeRefs').textContent = activeRefs;
+        // SHOW REFERRAL BOX IF USER IS LOGGED IN
+        const userPhone = localStorage.getItem('clickmoni_user');
+        if (userPhone) {
+            document.getElementById('refBox').style.display = 'block';
+            const link = `https://clickmoni.netlify.app?ref=${userPhone}`;
+            document.getElementById('refLink').textContent = link;
+        }
 
-            localStorage.setItem('clickmoni_ref_code', refCode);
-        };
-
-        function copyCode() {
-            const code = document.getElementById('refCode').textContent;
-            navigator.clipboard.writeText(code).then(() => {
-                document.getElementById('copySuccess').style.display = 'block';
-                setTimeout(() => {
-                    document.getElementById('copySuccess').style.display = 'none';
-                }, 2000);
-            });
+        function copyRef() {
+            const link = document.getElementById('refLink').textContent;
+            navigator.clipboard.writeText(link);
+            alert('Referral link copied! ✅');
         }
 
         function shareWhatsApp() {
-            const code = document.getElementById('refCode').textContent;
-            const text = `🚀 Join ClickMoni and start earning daily!\n\nUse my referral code: ${code}\n\nActivate any plan and we both earn!\n\nRegister here: https://clickmoni.com/register?ref=${code}`;
-            const url = `https://wa.me/?text=${encodeURIComponent(text)}`;
-            window.open(url, '_blank');
+            const link = document.getElementById('refLink').textContent;
+            const text = `Join ClickMoni and earn daily income! 💰 Use my link: ${link}`;
+            window.open(`https://wa.me/?text=${encodeURIComponent(text)}`, '_blank');
+        }
+
+        function shareTelegram() {
+            const link = document.getElementById('refLink').textContent;
+            const text = `Join ClickMoni and earn daily income! 💰 Use my link: ${link}`;
+            window.open(`https://t.me/share/url?url=${encodeURIComponent(link)}&text=${encodeURIComponent(text)}`, '_blank');
         }
     </script>
 </body>
-  </html>
+</html>
