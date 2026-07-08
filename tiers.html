@@ -1,4 +1,4 @@
- <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -99,10 +99,10 @@
             const userEmail = localStorage.getItem('clickmoni_email') || 'customer@clickmoni.com';
             const userPhone = localStorage.getItem('clickmoni_user') || '08100000000';
             
-            let handler = PaystackPop.setup({ 
-                key: 'REPLACE_WITH_YOUR_REAL_PK_TEST_KEY'pk_test_9bfadbdf7d0c494f2cc885619f6d2cba71b293e1, // ←  
+            let handler = PaystackPop.setup({
+                key: 'pk_test_9bfadbdf7d0c494f2cc885619f6d2cba71b293e1', // ← YOUR REAL TEST KEY
                 email: userEmail,
-                amount: amount, // Amount in kobo: 100000 = ₦1,000
+                amount: amount,
                 currency: 'NGN',
                 ref: 'CM_'+planName+'_'+Math.floor((Math.random() * 1000000000) + 1),
                 metadata: {
@@ -125,4 +125,4 @@
         }
     </script>
 </body>
-    </html>
+                     </html>
