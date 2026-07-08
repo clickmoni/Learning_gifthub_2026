@@ -3,115 +3,140 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ClickMoni Admin</title>
+    <title>ClickMoni Admin — ONE PLACE</title>
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Arial, sans-serif; background: #0f172a; color: white; padding: 20px; }
-        .container { max-width: 1200px; margin: 0 auto; }
+     .container { max-width: 1400px; margin: 0 auto; }
         h1 { color: #ef4444; margin: 20px 0; }
-        .login { max-width: 400px; margin: 100px auto; background: #1e293b; padding: 30px; border-radius: 16px; }
-        .login input { width: 100%; padding: 12px; margin: 10px 0; border-radius: 8px; border: 1px solid #334155; background: #0f172a; color: white; }
-        .btn { background: #ef4444; color: white; padding: 12px 20px; border: none; border-radius: 8px; font-weight: 600; cursor: pointer; width: 100%; }
+     .login { max-width: 400px; margin: 100px auto; background: #1e293b; padding: 30px; border-radius: 16px; }
+     .login input { width: 100%; padding: 12px; margin: 10px 0; border-radius: 8px; border: 1px solid #334155; background: #0f172a; color: white; }
+     .btn { background: #ef4444; color: white; padding: 10px 16px; border: none; border-radius: 8px; font-weight: 600; cursor: pointer; }
+     .btn-green { background: #16a34a; }
+     .btn-small { padding: 6px 12px; font-size: 12px; margin: 2px; }
         table { width: 100%; border-collapse: collapse; margin-top: 20px; background: #1e293b; border-radius: 12px; overflow: hidden; }
-        th, td { padding: 12px; text-align: left; border-bottom: 1px solid #334155; font-size: 14px; }
-        th { background: #ef4444; }
-        .hidden { display: none; }
-        .stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px; margin: 20px 0; }
-        .stat { background: #1e293b; padding: 20px; border-radius: 12px; text-align: center; }
-        .stat-num { font-size: 2rem; color: #ef4444; font-weight: 700; }
-        .warning { background: #7f1d1d; padding: 15px; border-radius: 8px; margin: 20px 0; border: 1px solid #ef4444; }
+        th, td { padding: 12px; text-align: left; border-bottom: 1px solid #334155; font-size: 13px; }
+        th { background: #ef4444; position: sticky; top: 0; }
+     .hidden { display: none; }
+     .tabs { display: flex; gap: 10px; margin: 20px 0; flex-wrap: wrap; }
+     .tab { padding: 12px 20px; background: #1e293b; border-radius: 8px; cursor: pointer; border: 2px solid #334155; }
+     .tab.active { border-color: #ef4444; background: #ef4444; }
+     .stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 15px; margin: 20px 0; }
+     .stat { background: #1e293b; padding: 15px; border-radius: 12px; text-align: center; }
+     .stat-num { font-size: 1.8rem; color: #ef4444; font-weight: 700; }
+     .badge { padding: 4px 8px; border-radius: 4px; font-size: 11px; font-weight: 700; }
+     .badge-pending { background: #f59e0b; color: #000; }
+     .badge-paid { background: #16a34a; }
+     .badge-declined { background: #dc2626; }
+     .setup { background: #7f1d1d; padding: 20px; border-radius: 12px; margin: 20px 0; border: 1px solid #ef4444; }
     </style>
 </head>
 <body>
     <div class="container">
         <div id="loginBox" class="login">
-            <h1>🔒 Admin Login</h1>
-            <div class="warning">⚠️ Delete your secret key from public places after testing</div>
-            <input type="password" id="adminPass" placeholder="@Mgbogo123">
-            <button class="btn" onclick="login()">Login</button>
+            <h1>🔒 ClickMoni Admin</h1>
+            <input type="password" id="adminPass" placeholder="Enter admin password">
+            <button class="btn" onclick="login()" style="width: 100%;">Login</button>
         </div>
 
         <div id="dashboard" class="hidden">
-            <h1>ClickMoni Admin Dashboard</h1>
-            
-            <div class="stats">
-                <div class="stat">
-                    <div class="stat-num" id="totalUsers">0</div>
-                    <div>Total Users</div>
-                </div>
-                <div class="stat">
-                    <div class="stat-num" id="totalRevenue">₦0</div>
-                    <div>Total Revenue</div>
-                </div>
-                <div class="stat">
-                    <div class="stat-num" id="todayUsers">0</div>
-                    <div>Today</div>
-                </div>
+            <h1>ClickMoni Admin — Everything In One Place</h1>
+
+            <div id="setupWarning" class="setup hidden">
+                <strong>⚠️ SETUP REQUIRED:</strong><br>
+                1. Netlify → Site settings → Environment variables → Add `PAYSTACK_SECRET_KEY` = your new `sk_live_xxx`<br>
+                2. Redeploy your site after adding the variable<br>
+                3. Come back and click Refresh
             </div>
 
-            <button class="btn" onclick="loadFromPaystack()" style="width: auto; margin: 20px 0;">🔄 Refresh from Paystack</button>
-            
-            <table>
-                <thead>
-                    <tr>
-                        <th>Date</th>
-                        <th>Name</th>
-                        <th>Email</th>
-                        <th>Phone</th>
-                        <th>Plan</th>
-                        <th>Amount</th>
-                        <th>Bank</th>
-                        <th>Referred By</th>
-                        <th>Reference</th>
-                    </tr>
-                </thead>
-                <tbody id="userTable">
-                    <tr><td colspan="9" style="text-align: center; padding: 40px;">Click "Refresh from Paystack" to load users</td></tr>
-                </tbody>
-            </table>
+            <div class="stats">
+                <div class="stat"><div class="stat-num" id="totalUsers">0</div><div>Total Users</div></div>
+                <div class="stat"><div class="stat-num" id="totalRevenue">₦0</div><div>Total Revenue</div></div>
+                <div class="stat"><div class="stat-num" id="pendingWithdrawals">0</div><div>Pending Withdrawals</div></div>
+                <div class="stat"><div class="stat-num" id="todayUsers">0</div><div>Today Signups</div></div>
+            </div>
+
+            <div class="tabs">
+                <div class="tab active" onclick="showTab('users', this)">👥 All Users + Social Handles</div>
+                <div class="tab" onclick="showTab('withdrawals', this)">💸 Withdrawal Requests</div>
+            </div>
+
+            <div id="usersTab">
+                <button class="btn" onclick="loadUsers()">🔄 Refresh Users from Paystack</button>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Date</th><th>Name</th><th>Social Handle</th><th>Email</th><th>Phone</th>
+                            <th>Plan</th><th>Amount</th><th>Bank Details</th><th>Referred By</th>
+                        </tr>
+                    </thead>
+                    <tbody id="userTable"><tr><td colspan="9" style="text-align: center; padding: 40px;">Click Refresh to load</td></tr></tbody>
+                </table>
+            </div>
+
+            <div id="withdrawalsTab" class="hidden">
+                <button class="btn" onclick="loadWithdrawals()">🔄 Refresh Withdrawals</button>
+                <p style="margin: 10px 0; color: #94a3b8; font-size: 14px;">Users request withdrawal from their dashboard. You approve here, then send money manually.</p>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Date</th><th>User Name</th><th>Social Handle</th><th>Amount</th><th>Bank Details</th><th>Status</th><th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody id="withdrawalTable"><tr><td colspan="7" style="text-align: center; padding: 40px;">No requests yet</td></tr></tbody>
+                </table>
+            </div>
         </div>
     </div>
 
     <script>
-        const ADMIN_PASSWORD = "@Mgbogo123"; 
-        const PAYSTACK_SECRET_KEY = "sk_live_bf9b2305f5f7042e4e9f0c6baa9c936d3157665c";
+        const ADMIN_PASSWORD = "@Mgbogo123";
 
         function login() {
-            const pass = document.getElementById('adminPass').value;
-            if (pass === ADMIN_PASSWORD) {
+            if (document.getElementById('adminPass').value === ADMIN_PASSWORD) {
                 document.getElementById('loginBox').classList.add('hidden');
                 document.getElementById('dashboard').classList.remove('hidden');
-                loadFromPaystack();
+                loadUsers();
             } else {
                 alert('Wrong password');
             }
         }
 
-        async function loadFromPaystack() {
-            const table = document.getElementById('userTable');
-            table.innerHTML = '<tr><td colspan="9" style="text-align: center; padding: 40px;">Loading...</td></tr>';
+        function showTab(tab, el) {
+            document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+            document.querySelectorAll('[id$="Tab"]').forEach(t => t.classList.add('hidden'));
+            el.classList.add('active');
+            document.getElementById(tab + 'Tab').classList.remove('hidden');
+            if (tab === 'users') loadUsers();
+            if (tab === 'withdrawals') loadWithdrawals();
+        }
 
+        async function loadUsers() {
+            const table = document.getElementById('userTable');
+            table.innerHTML = '<tr><td colspan="9" style="text-align: center; padding: 40px;">Loading from Paystack...</td></tr>';
             try {
-                const res = await fetch('https://api.paystack.co/transaction?perPage=100', {
-                    headers: { 'Authorization': `Bearer ${PAYSTACK_SECRET_KEY}` }
-                });
+                const res = await fetch('/.netlify/functions/get-transactions');
                 const data = await res.json();
-                
+
+                if (data.error) {
+                    document.getElementById('setupWarning').classList.remove('hidden');
+                    table.innerHTML = '<tr><td colspan="9" style="text-align: center; padding: 40px; color: #ef4444;">Setup needed. See red box above.</td></tr>';
+                    return;
+                }
+
                 if (data.status) {
+                    document.getElementById('setupWarning').classList.add('hidden');
                     const transactions = data.data.filter(t => t.status === 'success' && t.metadata?.custom_fields);
                     displayUsers(transactions);
-                } else {
-                    table.innerHTML = '<tr><td colspan="9" style="text-align: center; padding: 40px; color: #ef4444;">Paystack Error: Check your Secret Key</td></tr>';
                 }
             } catch (err) {
-                table.innerHTML = '<tr><td colspan="9" style="text-align: center; padding: 40px; color: #ef4444;">Error loading. Check your Secret Key or internet.</td></tr>';
+                table.innerHTML = '<tr><td colspan="9" style="text-align: center; padding: 40px; color: #ef4444;">Network error. Check Netlify function.</td></tr>';
             }
         }
 
         function displayUsers(transactions) {
             const table = document.getElementById('userTable');
-            let totalRevenue = 0;
-            let todayCount = 0;
+            let totalRevenue = 0, todayCount = 0;
             const today = new Date().toDateString();
 
             if (transactions.length === 0) {
@@ -123,30 +148,73 @@
             transactions.forEach(t => {
                 const fields = {};
                 t.metadata.custom_fields.forEach(f => fields[f.variable_name] = f.value);
-                
                 totalRevenue += t.amount;
                 if (new Date(t.created_at).toDateString() === today) todayCount++;
-
-                const row = `
+                table.innerHTML += `
                     <tr>
                         <td>${new Date(t.created_at).toLocaleDateString()}</td>
                         <td>${fields.full_name || '-'}</td>
+                        <td><strong>${fields.social_handle || '-'}</strong></td>
                         <td>${t.customer.email}</td>
                         <td>${fields.phone || '-'}</td>
                         <td>${fields.plan || '-'}</td>
                         <td>₦${(t.amount/100).toLocaleString()}</td>
                         <td>${fields.bank_name || '-'} ${fields.bank_account || ''}</td>
                         <td>${fields.referred_by || '-'}</td>
-                        <td>${t.reference}</td>
                     </tr>
                 `;
-                table.innerHTML += row;
             });
-
             document.getElementById('totalUsers').textContent = transactions.length;
             document.getElementById('totalRevenue').textContent = '₦' + (totalRevenue/100).toLocaleString();
             document.getElementById('todayUsers').textContent = todayCount;
         }
+
+        function loadWithdrawals() {
+            const withdrawals = JSON.parse(localStorage.getItem('clickmoni_withdrawals') || '[]');
+            const table = document.getElementById('withdrawalTable');
+            document.getElementById('pendingWithdrawals').textContent = withdrawals.filter(w => w.status === 'pending').length;
+
+            if (withdrawals.length === 0) {
+                table.innerHTML = '<tr><td colspan="7" style="text-align: center; padding: 40px;">No withdrawal requests yet</td></tr>';
+                return;
+            }
+
+            table.innerHTML = '';
+            withdrawals.forEach((w, i) => {
+                const statusClass = w.status === 'pending'? 'badge-pending' : w.status === 'paid'? 'badge-paid' : 'badge-declined';
+                table.innerHTML += `
+                    <tr>
+                        <td>${new Date(w.date).toLocaleDateString()}</td>
+                        <td>${w.name}</td>
+                        <td><strong>${w.social_handle}</strong></td>
+                        <td>₦${w.amount.toLocaleString()}</td>
+                        <td>${w.bank_name} ${w.bank_account}</td>
+                        <td><span class="badge ${statusClass}">${w.status.toUpperCase()}</span></td>
+                        <td>
+                            ${w.status === 'pending'? `
+                                <button class="btn btn-green btn-small" onclick="approveWithdrawal(${i})">Approve</button>
+                                <button class="btn btn-small" onclick="declineWithdrawal(${i})">Decline</button>
+                            ` : '-'}
+                        </td>
+                    </tr>
+                `;
+            });
+        }
+
+        function approveWithdrawal(index) {
+            let withdrawals = JSON.parse(localStorage.getItem('clickmoni_withdrawals') || '[]');
+            withdrawals[index].status = 'paid';
+            localStorage.setItem('clickmoni_withdrawals', JSON.stringify(withdrawals));
+            alert(`Approved! Now send ₦${withdrawals[index].amount.toLocaleString()} to ${withdrawals[index].bank_name} ${withdrawals[index].bank_account}`);
+            loadWithdrawals();
+        }
+
+        function declineWithdrawal(index) {
+            let withdrawals = JSON.parse(localStorage.getItem('clickmoni_withdrawals') || '[]');
+            withdrawals[index].status = 'declined';
+            localStorage.setItem('clickmoni_withdrawals', JSON.stringify(withdrawals));
+            loadWithdrawals();
+        }
     </script>
 </body>
-</html>
+    </html>
