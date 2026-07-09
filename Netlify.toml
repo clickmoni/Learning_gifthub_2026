@@ -1,8 +1,0 @@
-[build]
-  functions = "netlify/functions"
-
-[functions]
-  node_bundler = "esbuild"
-
-[functions.get-transactions]
-  environment = { PAYSTACK_SECRET_KEY =. sk_live_a6408b7c54cf0c86074d2fb5396686618bee851b }
