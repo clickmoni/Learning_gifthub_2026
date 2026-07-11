@@ -126,7 +126,7 @@
 
     <script>
         // ✅ VERCEL URL SET — REPLACE 'clickmoni3' WITH YOUR ACTUAL VERCEL PROJECT NAME
-        const API_URL = 'https://your-site-name.onrender.com/api/transactions';
+        const API_URL = 'https://learning-gifthub-2026.pages.dev/api/transactions';
         
         let allTransactions = [];
 
@@ -143,7 +143,7 @@
                 const response = await fetch(API_URL);
                 
                 if (!response.ok) {
-                    throw new Error(`Server error: ${response.status}. Check if /api/transactions.js exists in Vercel and PAYSTACK_SECRET_KEY is set.`);
+                    throw new Error(`Server error: ${response.status}. Check if /functions/api/transactions.js exists in Cloudflare Pages and PAYSTACK_SECRET_KEY is set.`);
                 }
                 
                 const result = await response.json();
@@ -164,13 +164,18 @@
                 errorContainer.innerHTML = `
                     <div class="error-box">
                         <strong>❌ Error Loading Data:</strong><br>
-                        ${error.message}<br><br>
+                        ${error.message}<br><
                         <strong>How to fix:</strong><br>
-                        1. Confirm your Vercel URL is correct: ${API_URL}<br>
-                        2. Check Vercel → Settings → Environment Variables → PAYSTACK_SECRET_KEY exists<br>
-                        3. Check that /api/transactions.js file exists in GitHub<br>
-                        4. Test API directly: <a href="${API_URL}" target="_blank" style="color: #fca5a5;">Open API URL</a>
-                    </div>
+1. Confirm your Cloudflare Pages URL is correct: ${API_URL}<br>
+2. Check Cloudflare Pages → Settings → Environment Variables → PAYSTACK_SECRET_KEY exists<br>
+3. Check that functions/api/transactions.js exists in GitHub<br>
+4. Wait for Cloudflare to finish deploying after every commit<br>
+5. Test the API directly:
+<a href="${API_URL}" target="_blank" style="color:#fca5a5;">Open API URL</a>
+        
+                    
+                    
+                
                 `;
             }
         }
