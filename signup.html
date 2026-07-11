@@ -42,7 +42,54 @@
     </div>
   </div>
 <script>
-  document.getElementById('signupForm').addEventListener('submit', function(e) {
+document.getElementById("signupForm").addEventListener("submit", async function(e) {
+    e.preventDefault();
+
+    const data = {
+        firstName: document.getElementById("firstName").value.trim(),
+        lastName: document.getElementById("lastName").value.trim(),
+        username: document.getElementById("username").value.trim(),
+        email: document.getElementById("email").value.trim(),
+        phone: document.getElementById("phone").value.trim(),
+        password: document.getElementById("password").value,
+        affiliate: document.getElementById("affiliate").value.trim()
+    };
+
+    try {
+        const response = await fetch("/api/register", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(data)
+        });
+
+        const result = await response.json();
+
+        if (result.success) {
+
+            localStorage.setItem("clickmoni_email", data.email);
+
+            alert("Registration successful!");
+
+            window.location.href = "dashboard.html";
+
+        } else {
+
+            alert(result.message);
+
+        }
+
+    } catch (err) {
+
+        alert("Unable to connect to the server.");
+
+        console.error(err);
+
+    }
+});
+</script>
+  
     e.preventDefault();
     const urlParams = new URLSearchParams(window.location.search);
     const ref = urlParams.get('ref');
