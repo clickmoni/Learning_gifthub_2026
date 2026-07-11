@@ -28,15 +28,28 @@ export async function onRequestPost(context) {
     return Response.json({
         success: true,
         user: {
-            id: user.id,
-            firstName: user.first_name,
-            lastName: user.last_name,
-            username: user.username,
-            email: user.email,
-            phone: user.phone,
-            plan: user.plan,
-            balance: user.balance
+    id: user.id,
+    firstName: user.first_name,
+    lastName: user.last_name,
+    username: user.username,
+    email: user.email,
+    phone: user.phone,
+    plan: user.plan,
+    balance: user.balance,
+    referral_balance: user.referral_balance,
+    total_referrals: user.total_referrals,
+    role: user.role,
+    joined: user.created_at
         }
+            
+            
+            
+            
+            
+            
+            
+          
+        
     });
 
   } catch (err) {
