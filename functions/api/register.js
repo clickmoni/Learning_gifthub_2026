@@ -45,16 +45,22 @@ export async function onRequestPost(context) {
     }
 
     await env.DB.prepare(
-      `INSERT INTO users(
-        first_name,
-        last_name,
-        username,
-        email,
-        phone,
-        password,
-        affiliate
-      )
-      VALUES(?,?,?,?,?,?,?)`
+      INSERT INTO users(
+  first_name,
+  last_name,
+  username,
+  email,
+  phone,
+  password,
+  affiliate,
+  referral_code,
+  referred_by
+)
+VALUES(?,?,?,?,?,?,?,?,?)
+        
+    
+      
+      
     )
       .bind(
         firstName,
