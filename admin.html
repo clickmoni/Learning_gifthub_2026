@@ -174,11 +174,12 @@
                 displayTransactions(allTransactions);
                 updateStats(allTransactions);
                 
-                loadingContainer.style.display = 'none';
+                if (loadingContainer) loadingContainer.style.display = 'none';
                 table.style.display = 'table';
 
             } catch (error) {
-                loadingContainer.style.display = 'none';
+                if (loadingContainer) loadingContainer.style.display = 'block';
+table.style.display = 'none';
                 errorContainer.innerHTML = `
                     <div class="error-box">
                         <strong>❌ Error Loading Data:</strong><br>
