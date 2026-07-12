@@ -109,19 +109,24 @@
         <div id="errorContainer"></div>
         <div id="loadingContainer" class="loading">Loading transactions...</div>
         
-        <table id="transactionsTable" style="display: none;">
-            <thead>
-                <tr>
-                    <th>Date</th>
-                    <th>Email</th>
-                    <th>Social Handle</th>
-                    <th>Plan</th>
-                    <th>Amount</th>
-                    <th>Status</th>
-                </tr>
-            </thead>
-            <tbody id="tableBody"></tbody>
-        </table>
+        <h2 style="margin-top:40px;color:#ef4444;">Pending Withdrawals</h2>
+
+<table id="withdrawalsTable">
+    <thead>
+        <tr>
+            <th>Email</th>
+            <th>Amount</th>
+            <th>Bank</th>
+            <th>Account Name</th>
+            <th>Account Number</th>
+            <th>Status</th>
+        </tr>
+    </thead>
+    <tbody id="withdrawalsBody"></tbody>
+</table>
+                
+                
+        
     </div>
 
     <script>
@@ -164,7 +169,7 @@
                 errorContainer.innerHTML = `
                     <div class="error-box">
                         <strong>❌ Error Loading Data:</strong><br>
-                        ${error.message}<br><
+                        ${error.message}<br><br>
                         <strong>How to fix:</strong><br>
 1. Confirm your Cloudflare Pages URL is correct: ${API_URL}<br>
 2. Check Cloudflare Pages → Settings → Environment Variables → PAYSTACK_SECRET_KEY exists<br>
@@ -240,8 +245,39 @@
             a.click();
         }
 
+        const WITHDRAW_API = "https://learning-gifthub-2026.pages.dev/api/admin/withdrawals";
+
+async function loadWithdrawals() {
+    try {
+        const response = await fetch(WITHDRAW_API);
+        const result = await response.json();
+
+        if (!result.success) return;
+
+        const body = document.getElementById("withdrawalsBody");
+        body.innerHTML = "";
+
+        result.withdrawals.forEach(w => {
+            body.innerHTML += `
+                <tr>
+                    <td>${w.email}</td>
+                    <td>₦${Number(w.amount).toLocaleString()}</td>
+                    <td>${w.bank_name}</td>
+                    <td>${w.account_name}</td>
+                    <td>${w.account_number}</td>
+                    <td>${w.status}</td>
+                </tr>
+            `;
+        });
+
+    } catch (err) {
+        console.error(err);
+    }
+        }
         // Load on page open
-        loadTransactions();
+loadTransactions();
+loadWithdrawals();
+        
     </script>
 </body>
                         </html>
