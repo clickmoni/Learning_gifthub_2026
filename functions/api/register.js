@@ -13,7 +13,7 @@ export async function onRequestPost(context) {
       password,
       affiliate
     } = body;
-
+    const referralCode = "CM" + Math.random().toString(36).substring(2, 8).toUpperCase();
     if (
       !firstName ||
       !lastName ||
