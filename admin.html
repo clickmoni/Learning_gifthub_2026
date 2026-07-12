@@ -107,7 +107,20 @@
         </div>
 
         <div id="errorContainer"></div>
-        <div id="loadingContainer" class="loading">Loading transactions...</div>
+        <table id="transactionsTable" style="display:none;">
+    <thead>
+        <tr>
+            <th>Date</th>
+            <th>Email</th>
+            <th>Social Handle</th>
+            <th>Plan</th>
+            <th>Amount</th>
+            <th>Status</th>
+        </tr>
+    </thead>
+
+    <tbody id="tableBody"></tbody>
+        </table>
         
         <h2 style="margin-top:40px;color:#ef4444;">Pending Withdrawals</h2>
 
