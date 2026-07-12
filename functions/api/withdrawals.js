@@ -4,16 +4,19 @@ export async function onRequestGet(context) {
   try {
     const { results } = await env.DB.prepare(`
       SELECT
-        id,
-        email,
-        amount,
-        bank_name,
-        account_name,
-        account_number,
-        status,
-        created_at
-      FROM withdrawals
-      ORDER BY created_at DESC
+    withdrawals.id,
+    users.email,
+    withdrawals.amount,
+    withdrawals.bank_name,
+    withdrawals.account_name,
+    withdrawals.account_number,
+    withdrawals.status,
+    withdrawals.created_at
+FROM withdrawals
+LEFT JOIN users
+ON withdrawals.user_id = users.id
+ORDER BY withdrawals.created_at DESC
+        
     `).all();
 
     return Response.json({
