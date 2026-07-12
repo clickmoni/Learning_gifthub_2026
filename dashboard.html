@@ -89,38 +89,67 @@
     </div>
 
     <script>
-        window.onload = function() {
-            const user = localStorage.getItem('clickmoni_user');
-            const userPlan = localStorage.getItem('clickmoni_pack') || 'None';
-            const balance = parseInt(localStorage.getItem('clickmoni_balance') || '0');
-            const refEarned = parseInt(localStorage.getItem('clickmoni_ref_earned') || '0');
-            const totalRefs = parseInt(localStorage.getItem('clickmoni_ref_count') || '0');
-            const activeSince = localStorage.getItem('clickmoni_active_date') || '-';
+        window.onload = async function () {
 
-            // CLICKMONI DAILY PROFITS - CORRECTED FINAL
-            const planProfits = {
-                'TEST': 50, // ₦100 plan → ₦50 daily
-                'STARTER': 200, // ₦1,000 plan → ₦200 daily
-                'BRONZE': 500, // ₦3,000 plan → ₦500 daily
-                'SILVER': 1000, // ₦5,000 plan → ₦1,000 daily
-                'GOLD': 1500, // ₦10,000 plan → ₦1,500 daily
-                'PLATINUM': 2000 // ₦20,000 plan → ₦2,000 daily
-            };
-            const dailyProfit = planProfits[userPlan] || 0;
-            localStorage.setItem('clickmoni_daily', dailyProfit);
+    const email = localStorage.getItem("currentUser");
 
-            document.getElementById('userName').textContent = user || 'User';
-            document.getElementById('planBadge').textContent = userPlan;
-            document.getElementById('totalBalance').textContent = (balance + refEarned).toLocaleString();
-            document.getElementById('dailyEarnings').textContent = dailyProfit.toLocaleString();
-            document.getElementById('refEarned').textContent = refEarned.toLocaleString();
-            document.getElementById('totalRefs').textContent = totalRefs;
-            document.getElementById('activeSince').textContent = activeSince;
+    if (!email) {
+        window.location.href = "login.html";
+        return;
+    }
 
-            if (userPlan === 'None' ||!userPlan) {
-                document.getElementById('noPlanNotice').style.display = 'block';
-            }
+    try {
+
+        const response = await fetch("/api/user?email=" + encodeURIComponent(email));
+        const result = await response.json();
+
+        if (!result.success) {
+            alert(result.message);
+            return;
+        }
+
+        const user = result.user;
+
+        document.getElementById("userName").textContent =
+            user.first_name + " " + user.last_name;
+
+        document.getElementById("planBadge").textContent =
+            user.plan || "No Plan";
+
+        document.getElementById("totalBalance").textContent =
+            Number(user.balance || 0).toLocaleString();
+
+        document.getElementById("refEarned").textContent =
+            Number(user.referral_balance || 0).toLocaleString();
+
+        document.getElementById("activeSince").textContent =
+            new Date(user.created_at).toLocaleDateString();
+
+        document.getElementById("totalRefs").textContent = "0";
+
+        // Daily earnings based on your official plans
+        const dailyPlans = {
+            "Starter": 100,
+            "Basic": 200,
+            "Bronze": 400,
+            "Silver": 800,
+            "Gold": 1500,
+            "Platinum": 2500
         };
+
+        document.getElementById("dailyEarnings").textContent =
+            (dailyPlans[user.plan] || 0).toLocaleString();
+
+        if (!user.plan) {
+            document.getElementById("noPlanNotice").style.display = "block";
+        }
+
+    } catch (err) {
+        alert(err.message);
+    }
+
+};
+        
     </script>
 </body>
                 </html>
