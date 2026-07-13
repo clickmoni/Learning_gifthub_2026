@@ -13,7 +13,11 @@ export async function onRequestPost(context) {
       password,
       affiliate
     } = body;
-    const referralCode = "CM" + Math.random().toString(36).substring(2, 8).toUpperCase();
+
+    // Generate a unique referral code
+    const referralCode =
+      "CM" + Math.random().toString(36).substring(2, 8).toUpperCase();
+
     if (
       !firstName ||
       !lastName ||
@@ -28,6 +32,7 @@ export async function onRequestPost(context) {
       });
     }
 
+    // Check if user already exists
     const exists = await env.DB.prepare(
       `SELECT id FROM users
        WHERE username = ?
@@ -44,42 +49,32 @@ export async function onRequestPost(context) {
       });
     }
 
-    await env.DB.prepare(
+    // Register user
+    await env.DB.prepare(`
       INSERT INTO users(
-  first_name,
-  last_name,
-  username,
-  email,
-  phone,
-  password,
-  affiliate,
-  referral_code,
-  referred_by
-)
-VALUES(?,?,?,?,?,?,?,?,?)
-        
-    
-      
-      
-    )
-      
-        .bind(
-  firstName,
-  lastName,
-  username,
-  email,
-  phone,
-  password,
-  affiliate || "",
-  referralCode,
-  affiliate || ""
-)
-        
-        
-        
-        
-        
-    
+        first_name,
+        last_name,
+        username,
+        email,
+        phone,
+        password,
+        affiliate,
+        referral_code,
+        referred_by
+      )
+      VALUES(?,?,?,?,?,?,?,?,?)
+    `)
+      .bind(
+        firstName,
+        lastName,
+        username,
+        email,
+        phone,
+        password,
+        affiliate || "",
+        referralCode,
+        affiliate || ""
+      )
       .run();
 
     return Response.json({
@@ -88,11 +83,9 @@ VALUES(?,?,?,?,?,?,?,?,?)
     });
 
   } catch (err) {
-
     return Response.json({
       success: false,
       message: err.message
     });
-
   }
-  }
+        }
