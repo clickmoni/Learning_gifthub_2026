@@ -14,23 +14,21 @@ export async function onRequestGet(context) {
 
     const user = await env.DB.prepare(`
       SELECT
-        id,
         first_name,
         last_name,
-        username,
         email,
-        phone,
         plan,
-        balance,
-        referral_balance,
-        total_earned,
-        status,
-        created_at
+        payment_status,
+        daily_earning,
+        activated_at,
+        affiliate_balance,
+        task_balance,
+        total_referrals
       FROM users
       WHERE email = ?
     `)
-    .bind(email)
-    .first();
+      .bind(email)
+      .first();
 
     if (!user) {
       return Response.json({
@@ -50,4 +48,4 @@ export async function onRequestGet(context) {
       message: err.message
     });
   }
-      }
+}
