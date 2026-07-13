@@ -596,7 +596,9 @@ document.getElementById("paymentForm").style.display = "none";
 
 document.getElementById("plans").style.display = "grid";
 
-}function continueToPayment(){
+}
+
+function continueToPayment(){
 
 const name = document.getElementById("fullName").value.trim();
 const email = document.getElementById("email").value.trim();
@@ -616,9 +618,12 @@ return;
 
 let handler = PaystackPop.setup({
 
-pk_live_9cf9be02d532580b4f87d000c52b6893de05362c
+key: "pk_live_9cf9be02d532580b4f87d000c52b6893de05362c",
 
 email: email,
+
+
+
 
 amount: selectedAmount * 100,
 
@@ -853,4 +858,18 @@ function updatePlanButtons() {
 
 }
 
-loadUserPlan();
+...
+
+handler.openIframe();
+
+}
+
+const PLAN_ORDER = [
+                           loadUserPlan();
+
+                           
+            </script>
+
+</body>
+
+        </html>
