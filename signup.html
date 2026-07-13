@@ -1,107 +1,81 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Create Account — ClickMoni</title>
-  <style>
-    * { margin:0; padding:0; box-sizing:border-box; font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Arial,sans-serif; }
-    body { background:#0D0D0D; color:#fff; padding:20px; }
-    .container { max-width:500px; margin:auto; }
-    .back { color:#fff; font-size:24px; text-decoration:none; }
-    .header-icon { width:60px; height:60px; background:#FF3B30; border-radius:50%; margin:20px auto; display:flex; align-items:center; justify-content:center; font-size:30px; }
-    h2 { text-align:center; font-size:28px; margin-bottom:10px; }
-    .subtext { text-align:center; color:#aaa; margin-bottom:30px; }
-    .form-box { background:#1C1C1E; padding:25px; border-radius:20px; }
-    .row { display:flex; gap:10px; }
-    .input-group { margin-bottom:15px; flex:1; }
-    label { display:block; color:#aaa; font-size:14px; margin-bottom:8px; }
-    input { width:100%; background:#0D0D0D; border:1px solid #333; color:#fff; padding:14px; border-radius:10px; font-size:16px; }
-    .btn { width:100%; background:#FF3B30; color:#fff; padding:16px; border:none; border-radius:12px; font-weight:600; font-size:16px; margin-top:10px; }
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Create Account - ClickMoni</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box;font-family:Arial,sans-serif}
+body{background:#111;color:#fff;padding:20px}
+.container{max-width:500px;margin:auto}
+.logo{text-align:center;font-size:32px;font-weight:bold;color:#FF3B30;margin:20px 0 10px}
+.subtitle{text-align:center;color:#bbb;margin-bottom:25px}
+.form-box{background:#1d1d1d;padding:20px;border-radius:15px}
+.input-group{margin-bottom:15px}
+label{display:block;margin-bottom:6px;color:#ccc}
+input{width:100%;padding:14px;background:#000;color:#fff;border:1px solid #333;border-radius:10px}
+button{width:100%;padding:15px;background:#FF3B30;color:#fff;border:none;border-radius:10px;font-weight:bold;cursor:pointer}
+button:disabled{opacity:.6}
+.login-link{text-align:center;margin-top:20px}
+.login-link a{color:#FF3B30;text-decoration:none}
+</style>
 </head>
 <body>
-  <div class="container">
-    <a href="index.html" class="back">←</a>
-    <div class="header-icon">💰</div>
-    <h2>Create account</h2>
-    <p class="subtext">Join thousands of others building their future on our platform.</p>
-    <div class="form-box">
-      <form id="signupForm">
-        <div class="row">
-          <div class="input-group"><label>First name</label><input type="text" id="firstName" placeholder="First name" required></div>
-          <div class="input-group"><label>Last name</label><input type="text" id="lastName" placeholder="Last name" required></div>
-        </div>
-        <div class="input-group"><label>Username</label><input type="text" id="username" placeholder="Choose username" required></div>
-        <div class="input-group"><label>Email address</label><input type="email" id="email" placeholder="you@example.com" required></div>
-        <div class="input-group"><label>Phone number</label><input type="tel" id="phone" placeholder="08012345678" required></div>
-        <div class="input-group"><label>Affiliate (optional)</label><input type="text" id="affiliate" placeholder="Affiliate username"></div>
-        <div class="input-group"><label>Password</label><input type="password" id="password" placeholder="Create password" required></div>
-        <button type="submit" class="btn">Create Account →</button>
-      </form>
-    </div>
-  </div>
+<div class="container">
+<div class="logo">ClickMoni</div>
+<p class="subtitle">Create your ClickMoni account</p>
+<div class="form-box">
+<form id="signupForm">
+<div class="input-group"><label>First Name</label><input id="firstName" required></div>
+<div class="input-group"><label>Last Name</label><input id="lastName" required></div>
+<div class="input-group"><label>Username</label><input id="username" required></div>
+<div class="input-group"><label>Email</label><input id="email" type="email" required></div>
+<div class="input-group"><label>Phone</label><input id="phone" required></div>
+<div class="input-group"><label>Referral Code (Optional)</label><input id="affiliate"></div>
+<div class="input-group"><label>Password</label><input id="password" type="password" required></div>
+<button id="signupBtn" type="submit">Create Account</button>
+</form>
+<div class="login-link">Already have an account? <a href="index.html">Login</a></div>
+</div></div>
 <script>
-document.getElementById("signupForm").addEventListener("submit", async function(e) {
-    e.preventDefault();
+const params=new URLSearchParams(location.search);
+const ref=params.get("ref");
+if(ref) document.getElementById("affiliate").value=ref;
 
-    const data = {
-        firstName: document.getElementById("firstName").value.trim(),
-        lastName: document.getElementById("lastName").value.trim(),
-        username: document.getElementById("username").value.trim(),
-        email: document.getElementById("email").value.trim(),
-        phone: document.getElementById("phone").value.trim(),
-        password: document.getElementById("password").value,
-        affiliate: document.getElementById("affiliate").value.trim()
-    };
-
-    try {
-        const response = await fetch("/api/register", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify(data)
-        });
-
-        const result = await response.json();
-
-        if (result.success) {
-
-            localStorage.setItem("clickmoni_email", data.email);
-
-            alert("Registration successful!");
-
-            window.location.href = "dashboard.html";
-
-        } else {
-
-            alert(result.message);
-
-        }
-
-    } catch (err) {
-
-        alert("Unable to connect to the server.");
-
-        console.error(err);
-
-    }
+document.getElementById("signupForm").addEventListener("submit",async(e)=>{
+e.preventDefault();
+const btn=document.getElementById("signupBtn");
+btn.disabled=true; btn.textContent="Creating Account...";
+const data={
+ firstName:firstName.value.trim(),
+ lastName:lastName.value.trim(),
+ username:username.value.trim(),
+ email:email.value.trim(),
+ phone:phone.value.trim(),
+ password:password.value,
+ affiliate:affiliate.value.trim()
+};
+try{
+ const r=await fetch("/api/register",{
+   method:"POST",
+   headers:{"Content-Type":"application/json"},
+   body:JSON.stringify(data)
+ });
+ const result=await r.json();
+ if(result.success){
+   localStorage.setItem("currentUser",data.email);
+   alert("Account created successfully!");
+   location.href="dashboard.html";
+ }else{
+   btn.disabled=false; btn.textContent="Create Account";
+   alert(result.message);
+ }
+}catch(err){
+ btn.disabled=false; btn.textContent="Create Account";
+ alert("Unable to connect to the server.");
+ console.error(err);
+}
 });
 </script>
-  
-    e.preventDefault();
-    const urlParams = new URLSearchParams(window.location.search);
-    const ref = urlParams.get('ref');
-    const user = {
-      firstName: firstName.value, lastName: lastName.value, username: username.value,
-      email: email.value, phone: phone.value, affiliate: affiliate.value || ref || '',
-      plan: 'free', balance: 0, kyc: false, joined: Date.now()
-    };
-    localStorage.setItem('clickmoni_user', JSON.stringify(user));
-    localStorage.setItem('show_community_popup', 'true');
-    window.location.href = 'dashboard.html';
-  });
-</script>
 </body>
-                                                               </html>
+  </html>
