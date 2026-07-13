@@ -1,10 +1,11 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
 
 <meta charset="UTF-8">
 
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width,initial-scale=1">
 
 <title>ClickMoni - Activate Plan</title>
 
@@ -20,104 +21,75 @@ font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif;
 }
 
 body{
-
-background:#0D0D0D;
-
-color:white;
-
+background:#0f172a;
+color:#fff;
 }
 
 .container{
-
-max-width:1200px;
-
+max-width:1100px;
 margin:auto;
-
 padding:20px;
-
 }
 
 .header{
-
 text-align:center;
-
-padding:30px 0;
-
+margin-bottom:30px;
 }
 
 .logo{
-
-font-size:40px;
-
-font-weight:bold;
-
-color:#FF3B30;
-
-margin-bottom:10px;
-
+font-size:42px;
+font-weight:700;
+color:#ef4444;
 }
 
 .subtitle{
-
-color:#999;
-
-font-size:16px;
-
+margin-top:10px;
+color:#cbd5e1;
 }
 
-.current-plan{
+.live{
+margin-top:20px;
+background:#16a34a;
+padding:12px;
+border-radius:10px;
+font-weight:bold;
+}
 
+.currentPlan{
 display:none;
-
-margin:30px auto;
-
-max-width:700px;
-
+margin-top:25px;
 background:#052e16;
-
 border:2px solid #22c55e;
-
-padding:20px;
-
-border-radius:16px;
-
+padding:18px;
+border-radius:14px;
 }
 
-.current-plan h2{
-
-color:#22c55e;
-
+.currentPlan h3{
 margin-bottom:10px;
-
-}
-
-.current-plan p{
-
-margin:8px 0;
-
+color:#22c55e;
 }
 
 .plans{
 
 display:grid;
 
-grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
+grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
 
 gap:25px;
 
-margin-top:40px;
+margin-top:35px;
 
 }
 
 .plan{
 
-background:#1C1C1E;
-
-border:2px solid #333;
+background:#1e293b;
 
 border-radius:18px;
 
 padding:25px;
+
+border:2px solid #334155;
 
 transition:.3s;
 
@@ -127,13 +99,15 @@ position:relative;
 
 .plan:hover{
 
-transform:translateY(-6px);
+transform:translateY(-5px);
 
-border-color:#FF3B30;
+border-color:#ef4444;
 
 }
 
 .badge{
+
+display:none;
 
 position:absolute;
 
@@ -143,9 +117,9 @@ left:50%;
 
 transform:translateX(-50%);
 
-background:#FF3B30;
+background:#22c55e;
 
-padding:6px 14px;
+padding:5px 14px;
 
 border-radius:20px;
 
@@ -153,13 +127,11 @@ font-size:12px;
 
 font-weight:bold;
 
-display:none;
-
 }
 
 .active{
 
-border:2px solid #22c55e !important;
+border:2px solid #22c55e;
 
 }
 
@@ -167,29 +139,17 @@ border:2px solid #22c55e !important;
 
 display:block;
 
-background:#22c55e;
-
-}
-
-.plan h2{
-
-margin-top:15px;
-
-margin-bottom:10px;
-
-color:#fff;
-
 }
 
 .price{
 
 font-size:34px;
 
+color:#ef4444;
+
 font-weight:bold;
 
-color:#FF3B30;
-
-margin:15px 0;
+margin:18px 0;
 
 }
 
@@ -199,15 +159,15 @@ margin-left:20px;
 
 margin-top:15px;
 
-margin-bottom:25px;
+margin-bottom:20px;
 
 }
 
 .plan li{
 
-margin:10px 0;
+margin:8px 0;
 
-color:#ddd;
+color:#cbd5e1;
 
 }
 
@@ -215,7 +175,7 @@ color:#ddd;
 
 width:100%;
 
-padding:15px;
+padding:14px;
 
 border:none;
 
@@ -231,7 +191,7 @@ cursor:pointer;
 
 .activate{
 
-background:#FF3B30;
+background:#ef4444;
 
 color:white;
 
@@ -239,7 +199,7 @@ color:white;
 
 .activate:hover{
 
-background:#d92d20;
+background:#dc2626;
 
 }
 
@@ -255,45 +215,91 @@ color:white;
 
 background:#16a34a;
 
-color:white;
-
 cursor:not-allowed;
 
 }
 
 .locked{
 
-background:#555;
-
-color:#ccc;
+background:#64748b;
 
 cursor:not-allowed;
 
 }
 
-#loading{
+.paymentForm{
 
 display:none;
 
-position:fixed;
+margin-top:35px;
 
-top:0;
+background:#1e293b;
 
-left:0;
+padding:25px;
+
+border-radius:16px;
+
+border:2px solid #ef4444;
+
+}
+
+.paymentForm h2{
+
+margin-bottom:20px;
+
+color:#ef4444;
+
+text-align:center;
+
+}
+
+.group{
+
+margin-bottom:15px;
+
+}
+
+.group label{
+
+display:block;
+
+margin-bottom:6px;
+
+}
+
+.group input{
 
 width:100%;
 
-height:100%;
+padding:12px;
 
-background:rgba(0,0,0,.85);
+border-radius:8px;
 
-justify-content:center;
+border:1px solid #334155;
 
-align-items:center;
+background:#0f172a;
 
-font-size:26px;
+color:white;
 
-z-index:9999;
+}
+
+.payBtn{
+
+background:#ef4444;
+
+color:white;
+
+margin-top:10px;
+
+}
+
+.backBtn{
+
+background:#475569;
+
+color:white;
+
+margin-top:10px;
 
 }
 
@@ -302,12 +308,6 @@ z-index:9999;
 </head>
 
 <body>
-
-<div id="loading">
-
-Processing your payment...
-
-</div>
 
 <div class="container">
 
@@ -319,30 +319,33 @@ ClickMoni
 
 </div>
 
-<p class="subtitle">
+<div class="subtitle">
 
-Choose a plan and start earning daily.
-
-</p>
+Activate your earning plan and start making money.
 
 </div>
 
-<div id="currentPlanBox" class="current-plan">
+<div class="live">
 
-<h2>Current Plan</h2>
-
-<p id="currentPlanName"></p>
-
-<p id="currentDailyIncome"></p>
-
-<p id="currentStatus"></p>
+🟢 LIVE PAYMENTS ACTIVE
 
 </div>
 
-<div class="plans">
+<div id="currentPlan" class="currentPlan">
+
+<h3>Your Current Plan</h3>
+
+<p id="planText"></p>
+
+<p id="incomeText"></p>
+
+</div>
+
+</div>
+
+<div id="plans" class="plans">
     <!-- Starter -->
 <div class="plan" id="Starter">
-
 <div class="badge">ACTIVE</div>
 
 <h2>Starter</h2>
@@ -352,13 +355,12 @@ Choose a plan and start earning daily.
 <ul>
 <li>💰 Earn ₦100 Daily</li>
 <li>🎁 Referral Bonus ₦200</li>
-<li>💳 Minimum Withdrawal ₦7,000</li>
-<li>📅 Daily Tasks</li>
+<li>💳 Min Withdrawal ₦7,000</li>
+<li>✅ Daily Tasks</li>
 </ul>
 
-<button class="btn activate"
-id="btnStarter"
-onclick="payNow('Starter',500)">
+<button class="btn activate" id="btnStarter"
+onclick="showPaymentForm('Starter',500)">
 Activate Plan
 </button>
 
@@ -367,7 +369,6 @@ Activate Plan
 <!-- Basic -->
 
 <div class="plan" id="Basic">
-
 <div class="badge">ACTIVE</div>
 
 <h2>Basic</h2>
@@ -377,13 +378,12 @@ Activate Plan
 <ul>
 <li>💰 Earn ₦200 Daily</li>
 <li>🎁 Referral Bonus ₦300</li>
-<li>💳 Minimum Withdrawal ₦10,000</li>
-<li>📅 Daily Tasks</li>
+<li>💳 Min Withdrawal ₦10,000</li>
+<li>✅ Daily Tasks</li>
 </ul>
 
-<button class="btn activate"
-id="btnBasic"
-onclick="payNow('Basic',750)">
+<button class="btn activate" id="btnBasic"
+onclick="showPaymentForm('Basic',750)">
 Activate Plan
 </button>
 
@@ -392,7 +392,6 @@ Activate Plan
 <!-- Bronze -->
 
 <div class="plan" id="Bronze">
-
 <div class="badge">ACTIVE</div>
 
 <h2>Bronze</h2>
@@ -402,13 +401,12 @@ Activate Plan
 <ul>
 <li>💰 Earn ₦400 Daily</li>
 <li>🎁 Referral Bonus ₦1,000</li>
-<li>💳 Minimum Withdrawal ₦20,000</li>
+<li>💳 Min Withdrawal ₦20,000</li>
 <li>⭐ Premium Tasks</li>
 </ul>
 
-<button class="btn activate"
-id="btnBronze"
-onclick="payNow('Bronze',3500)">
+<button class="btn activate" id="btnBronze"
+onclick="showPaymentForm('Bronze',3500)">
 Activate Plan
 </button>
 
@@ -417,7 +415,6 @@ Activate Plan
 <!-- Silver -->
 
 <div class="plan" id="Silver">
-
 <div class="badge">ACTIVE</div>
 
 <h2>Silver</h2>
@@ -427,13 +424,12 @@ Activate Plan
 <ul>
 <li>💰 Earn ₦800 Daily</li>
 <li>🎁 Referral Bonus ₦1,500</li>
-<li>💳 Minimum Withdrawal ₦40,000</li>
+<li>💳 Min Withdrawal ₦40,000</li>
 <li>⭐ Premium Tasks</li>
 </ul>
 
-<button class="btn activate"
-id="btnSilver"
-onclick="payNow('Silver',5500)">
+<button class="btn activate" id="btnSilver"
+onclick="showPaymentForm('Silver',5500)">
 Activate Plan
 </button>
 
@@ -442,7 +438,6 @@ Activate Plan
 <!-- Gold -->
 
 <div class="plan" id="Gold">
-
 <div class="badge">ACTIVE</div>
 
 <h2>Gold</h2>
@@ -452,13 +447,12 @@ Activate Plan
 <ul>
 <li>💰 Earn ₦1,500 Daily</li>
 <li>🎁 Referral Bonus ₦3,000</li>
-<li>💳 Minimum Withdrawal ₦60,000</li>
+<li>💳 Min Withdrawal ₦60,000</li>
 <li>👑 VIP Tasks</li>
 </ul>
 
-<button class="btn activate"
-id="btnGold"
-onclick="payNow('Gold',11500)">
+<button class="btn activate" id="btnGold"
+onclick="showPaymentForm('Gold',11500)">
 Activate Plan
 </button>
 
@@ -467,7 +461,6 @@ Activate Plan
 <!-- Platinum -->
 
 <div class="plan" id="Platinum">
-
 <div class="badge">ACTIVE</div>
 
 <h2>Platinum</h2>
@@ -477,20 +470,297 @@ Activate Plan
 <ul>
 <li>💰 Earn ₦2,500 Daily</li>
 <li>🎁 Referral Bonus ₦5,000</li>
-<li>💳 Minimum Withdrawal ₦100,000</li>
+<li>💳 Min Withdrawal ₦100,000</li>
 <li>💎 Unlimited VIP Tasks</li>
 </ul>
 
-<button class="btn activate"
-id="btnPlatinum"
-onclick="payNow('Platinum',20000)">
+<button class="btn activate" id="btnPlatinum"
+onclick="showPaymentForm('Platinum',20000)">
 Activate Plan
 </button>
 
 </div>
 
-    </div>
-    <script>
+                             </div>
+                             <div id="paymentForm" class="paymentForm">
+
+<h2 id="paymentTitle">
+Complete Your Registration
+</h2>
+
+<div class="group">
+<label>Full Name *</label>
+<input
+type="text"
+id="fullName"
+placeholder="Enter your full name">
+</div>
+
+<div class="group">
+<label>Email Address *</label>
+<input
+type="email"
+id="email"
+placeholder="Enter your email">
+</div>
+
+<div class="group">
+<label>Phone Number *</label>
+<input
+type="tel"
+id="phone"
+placeholder="08123456789">
+</div>
+
+<div class="group">
+<label>Bank Name (Optional)</label>
+<input
+type="text"
+id="bankName"
+placeholder="Example: Opay">
+</div>
+
+<div class="group">
+<label>Account Number (Optional)</label>
+<input
+type="text"
+id="accountNumber"
+placeholder="0123456789">
+</div>
+
+<div style="
+margin-top:20px;
+padding:15px;
+background:#0f172a;
+border-radius:10px;
+border:1px solid #334155;
+">
+
+<p><strong>Selected Plan:</strong>
+<span id="selectedPlan"></span></p>
+
+<p style="margin-top:8px;">
+<strong>Amount:</strong>
+₦<span id="selectedAmount"></span>
+</p>
+
+</div>
+
+<button
+class="btn payBtn"
+onclick="continueToPayment()">
+
+Continue To Payment →
+
+</button>
+
+<button
+class="btn backBtn"
+onclick="backToPlans()">
+
+← Back To Plans
+
+</button>
+
+</div>
+
+<script>
+
+let selectedPlan = "";
+let selectedAmount = 0;
+
+function showPaymentForm(plan, amount){
+
+selectedPlan = plan;
+selectedAmount = amount;
+
+document.getElementById("plans").style.display = "none";
+
+document.getElementById("paymentForm").style.display = "block";
+
+document.getElementById("selectedPlan").textContent = plan;
+
+document.getElementById("selectedAmount").textContent =
+amount.toLocaleString();
+
+window.scrollTo({
+top:0,
+behavior:"smooth"
+});
+
+}
+
+function backToPlans(){
+
+document.getElementById("paymentForm").style.display = "none";
+
+document.getElementById("plans").style.display = "grid";
+
+}function continueToPayment(){
+
+const name = document.getElementById("fullName").value.trim();
+const email = document.getElementById("email").value.trim();
+const phone = document.getElementById("phone").value.trim();
+const bankName = document.getElementById("bankName").value.trim();
+const accountNumber = document.getElementById("accountNumber").value.trim();
+
+
+if(!name || !email || !phone){
+
+alert("Please fill Name, Email and Phone number");
+
+return;
+
+}
+
+
+let handler = PaystackPop.setup({
+
+pk_live_9cf9be02d532580b4f87d000c52b6893de05362c
+
+email: email,
+
+amount: selectedAmount * 100,
+
+currency: "NGN",
+
+ref: "CM_" + selectedPlan + "_" + Date.now(),
+
+
+metadata: {
+
+custom_fields:[
+
+{
+display_name:"Full Name",
+variable_name:"full_name",
+value:name
+},
+
+{
+display_name:"Phone",
+variable_name:"phone",
+value:phone
+},
+
+{
+display_name:"Plan",
+variable_name:"plan",
+value:selectedPlan
+},
+
+{
+display_name:"Bank Name",
+variable_name:"bank_name",
+value:bankName
+},
+
+{
+display_name:"Account Number",
+variable_name:"account_number",
+value:accountNumber
+}
+
+]
+
+},
+
+
+callback:function(response){
+
+
+fetch("/api/verify",{
+
+method:"POST",
+
+headers:{
+
+"Content-Type":"application/json"
+
+},
+
+body:JSON.stringify({
+
+reference:response.reference,
+
+plan:selectedPlan,
+
+email:email
+
+})
+
+})
+
+.then(res=>res.json())
+
+.then(data=>{
+
+
+if(data.success){
+
+
+localStorage.setItem(
+"clickmoni_plan",
+selectedPlan
+);
+
+
+localStorage.setItem(
+"clickmoni_paid",
+"true"
+);
+
+
+alert(
+"Payment Successful 🎉\nPlan Activated: "
++ selectedPlan
+);
+
+
+window.location.href="dashboard.html";
+
+
+}
+
+else{
+
+
+alert(
+"Payment verification failed"
+);
+
+
+}
+
+
+});
+
+
+},
+
+
+onClose:function(){
+
+alert(
+"Payment cancelled"
+);
+
+}
+
+
+});
+
+
+handler.openIframe();
+
+
+}
+
+
+</script>
+/* ===========================
+   USER PLAN / UPGRADE LOGIC
+=========================== */
 
 const PLAN_ORDER = [
     "Starter",
@@ -503,15 +773,13 @@ const PLAN_ORDER = [
 
 let currentPlan = "Free";
 
-async function loadUserPlan(){
+async function loadUserPlan() {
 
     const email = localStorage.getItem("clickmoni_email");
 
-    if(!email){
-        return;
-    }
+    if (!email) return;
 
-    try{
+    try {
 
         const response = await fetch(
             "/api/me?email=" + encodeURIComponent(email)
@@ -519,202 +787,70 @@ async function loadUserPlan(){
 
         const result = await response.json();
 
-        if(!result.success){
-            return;
-        }
+        if (!result.success) return;
 
         currentPlan = result.user.plan || "Free";
 
-        document.getElementById("currentPlanBox").style.display = "block";
+        document.getElementById("currentPlan").style.display = "block";
 
-        document.getElementById("currentPlanName").innerHTML =
+        document.getElementById("planText").innerHTML =
             "<strong>Plan:</strong> " + currentPlan;
 
-        document.getElementById("currentDailyIncome").innerHTML =
+        document.getElementById("incomeText").innerHTML =
             "<strong>Daily Income:</strong> ₦" +
             (result.user.daily_earning || 0);
 
-        document.getElementById("currentStatus").innerHTML =
-            "<strong>Status:</strong> " +
-            (result.user.payment_status || "unpaid");
+        updatePlanButtons();
 
-        updateButtons();
+    } catch (err) {
 
-    }catch(error){
-
-        console.log(error);
+        console.log(err);
 
     }
 
 }
 
-function updateButtons(){
+function updatePlanButtons() {
 
-    if(currentPlan === "Free"){
-        return;
-    }
+    if (currentPlan === "Free") return;
 
     const currentIndex = PLAN_ORDER.indexOf(currentPlan);
 
-    PLAN_ORDER.forEach(function(plan,index){
+    PLAN_ORDER.forEach(function(plan, index) {
 
         const card = document.getElementById(plan);
+        const btn = document.getElementById("btn" + plan);
 
-        const button = document.getElementById("btn"+plan);
+        if (!card || !btn) return;
 
-        if(!card || !button) return;
-
-        if(index === currentIndex){
+        if (index === currentIndex) {
 
             card.classList.add("active");
 
-            button.innerHTML = "🟢 Current Plan";
-
-            button.className = "btn current";
-
-            button.disabled = true;
-
-        }else if(index < currentIndex){
-
-            button.innerHTML = "🔒 Already Passed";
-
-            button.className = "btn locked";
-
-            button.disabled = true;
-
-        }else{
-
-            button.innerHTML = "⬆ Upgrade Plan";
-
-            button.className = "btn upgrade";
+            btn.innerHTML = "🟢 Current Plan";
+            btn.className = "btn current";
+            btn.disabled = true;
 
         }
 
-        });
+        else if (index < currentIndex) {
 
-}
+            btn.innerHTML = "🔒 Already Passed";
+            btn.className = "btn locked";
+            btn.disabled = true;
 
-function payNow(plan, amount){
+        }
 
+        else {
 
-    if(currentPlan === plan){
-
-        alert("You are already on this plan.");
-
-        return;
-
-    }
-
-    if(!confirm("Upgrade to " + plan + " Plan?\n\nAmount: ₦" + amount.toLocaleString())){
-
-        return;
-
-    }
-
-    const email = localStorage.getItem("clickmoni_email");
-
-    if(!email){
-
-        alert("Please login first.");
-
-        window.location.href="signup.html";
-
-        return;
-
-    }
-
-    document.getElementById("loading").style.display="flex";
-
-    const handler = PaystackPop.setup({
-
-        key:"pk_live_9cf9be02d532580b4f87d000c52b6893de05362c",
-
-        email:email,
-
-        amount:amount*100,
-
-        currency:"NGN",
-
-        ref:"CM_"+Date.now(),
-
-        callback:async function(response){
-
-            try{
-
-                const verify = await fetch("/api/verify",{
-
-                    method:"POST",
-
-                    headers:{
-                        "Content-Type":"application/json"
-                    },
-
-                    body:JSON.stringify({
-
-                        reference:response.reference,
-
-                        email:email,
-
-                        plan:plan
-
-                    })
-
-                });
-
-                const result = await verify.json();
-
-                document.getElementById("loading").style.display="none";
-
-                if(result.success){
-
-                    localStorage.setItem("clickmoni_plan",plan);
-
-                    localStorage.setItem("clickmoni_paid","true");
-
-                    alert(
-                        "🎉 Congratulations!\n\n" +
-                        plan + " Plan Activated Successfully."
-                    );
-
-                    window.location.href="dashboard.html";
-
-                }else{
-
-                    alert(result.message);
-
-                }
-
-            }catch(err){
-
-                document.getElementById("loading").style.display="none";
-
-                alert("Unable to verify payment.");
-
-                console.log(err);
-
-            }
-
-        },
-
-        onClose:function(){
-
-            document.getElementById("loading").style.display="none";
-
-            alert("Payment cancelled.");
+            btn.innerHTML = "⬆ Upgrade Plan";
+            btn.className = "btn upgrade";
+            btn.disabled = false;
 
         }
 
     });
 
-    handler.openIframe();
-
 }
 
 loadUserPlan();
-
-</script>
-
-</body>
-
-</html>
-
