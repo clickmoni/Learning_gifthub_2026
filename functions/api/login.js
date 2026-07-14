@@ -4,11 +4,19 @@ export async function onRequestPost(context) {
   try {
     const { email, password } = await request.json();
 
-    const user = await env.DB.prepare(
-      `SELECT * FROM users
-       WHERE email = ?`
-    )
-    .bind(email)
+    if (!email || !password) {
+      return Response.json({
+        success: false,
+        message: "Email and password are required."
+      });
+    }
+
+    const user = await env.DB.prepare(`
+      SELECT *
+      FROM users
+      WHERE email = ?
+    `)
+    .bind(email.trim().toLowerCase())
     .first();
 
     if (!user) {
@@ -26,38 +34,31 @@ export async function onRequestPost(context) {
     }
 
     return Response.json({
-        success: true,
-        user: {
-    id: user.id,
-    firstName: user.first_name,
-    lastName: user.last_name,
-    username: user.username,
-    email: user.email,
-    phone: user.phone,
-    plan: user.plan,
-    balance: user.balance,
-    referral_balance: user.referral_balance,
-    total_referrals: user.total_referrals,
-    role: user.role,
-    joined: user.created_at
-        }
-            
-            
-            
-            
-            
-            
-            
-          
-        
+      success: true,
+      message: "Login successful.",
+      user: {
+        id: user.id,
+        first_name: user.first_name,
+        last_name: user.last_name,
+        username: user.username,
+        email: user.email,
+        phone: user.phone,
+        plan: user.plan,
+        balance: user.balance,
+        referral_balance: user.referral_balance,
+        total_referrals: user.total_referrals,
+        role: user.role,
+        created_at: user.created_at
+      }
     });
 
   } catch (err) {
 
     return Response.json({
-        success:false,
-        message:err.message
+      success: false,
+      message: "Server error.",
+      error: err.message
     });
 
   }
-}
+                           }
