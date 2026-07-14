@@ -147,10 +147,10 @@ const result=await response.json();
 
 if(result.success){
 
-localStorage.setItem(
-"currentUser",
-result.user.email
-);
+localStorage.setItem("currentUser", result.user.email);
+localStorage.setItem("clickmoni_email", result.user.email);
+
+
 
 window.location.href="dashboard.html";
 
