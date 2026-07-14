@@ -565,7 +565,17 @@ onclick="backToPlans()">
 </div>
 
 <script>
+const email =
+localStorage.getItem("currentUser") ||
+localStorage.getItem("clickmoni_email");
 
+if (!email) {
+
+    alert("Please login first.");
+
+    window.location.href = "login.html";
+
+    }
 let selectedPlan = "";
 let selectedAmount = 0;
 
