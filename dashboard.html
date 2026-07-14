@@ -91,7 +91,9 @@
     <script>
         window.onload = async function () {
 
-    const email = localStorage.getItem("clickmoni_email");
+    const email =
+localStorage.getItem("currentUser") ||
+localStorage.getItem("clickmoni_email");
 
     if (!email) {
         window.location.href = "login.html";
