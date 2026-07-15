@@ -29,6 +29,8 @@ export async function onRequestGet(context) {
         affiliate_balance,
         task_balance,
         total_referrals,
+        social_platform,
+social_link,
         role,
         created_at,
         activated_at
