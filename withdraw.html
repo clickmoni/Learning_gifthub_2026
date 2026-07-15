@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+conststOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -175,7 +175,18 @@
     </div>
 
     <script>
-        const PLAN_MINIMUMS = {
+        const email =
+localStorage.getItem("currentUser") ||
+localStorage.getItem("clickmoni_email");
+
+if (!email) {
+
+    alert("Please login first.");
+
+    window.location.href = "login.html";
+
+        }
+    const PLAN_MINIMUMS = {
             'TEST': 1000,
             'STARTER': 10000,
             'BRONZE': 18000,
