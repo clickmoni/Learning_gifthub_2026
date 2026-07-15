@@ -1,277 +1,451 @@
-scriptYPE html>
+<!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Social Media Task - ClickMoni</title>
-    <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { font-family: 'Segoe UI', Arial, sans-serif; background: #000; color: #fff; padding: 15px; }
-     .back { color: #FFD700; text-decoration: none; font-weight: 600; display: block; margin-bottom: 20px; }
-     .logo { color: #FFD700; font-size: 24px; font-weight: 800; text-align: center; margin-bottom: 20px; }
-     .warning { background: #330000; border: 2px solid #ff0000; border-radius: 14px; padding: 25px; text-align: center; margin: 40px 0; display: none; }
-     .box { background: #111; border: 2px solid #FFD700; border-radius: 18px; padding: 25px; margin: 18px 0; }
-        h1 { color: #FFD700; text-align: center; margin-bottom: 20px; font-size: 24px; }
-        h3 { color: #FFD700; margin-bottom: 15px; font-size: 18px; }
-     .earnings { color: #00ff00; font-size: 28px; font-weight: 800; margin: 15px 0; text-align: center; }
-     .step { background: #000; border: 1px solid #333; border-radius: 12px; padding: 18px; margin: 15px 0; }
-     .step-num { background: #FFD700; color: #000; width: 30px; height: 30px; border-radius: 50%; display: inline-flex; align-items: center; justify-content: center; font-weight: 800; margin-right: 10px; }
-     .step-title { color: #FFD700; font-weight: 700; font-size: 16px; margin-bottom: 8px; }
-     .step-desc { color: #aaa; font-size: 14px; line-height: 1.6; }
-     .step a { color: #00aaff; text-decoration: none; font-weight: 600; }
-     .input-group { margin: 20px 0; }
-     .input-group label { color: #FFD700; font-size: 14px; font-weight: 600; display: block; margin-bottom: 8px; }
-     .input-group input { width: 100%; padding: 14px; background: #000; border: 1px solid #333; border-radius: 10px; color: #fff; font-size: 15px; }
-     .input-group input:focus { border-color: #FFD700; outline: none; }
-     .btn { background: #FFD700; color: #000; border: none; padding: 16px; border-radius: 12px; font-weight: 800; font-size: 17px; cursor: pointer; width: 100%; margin-top: 15px; transition: all 0.3s; }
-     .btn:disabled { background: #333; color: #666; cursor: not-allowed; }
-     .btn:not(:disabled):hover { background: #ffed4e; transform: scale(1.02); }
-     .info { background: #001a33; border: 1px solid #0088cc; border-radius: 10px; padding: 15px; margin: 20px 0; font-size: 14px; color: #aaa; }
-     .info strong { color: #FFD700; }
-     .success { background: #003300; border: 2px solid #00ff00; border-radius: 14px; padding: 25px; text-align: center; margin: 20px 0; display: none; }
-     .success h2 { color: #00ff00; margin-bottom: 10px; }
-     .approved { background: #002200; border: 2px solid #00ff00; border-radius: 14px; padding: 25px; text-align: center; margin: 20px 0; display: none; }
-     .approved h2 { color: #00ff00; margin-bottom: 10px; }
-     .link-display { background: #000; border: 1px solid #00ff00; border-radius: 10px; padding: 12px; margin: 15px 0; color: #00aaff; word-break: break-all; }
-     .valid-hint { color: #00ff00; font-size: 12px; margin-top: 5px; display: none; }
-     .invalid-hint { color: #ff0000; font-size: 12px; margin-top: 5px; display: none; }
-    </style>
+
+<meta charset="UTF-8">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>ClickMoni - Daily Tasks</title>
+
+<style>
+
+</style>
+
 </head>
+
 <body>
-    <a href="dashboard.html" class="back">← Back to Dashboard</a>
-    <div class="logo">ClickMoni</div>
 
-    <div class="warning" id="activateWarning">
-        <h2>⚠️ Activate Plan First</h2>
-        <p>You must activate a ClickMoni plan before you can set up your social media task.</p>
-        <a href="tiers.html" class="btn">🚀 Activate Plan Now</a>
-    </div>
+<div class="container">
 
-    <div id="taskContainer" style="display:none;">
-        <h1>📢 Social Media Task Setup</h1>
+<div class="header">
 
-        <div class="box">
-            <div class="earnings">Daily Auto-Earn: ₦<span id="dailyAmount">0</span></div>
-            <div class="info">
-                <strong>Your Plan:</strong> <span id="userPlan">None</span><br>
-                <strong>Status:</strong> <span id="taskStatus">Not setup</span>
-            </div>
-        </div>
+<div class="logo">
 
-        <div class="box" id="setupBox">
-            <h3>One-Time Setup: Submit Your Social Media Profile</h3>
+ClickMoni
 
-            <div class="step">
-                <div class="step-title"><span class="step-num">1</span>Join Our Telegram Community</div>
-                <div class="step-desc">
-                    Join <a href="https://t.me/ClickMoniOfficial" target="_blank">@ClickMoniOfficial</a> to download daily marketing flyers.
-                </div>
-            </div>
+</div>
 
-            <div class="step">
-                <div class="step-title"><span class="step-num">2</span>Choose Your Social Media Profile</div>
-                <div class="step-desc">
-                    Pick ONE profile where you'll post ClickMoni flyers daily: Facebook, TikTok, Instagram, or Twitter. Profile must be PUBLIC.
-                </div>
-            </div>
+<p class="subtitle">
 
-            <div class="step">
-                <div class="step-title"><span class="step-num">3</span>Submit Your Profile Link ONCE</div>
-                <div class="step-desc">
-                    Paste your profile link below. Example: https://facebook.com/yourname<br>
-                    CEO @Monigold will verify once. After approval, you earn ₦<span id="earnAmount1">0</span> DAILY automatically.
-                </div>
-            </div>
+Complete today's task and earn your daily reward.
 
-            <div class="input-group">
-                <label>Your Social Media Profile Link</label>
-                <input type="url" id="profileLink" placeholder="https://facebook.com/yourname" oninput="checkLink()" onpaste="setTimeout(checkLink, 100)">
-                <div class="valid-hint" id="validHint">✅ Valid social media link detected</div>
-                <div class="invalid-hint" id="invalidHint">❌ Please enter a valid Facebook, Instagram, TikTok or Twitter profile link</div>
-            </div>
+</p>
 
-            <button class="btn" id="submitBtn" onclick="submitProfile()" disabled>Submit Profile For Approval</button>
+</div>
 
-            <div class="info">
-                <strong>⚠️ Rules:</strong><br>
-                1. Submit your PROFILE link, not post link<br>
-                2. You must post ClickMoni flyer on this profile DAILY<br>
-                3. Keep profile PUBLIC always<br>
-                4. After approval, ₦<span id="earnAmount2">0</span> adds to balance every 24hrs<br>
-                5. Fake profile = Account ban
-            </div>
-        </div>
+<div class="rewardCard">
 
-        <div class="success" id="pendingBox">
-            <h2>⏳ Profile Submitted!</h2>
-            <p>Your social media profile is under review by CEO @Monigold.</p>
-            <div class="link-display" id="submittedLink"></div>
-            <p style="color:#aaa; margin-top:10px;">Once approved, you will receive ₦<span id="earnAmount3">0</span> daily automatically.</p>
-        </div>
+<h2>Your Plan</h2>
 
-        <div class="approved" id="approvedBox">
-            <h2>✅ Profile Approved!</h2>
-            <p>Your social media task is ACTIVE.</p>
-            <div class="link-display" id="approvedLink"></div>
-            <p style="color:#00ff00; margin-top:15px; font-weight:700;">₦<span id="earnAmount4">0</span> will be added to your balance every 24 hours.</p>
-            <p style="color:#aaa; margin-top:10px;">Remember: Post ClickMoni flyer on this profile daily to keep earning.</p>
-            <p style="color:#ffaa00; margin-top:15px;">Last payment: <span id="lastPayment">Never</span></p>
-        </div>
-    </div>
+<h3 id="userPlan">
 
+Loading...
+
+</h3>
+
+<h2>Today's Reward</h2>
+
+<h1 id="rewardAmount">
+
+₦0
+
+</h1>
+
+</div>
+
+<div class="taskCard">
+
+<h2>Today's Task</h2>
+
+<ul>
+
+<li>✅ Download today's ClickMoni flyer.</li>
+
+<li>✅ Post the flyer on your preferred social media.</li>
+
+<li>✅ React to today's Telegram post.</li>
+
+<li>✅ Click the button below after completing today's task.</li>
+
+</ul>
+
+</div>
+
+<div class="noticeCard">
+
+<h2>Important Notice</h2>
+
+<p>
+
+Our system monitors user activity.
+
+Before your task withdrawal is approved,
+
+our team will review the social media account
+
+you provided to confirm you regularly perform
+
+ClickMoni tasks.
+
+Failure to perform tasks may delay or reject
+
+your withdrawal request.
+
+</p>
+
+</div>
+
+<div class="socialCard">
+
+<h2>Social Media Information</h2>
+
+<p>
+
+Add your social media profile once.
+
+You can update it anytime.
+
+</p>
+
+<label>
+
+Social Media Platform
+
+</label>
+
+<select id="platform">
+
+<option>Facebook</option>
+
+<option>TikTok</option>
+
+<option>Instagram</option>
+
+<option>X (Twitter)</option>
+
+<option>WhatsApp</option>
+
+<option>YouTube</option>
+
+<option>Telegram</option>
+
+<option>Other</option>
+
+</select>
+
+<label>
+
+Profile Link
+
+</label>
+
+<input
+type="text"
+id="socialLink"
+placeholder="https://facebook.com/yourprofile">
+
+<button
+id="saveBtn">
+
+💾 Save Social Link
+
+</button>
+
+</div>
+
+<div class="buttonBox">
+
+<button
+id="telegramBtn">
+
+📢 Open Telegram
+
+</button>
+
+<button
+id="claimBtn">
+
+🎁 Claim Today's Reward
+
+</button>
+
+</div>
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif;
+}
+
+body{
+background:#000;
+color:#fff;
+padding:20px;
+padding-bottom:100px;
+}
+
+.container{
+max-width:700px;
+margin:auto;
+}
+
+.header{
+text-align:center;
+margin-bottom:25px;
+}
+
+.logo{
+font-size:40px;
+font-weight:bold;
+color:#FFD700;
+}
+
+.subtitle{
+margin-top:10px;
+color:#bbb;
+font-size:15px;
+}
+
+.rewardCard,
+.taskCard,
+.noticeCard,
+.socialCard{
+
+background:#111;
+
+border:1px solid #FFD700;
+
+border-radius:15px;
+
+padding:20px;
+
+margin-bottom:20px;
+
+}
+
+.rewardCard h2,
+.taskCard h2,
+.noticeCard h2,
+.socialCard h2{
+
+color:#FFD700;
+
+margin-bottom:12px;
+
+}
+
+.rewardCard h3{
+
+font-size:24px;
+
+margin-bottom:15px;
+
+}
+
+.rewardCard h1{
+
+font-size:45px;
+
+color:#22c55e;
+
+}
+
+.taskCard ul{
+
+margin-left:20px;
+
+}
+
+.taskCard li{
+
+margin:12px 0;
+
+line-height:1.6;
+
+}
+
+.noticeCard{
+
+background:#2b0000;
+
+border-color:#ff4444;
+
+}
+
+.noticeCard p{
+
+line-height:1.8;
+
+color:#eee;
+
+}
+
+.socialCard label{
+
+display:block;
+
+margin-top:15px;
+
+margin-bottom:8px;
+
+font-weight:bold;
+
+}
+
+.socialCard select,
+.socialCard input{
+
+width:100%;
+
+padding:14px;
+
+border-radius:10px;
+
+border:1px solid #444;
+
+background:#000;
+
+color:#fff;
+
+font-size:16px;
+
+}
+
+.buttonBox{
+
+display:grid;
+
+gap:15px;
+
+}
+
+button{
+
+width:100%;
+
+padding:15px;
+
+border:none;
+
+border-radius:12px;
+
+font-size:17px;
+
+font-weight:bold;
+
+cursor:pointer;
+
+}
+
+#saveBtn{
+
+background:#2563eb;
+
+color:#fff;
+
+}
+
+#telegramBtn{
+
+background:#229ED9;
+
+color:#fff;
+
+}
+
+#claimBtn{
+
+background:#16a34a;
+
+color:#fff;
+
+}
+
+button:hover{
+
+opacity:.9;
+
+}
     <script>
-        const email =
-localStorage.getItem("currentUser") ||
-localStorage.getItem("clickmoni_email");
 
-if (!email) {
+let currentUser = null;
 
-    alert("Please login first.");
+const PLAN_REWARD = {
+    "Starter":100,
+    "Basic":200,
+    "Bronze":400,
+    "Silver":800,
+    "Gold":1500,
+    "Platinum":2500
+};
 
-    window.location.href = "login.html";
+window.onload = async function(){
+
+    const email =
+        localStorage.getItem("currentUser") ||
+        localStorage.getItem("clickmoni_email");
+
+    if(!email){
+
+        window.location.href="login.html";
+
+        return;
+
+    }
+
+    try{
+
+        const response = await fetch(
+            "/api/me?email=" +
+            encodeURIComponent(email)
+        );
+
+        const result = await response.json();
+
+        if(!result.success){
+
+            alert(result.message);
+
+            return;
 
         }
-        let userPlan = '';
-        let dailyAmount = 0;
 
-        window.onload = function() {
-            userPlan = localStorage.getItem('clickmoni_pack') || 'None';
-            dailyAmount = parseInt(localStorage.getItem('clickmoni_daily') || '0');
-            const user = localStorage.getItem('clickmoni_user');
+        currentUser = result.user;
 
-            if (!userPlan || userPlan === 'None' ||!user) {
-                document.getElementById('activateWarning').style.display = 'block';
-                document.getElementById('taskContainer').style.display = 'none';
-            } else {
-                document.getElementById('activateWarning').style.display = 'none';
-                document.getElementById('taskContainer').style.display = 'block';
-                setupTask();
-                checkDailyReward();
-            }
-        };
+        document.getElementById("userPlan").innerHTML =
+            currentUser.plan || "No Plan";
 
-        function setupTask() {
-            document.getElementById('userPlan').textContent = userPlan;
-            document.getElementById('dailyAmount').textContent = dailyAmount.toLocaleString();
-            document.getElementById('earnAmount1').textContent = dailyAmount.toLocaleString();
-            document.getElementById('earnAmount2').textContent = dailyAmount.toLocaleString();
-            document.getElementById('earnAmount3').textContent = dailyAmount.toLocaleString();
-            document.getElementById('earnAmount4').textContent = dailyAmount.toLocaleString();
+        document.getElementById("rewardAmount").innerHTML =
+            "₦" +
+            (
+                PLAN_REWARD[currentUser.plan] || 0
+            ).toLocaleString();
 
-            const user = localStorage.getItem('clickmoni_user');
-            const profileData = JSON.parse(localStorage.getItem('clickmoni_social_profile_' + user) || 'null');
+        if(currentUser.social_platform){
 
-            if (profileData) {
-                document.getElementById('setupBox').style.display = 'none';
-                
-                if (profileData.status === 'pending') {
-                    document.getElementById('pendingBox').style.display = 'block';
-                    document.getElementById('submittedLink').textContent = profileData.link;
-                    document.getElementById('taskStatus').textContent = 'Pending Approval';
-                } else if (profileData.status === 'approved') {
-                    document.getElementById('approvedBox').style.display = 'block';
-                    document.getElementById('approvedLink').textContent = profileData.link;
-                    document.getElementById('taskStatus').textContent = 'Active - Auto Earning';
-                    document.getElementById('lastPayment').textContent = profileData.lastPayment || 'Never';
-                }
-            } else {
-                document.getElementById('taskStatus').textContent = 'Not setup';
-            }
+            document.getElementById("platform").value =
+                currentUser.social_platform;
+
         }
 
-        function checkLink() {
-            const link = document.getElementById('profileLink').value.trim();
-            const btn = document.getElementById('submitBtn');
-            const validHint = document.getElementById('validHint');
-            const invalidHint = document.getElementById('invalidHint');
+        if(currentUser.social_link){
 
-            const isValid = link.length > 10 && (
-                link.includes('facebook.com/') || 
-                link.includes('fb.com/') ||
-                link.includes('instagram.com/') || 
-                link.includes('tiktok.com/') || 
-                link.includes('twitter.com/') || 
-                link.includes('x.com/')
-            ) && link.startsWith('http');
+            document.getElementById("socialLink").value =
+                currentUser.social_link;
 
-            if (isValid) {
-                btn.disabled = false;
-                validHint.style.display = 'block';
-                invalidHint.style.display = 'none';
-                document.getElementById('profileLink').style.borderColor = '#00ff00';
-            } else {
-                btn.disabled = true;
-                if (link.length > 0) {
-                    validHint.style.display = 'none';
-                    invalidHint.style.display = 'block';
-                    document.getElementById('profileLink').style.borderColor = '#ff0000';
-                } else {
-                    validHint.style.display = 'none';
-                    invalidHint.style.display = 'none';
-                    document.getElementById('profileLink').style.borderColor = '#333';
-                }
-            }
         }
 
-        function submitProfile() {
-            const link = document.getElementById('profileLink').value.trim();
-            if (!link) return;
+    }catch(err){
 
-            const user = localStorage.getItem('clickmoni_user');
-            const profileData = {
-                user: user,
-                plan: userPlan,
-                link: link,
-                daily: dailyAmount,
-                date: new Date().toISOString(),
-                status: 'pending',
-                lastPayment: null
-            };
+        alert(err.message);
 
-            localStorage.setItem('clickmoni_social_profile_' + user, JSON.stringify(profileData));
+    }
 
-            let pendingJobs = JSON.parse(localStorage.getItem('clickmoni_pending_jobs') || '[]');
-            pendingJobs.push({
-                user: user,
-                plan: userPlan,
-                job: 'Social Media Profile Verification',
-                reward: 0,
-                proof: link,
-                date: new Date().toISOString(),
-                status: 'pending',
-                type: 'profile_setup'
-            });
-            localStorage.setItem('clickmoni_pending_jobs', JSON.stringify(pendingJobs));
+};
 
-            setupTask();
-            alert('Profile submitted! CEO @Monigold will verify within 24 hours.');
-        }
-
-        function checkDailyReward() {
-            const user = localStorage.getItem('clickmoni_user');
-            const profileData = JSON.parse(localStorage.getItem('clickmoni_social_profile_' + user) || 'null');
-
-            if (!profileData || profileData.status !== 'approved') return;
-
-            const today = new Date().toLocaleDateString('en-GB');
-            const lastPayment = profileData.lastPayment;
-
-            if (lastPayment !== today) {
-                let balance = parseInt(localStorage.getItem('clickmoni_balance') || '0');
-                balance += dailyAmount;
-                localStorage.setItem('clickmoni_balance', balance);
-
-                profileData.lastPayment = today;
-                localStorage.setItem('clickmoni_social_profile_' + user, JSON.stringify(profileData));
-
-                document.getElementById('lastPayment').textContent = today;
-                
-                setTimeout(() => {
-                    alert(`🎉 Daily reward credited!\n\n₦${dailyAmount.toLocaleString()} added to your balance.\n\nKeep posting ClickMoni flyers daily to continue earning.`);
-                }, 1000);
-            }
-        }
-        async function saveSocialLink(){
+async function saveSocialLink(){
 
     const email =
         localStorage.getItem("currentUser") ||
@@ -283,7 +457,7 @@ if (!email) {
     const link =
         document.getElementById("socialLink").value.trim();
 
-    if(!email || !link){
+    if(link===""){
 
         alert("Please enter your social media link.");
 
@@ -311,9 +485,74 @@ if (!email) {
 
     const result = await response.json();
 
+    alert(result.message);
+
+}
+
+function openTelegram(){
+    async function claimTask(){
+
+const email =
+    localStorage.getItem("currentUser") ||
+    localStorage.getItem("clickmoni_email");
+
+const response = await fetch("/api/claim-task",{
+    method:"POST",
+    headers:{
+        "Content-Type":"application/json"
+    },
+    body:JSON.stringify({
+        email:email
+    })
+});
+
+const result = await response.json();
+
+alert(result.message);
+
+if(result.success){
+    location.reload();
+}
+
+        }
+
+    window.open(
+        "https://t.me/ClickMoniOfficial",
+        "_blank"
+    );
+
+}
+
+async function claimTask(){
+
+    const email =
+        localStorage.getItem("currentUser") ||
+        localStorage.getItem("clickmoni_email");
+
+    const response = await fetch("/api/claim-task",{
+
+        method:"POST",
+
+        headers:{
+            "Content-Type":"application/json"
+        },
+
+        body:JSON.stringify({
+
+            email
+
+        })
+
+    });
+
+    const result = await response.json();
+
     if(result.success){
 
-        alert("✅ Social media link saved successfully.");
+        alert(
+            "🎉 Reward Added Successfully!\n\n₦" +
+            result.amount.toLocaleString()
+        );
 
     }else{
 
@@ -321,7 +560,20 @@ if (!email) {
 
     }
 
-        }
-    </script>
+}
+
+document.getElementById("saveBtn").onclick =
+saveSocialLink;
+
+document.getElementById("telegramBtn").onclick =
+openTelegram;
+
+document.getElementById("claimBtn").onclick =
+claimTask;
+
+</script>
+
 </body>
-                    </html>
+
+    </html>
+    
