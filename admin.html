@@ -365,7 +365,68 @@ localStorage.removeItem("adminLoggedIn");
 window.location.href="admin-login.html";
 
 }
+async function loadUsers(){
 
+    try{
+
+        const response = await fetch("/api/admin/users");
+
+        const result = await response.json();
+
+        if(!result.success){
+
+            alert(result.message);
+
+            return;
+
+        }
+
+        const tbody = document.getElementById("usersTable");
+
+        tbody.innerHTML = "";
+
+        result.users.forEach(user=>{
+
+            tbody.innerHTML += `
+            <tr>
+
+                <td>${user.first_name} ${user.last_name}</td>
+
+                <td>${user.email}</td>
+
+                <td>${user.plan || "Free"}</td>
+
+                <td>₦${Number(user.task_balance || 0).toLocaleString()}</td>
+
+                <td>
+
+                    <button
+                    onclick="viewUser(${user.id})">
+
+                    View
+
+                    </button>
+
+                </td>
+
+            </tr>
+            `;
+
+        });
+
+    }catch(err){
+
+        alert(err.message);
+
+    }
+
+    }
+    function viewUser(id){
+
+    alert("User ID: " + id);
+
+    }
+    loadUsers();
 </script>
 
 </body>
