@@ -271,6 +271,57 @@ if (!email) {
                 }, 1000);
             }
         }
+        async function saveSocialLink(){
+
+    const email =
+        localStorage.getItem("currentUser") ||
+        localStorage.getItem("clickmoni_email");
+
+    const platform =
+        document.getElementById("platform").value;
+
+    const link =
+        document.getElementById("socialLink").value.trim();
+
+    if(!email || !link){
+
+        alert("Please enter your social media link.");
+
+        return;
+
+    }
+
+    const response = await fetch("/api/save-social",{
+
+        method:"POST",
+
+        headers:{
+            "Content-Type":"application/json"
+        },
+
+        body:JSON.stringify({
+
+            email,
+            platform,
+            link
+
+        })
+
+    });
+
+    const result = await response.json();
+
+    if(result.success){
+
+        alert("✅ Social media link saved successfully.");
+
+    }else{
+
+        alert(result.message);
+
+    }
+
+        }
     </script>
 </body>
                     </html>
