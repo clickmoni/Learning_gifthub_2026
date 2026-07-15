@@ -56,9 +56,14 @@ export async function onRequestPost(context) {
         .run();
 
         return Response.json({
-            success: true,
-            amount
-        });
+    success: true,
+    message: `Congratulations! ₦${amount.toLocaleString()} has been added to your task balance.`,
+    amount
+});
+            
+            
+            
+        
 
     } catch (err) {
 
