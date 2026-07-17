@@ -109,9 +109,21 @@ localStorage.getItem("clickmoni_email");
         const result = await response.json();
 
         if (!result.success) {
-            alert(result.message);
-            return;
+
+    alert(result.message);
+
+    localStorage.removeItem("currentUser");
+    localStorage.removeItem("clickmoni_email");
+    localStorage.removeItem("clickmoni_plan");
+    localStorage.removeItem("clickmoni_paid");
+
+    window.location.href = "login.html";
+    return;
+
         }
+            
+
+        
 
         const user = result.user;
 
