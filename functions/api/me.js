@@ -29,6 +29,7 @@ export async function onRequestGet(context) {
         affiliate_balance,
         task_balance,
         total_referrals,
+        referral_code,
         social_platform,
 social_link,
         
