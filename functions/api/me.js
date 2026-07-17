@@ -31,7 +31,7 @@ export async function onRequestGet(context) {
         total_referrals,
         social_platform,
 social_link,
-        role,
+        
         created_at,
         activated_at
       FROM users
