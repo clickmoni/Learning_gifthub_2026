@@ -58,12 +58,26 @@
         }
 
         // SHOW REFERRAL BOX IF USER IS LOGGED IN
-        const userPhone = localStorage.getItem('clickmoni_user');
-        if (userPhone) {
-            document.getElementById('refBox').style.display = 'block';
-            const link = `https://learning-gifthub-2026.pages.dev?ref=${userPhone}`;
-            document.getElementById('refLink').textContent = link;
-        }
+        const email =
+    localStorage.getItem("currentUser") ||
+    localStorage.getItem("clickmoni_email");
+
+if (email) {
+    document.getElementById("refBox").style.display = "block";
+
+    const link =
+        "https://learning-gifthub-2026.pages.dev/register.html?ref=" +
+        encodeURIComponent(email);
+
+    document.getElementById("refLink").textContent = link;
+}
+
+
+        
+        
+
+            
+        
 
         function copyRef() {
             const link = document.getElementById('refLink').textContent;
