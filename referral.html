@@ -63,14 +63,32 @@
     localStorage.getItem("clickmoni_email");
 
 if (email) {
-    document.getElementById("refBox").style.display = "block";
 
-    const link =
-        "https://learning-gifthub-2026.pages.dev/register.html?ref=" +
-        encodeURIComponent(email);
+    fetch("/api/me?email=" + encodeURIComponent(email))
+    .then(response => response.json())
+    .then(result => {
 
-    document.getElementById("refLink").textContent = link;
+        if (!result.success) {
+            return;
+        }
+
+        document.getElementById("refBox").style.display = "block";
+
+        const link =
+            "https://learning-gifthub-2026.pages.dev/register.html?ref=" +
+            result.user.referral_code;
+
+        document.getElementById("refLink").textContent = link;
+
+    });
+
 }
+    
+   
+        
+
+    
+
 
 
         
