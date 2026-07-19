@@ -363,24 +363,44 @@ if (!email) {
             btn.disabled =!allValid;
         }
 
-        function submitTaskWithdraw() {
-            const amount = parseInt(document.getElementById('taskAmount').value);
-            const bank = document.getElementById('taskBank').value;
-            const account = document.getElementById('taskAccount').value;
-            const name = document.getElementById('taskName').value;
+        async function submitTaskWithdraw() {
 
-            let withdrawals = JSON.parse(localStorage.getItem('clickmoni_withdrawals') || '[]');
-            withdrawals.push({
-                user: localStorage.getItem('clickmoni_user'),
-                type: 'task',
-                amount: amount,
-                bank: bank,
-                account: account,
-                name: name,
-                plan: userPlan,
-                date: new Date().toISOString(),
-                status: 'pending'
-            });
+    const amount = parseInt(document.getElementById("taskAmount").value);
+    const bank = document.getElementById("taskBank").value;
+    const account = document.getElementById("taskAccount").value;
+    const name = document.getElementById("taskName").value;
+
+    const response = await fetch("/api/withdraw", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+            email: email,
+            amount: amount,
+            bank_name: bank,
+            account_name: name,
+            account_number: account,
+            type: "task"
+        })
+    });
+
+    const result = await response.json();
+
+    alert(result.message);
+
+    if (result.success) {
+        location.reload();
+    }
+        }
+            
+            
+    
+                
+                
+                
+                
+            
 
             localStorage.setItem('clickmoni_withdrawals', JSON.stringify(withdrawals));
             localStorage.setItem('clickmoni_balance', taskBalance - amount);
