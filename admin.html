@@ -449,6 +449,46 @@ async function loadUsers(){
 }
 
 loadDashboard();
+    async function loadWithdrawals(){
+
+    try{
+
+        const response = await fetch("/api/admin/withdrawals");
+        const result = await response.json();
+
+        if(!result.success) return;
+
+        const table = document.getElementById("withdrawalsTable");
+
+        table.innerHTML = "";
+
+        result.withdrawals.forEach(w=>{
+
+            table.innerHTML += `
+            <tr>
+                <td>${w.first_name} ${w.last_name}</td>
+                <td>₦${Number(w.amount).toLocaleString()}</td>
+                <td>${w.bank_name}<br>${w.account_number}</td>
+                <td>${w.status}</td>
+                <td>
+                    <button onclick="approveWithdrawal(${w.id})">
+                        ✅ Approve
+                    </button>
+                </td>
+            </tr>
+            `;
+
+        });
+
+    }catch(err){
+
+        console.log(err);
+
+    }
+
+}
+
+loadWithdrawals();
 </script>
 
 </body>
