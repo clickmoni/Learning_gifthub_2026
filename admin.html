@@ -427,6 +427,28 @@ async function loadUsers(){
 
     }
     loadUsers();
+    async function loadDashboard(){
+
+    try{
+
+        const response = await fetch("/api/admin/dashboard");
+        const result = await response.json();
+
+        if(!result.success) return;
+
+        document.getElementById("totalUsers").innerText = result.totalUsers;
+        document.getElementById("activePlans").innerText = result.activePlans;
+        document.getElementById("pendingWithdrawals").innerText = result.pendingWithdrawals;
+        document.getElementById("totalRevenue").innerText =
+            "₦" + Number(result.totalRevenue).toLocaleString();
+
+    }catch(err){
+        console.log(err);
+    }
+
+}
+
+loadDashboard();
 </script>
 
 </body>
