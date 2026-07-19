@@ -489,6 +489,38 @@ loadDashboard();
 }
 
 loadWithdrawals();
+    async function approveWithdrawal(id){
+
+    if(!confirm("Approve this withdrawal?")){
+        return;
+    }
+
+    try{
+
+        const response = await fetch("/api/admin/approve-withdrawal",{
+            method:"POST",
+            headers:{
+                "Content-Type":"application/json"
+            },
+            body:JSON.stringify({id})
+        });
+
+        const result = await response.json();
+
+        alert(result.message);
+
+        if(result.success){
+            loadWithdrawals();
+            loadDashboard();
+        }
+
+    }catch(err){
+
+        alert(err.message);
+
+    }
+
+    }
 </script>
 
 </body>
