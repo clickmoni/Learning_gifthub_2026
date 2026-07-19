@@ -16,8 +16,11 @@ export async function onRequestGet(context) {
                 u.email,
                 u.plan,
                 u.bank_name,
-                u.account_number,
-                u.social_platform,
+u.account_name,
+u.account_number,
+u.social_platform,
+                
+                
                 u.social_link
 
             FROM withdrawals w
