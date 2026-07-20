@@ -412,62 +412,83 @@ async function loadUser() {
 
 async function submitAffiliateWithdraw() {
 
-    const amount =
-        Number(document.getElementById("affiliateAmount").value);
-
-    const bank =
-        document.getElementById("affiliateBank").value;
-
-    const accountName =
-        document.getElementById("affiliateName").value;
-
-    const accountNumber =
-        document.getElementById("affiliateAccount").value;
+    const amount = Number(document.getElementById("affiliateAmount").value);
+    const bank = document.getElementById("affiliateBank").value;
+    const accountName = document.getElementById("affiliateName").value;
+    const accountNumber = document.getElementById("affiliateAccount").value;
 
     const response = await fetch("/api/withdraw", {
-
         method: "POST",
-
         headers: {
-            "Content-Type": "application/json"
+            "Content-Type":"application/json"
         },
-
         body: JSON.stringify({
-
             email,
-
             amount,
-
             bank_name: bank,
-
             account_name: accountName,
-
             account_number: accountNumber,
-
             type: "affiliate"
-
         })
-
     });
 
     const result = await response.json();
 
     alert(result.message);
 
-    if (result.success) {
+    if(result.success){
+        location.reload();
+    }
+}
 
-        await loadUser();
+async function loadHistory(){
 
-        await loadHistory();
+    const response = await fetch(
+        "/api/history?email=" + encodeURIComponent(email)
+    );
 
-        document.getElementById("affiliateAmount").value = "";
+    const result = await response.json();
 
+    const box = document.getElementById("withdrawHistory");
+
+    if(!result.success || result.withdrawals.length===0){
+        box.innerHTML="<p>No withdrawal history.</p>";
+        return;
     }
 
-                } 
+    box.innerHTML="";
+
+    result.withdrawals.forEach(item=>{
+
+        box.innerHTML += `
+        <div class="history-item">
+            <div class="history-header">
+                <div class="history-amount">
+                    ₦${Number(item.amount).toLocaleString()}
+                </div>
+
+                <div class="history-status status-${item.status}">
+                    ${item.status}
+                </div>
+            </div>
+
+            <div>
+                ${item.type}<br>
+                ${new Date(item.created_at).toLocaleString()}
+            </div>
+        </div>
+        `;
+    });
+
+}
+
+window.onload = async function(){
+
+    await loadUser();
+
+    await loadHistory();
+
+};
         
-            
-        
-    </script>
 </body>
                             </html>
