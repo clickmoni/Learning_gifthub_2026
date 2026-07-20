@@ -134,10 +134,14 @@ localStorage.getItem("clickmoni_email");
             user.plan || "No Plan";
 
         document.getElementById("totalBalance").textContent =
-            Number(user.balance || 0).toLocaleString();
+    Number(user.task_balance || 0).toLocaleString();
 
-        document.getElementById("refEarned").textContent =
-            Number(user.referral_balance || 0).toLocaleString();
+document.getElementById("refEarned").textContent =
+    Number(user.affiliate_balance || 0).toLocaleString();
+        
+
+        
+            
 
         document.getElementById("activeSince").textContent =
             new Date(user.created_at).toLocaleDateString();
