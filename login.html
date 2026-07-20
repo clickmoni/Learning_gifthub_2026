@@ -145,20 +145,39 @@ password
 
 const result=await response.json();
 
-if(result.success){
+if (result.success) {
 
-localStorage.setItem("currentUser", result.user.email);
-localStorage.setItem("clickmoni_email", result.user.email);
+    localStorage.setItem("currentUser", result.user.email);
+    localStorage.setItem("clickmoni_email", result.user.email);
+
+    localStorage.setItem("clickmoni_plan", result.user.plan || "");
+    localStorage.setItem("clickmoni_task_balance", result.user.task_balance || 0);
+    localStorage.setItem("clickmoni_affiliate_balance", result.user.affiliate_balance || 0);
+
+    localStorage.setItem(
+        "clickmoni_user",
+        result.user.first_name + " " + result.user.last_name
+    );
+
+    window.location.href = "dashboard.html";
+
+} else {
+
+    alert(result.message);
+
+   }
 
 
 
-window.location.href="dashboard.html";
 
-}else{
 
-alert(result.message);
 
-}
+
+
+
+
+
+
 
 }
 
