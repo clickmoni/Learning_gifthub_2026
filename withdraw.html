@@ -1,5 +1,4 @@
-conststOCTYPE html>
-<html lang="en">
+<!DOCTYPE htmid lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -176,300 +175,299 @@ conststOCTYPE html>
 
     <script>
         const email =
-localStorage.getItem("currentUser") ||
-localStorage.getItem("clickmoni_email");
+    localStorage.getItem("currentUser") ||
+    localStorage.getItem("clickmoni_email");
 
 if (!email) {
-
     alert("Please login first.");
-
     window.location.href = "login.html";
+}
 
-        }
-    const PLAN_MINIMUMS = {
-            'TEST': 1000,
-            'STARTER': 10000,
-            'BRONZE': 18000,
-            'SILVER': 30000,
-            'GOLD': 50000,
-            'PLATINUM': 80000
-        };
-        const MIN_AFFILIATE = 1000;
-        const TASK_WITHDRAW_LIMIT = 2;
-        const AFFILIATE_DAYS_LIMIT = 2;
+let user = {};
+let taskBalance = 0;
+let affiliateBalance = 0;
 
-        let userPlan = '';
-        let taskBalance = 0;
-        let affiliateBalance = 0;
 
-        window.onload = function() {
-            userPlan = localStorage.getItem('clickmoni_pack') || 'None';
-            const user = localStorage.getItem('clickmoni_user');
+let userPlan = "";
 
-            if (!userPlan || userPlan === 'None' ||!user) {
-                document.getElementById('activateWarning').style.display = 'block';
-                document.getElementById('withdrawContainer').style.display = 'none';
-            } else {
-                document.getElementById('activateWarning').style.display = 'none';
-                document.getElementById('withdrawContainer').style.display = 'block';
-                loadBalances();
-                checkWithdrawDays();
-                loadHistory();
-            }
-        };
+const PLAN_MINIMUMS = {
+    "Starter": 10000,
+    "Bronze": 18000,
+    "Silver": 30000,
+    "Gold": 50000,
+    "Platinum": 80000
+};
 
-        function loadBalances() {
-            taskBalance = parseInt(localStorage.getItem('clickmoni_balance') || '0');
-            affiliateBalance = parseInt(localStorage.getItem('clickmoni_ref_earned') || '0');
-            const taskMin = PLAN_MINIMUMS[userPlan] || 0;
+window.onload = async function () {
+    await loadUser();
+    await loadHistory();
+};
 
-            document.getElementById('taskBalance').textContent = taskBalance.toLocaleString();
-            document.getElementById('affiliateBalance').textContent = affiliateBalance.toLocaleString();
-            document.getElementById('taskPlan').textContent = userPlan;
-            document.getElementById('taskMin').textContent = taskMin.toLocaleString();
+async function loadUser() {
 
-            const withdrawals = JSON.parse(localStorage.getItem('clickmoni_withdrawals') || '[]');
-            const thisMonth = new Date().getMonth();
-            const taskUsed = withdrawals.filter(w => w.type === 'task' && new Date(w.date).getMonth() === thisMonth).length;
-            document.getElementById('taskUsed').textContent = taskUsed;
+    try {
+        async function loadUser() {
 
-            const lastAffiliate = withdrawals.filter(w => w.type === 'affiliate').sort((a,b) => new Date(b.date) - new Date(a.date))[0];
-            document.getElementById('affiliateLast').textContent = lastAffiliate? new Date(lastAffiliate.date).toLocaleDateString('en-GB') : 'Never';
-        }
-
-        function checkWithdrawDays() {
-            const withdrawals = JSON.parse(localStorage.getItem('clickmoni_withdrawals') || '[]');
-            const thisMonth = new Date().getMonth();
-            const taskUsed = withdrawals.filter(w => w.type === 'task' && new Date(w.date).getMonth() === thisMonth).length;
-            const taskDayBox = document.getElementById('taskWithdrawDay');
-
-            if (taskUsed >= TASK_WITHDRAW_LIMIT) {
-                taskDayBox.classList.add('blocked');
-                document.getElementById('taskDayTitle').textContent = '❌ Withdrawal Limit Reached';
-                document.getElementById('taskDayDesc').textContent = 'You have used 2/2 withdrawals this month. Next month resets.';
-            } else {
-                taskDayBox.classList.remove('blocked');
-                document.getElementById('taskDayTitle').textContent = '✅ Withdrawal Available';
-                document.getElementById('taskDayDesc').textContent = `You have ${TASK_WITHDRAW_LIMIT - taskUsed} withdrawal(s) left this month`;
-            }
-
-            const lastAffiliate = withdrawals.filter(w => w.type === 'affiliate').sort((a,b) => new Date(b.date) - new Date(a.date))[0];
-            const affiliateDayBox = document.getElementById('affiliateWithdrawDay');
-
-            if (lastAffiliate) {
-                const lastDate = new Date(lastAffiliate.date);
-                const today = new Date();
-                const diffDays = Math.floor((today - lastDate) / (1000 * 60 * 60 * 24));
-
-                if (diffDays < AFFILIATE_DAYS_LIMIT) {
-                    affiliateDayBox.classList.add('blocked');
-                    document.getElementById('affiliateDayTitle').textContent = '⏰ Wait For Next Withdraw';
-                    document.getElementById('affiliateDayDesc').textContent = `Next withdrawal available in ${AFFILIATE_DAYS_LIMIT - diffDays} day(s)`;
-                } else {
-                    affiliateDayBox.classList.remove('blocked');
-                    document.getElementById('affiliateDayTitle').textContent = '✅ Withdrawal Available';
-                    document.getElementById('affiliateDayDesc').textContent = 'You can withdraw today';
-                }
-            }
-        }
-
-        function showTab(tab) {
-            document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
-            document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
-            event.target.classList.add('active');
-            document.getElementById(tab + 'Tab').classList.add('active');
-        }
-
-        function checkTaskAmount() {
-            const amount = parseInt(document.getElementById('taskAmount').value) || 0;
-            const min = PLAN_MINIMUMS[userPlan] || 0;
-            const validHint = document.getElementById('taskValidHint');
-            const invalidHint = document.getElementById('taskInvalidHint');
-
-            if (amount >= min && amount <= taskBalance && amount > 0) {
-                validHint.style.display = 'block';
-                invalidHint.style.display = 'none';
-                document.getElementById('taskAmount').style.borderColor = '#00ff00';
-            } else {
-                validHint.style.display = 'none';
-                if (amount > 0) {
-                    invalidHint.style.display = 'block';
-                    document.getElementById('taskAmount').style.borderColor = '#ff0000';
-                } else {
-                    invalidHint.style.display = 'none';
-                    document.getElementById('taskAmount').style.borderColor = '#333';
-                }
-            }
-            checkTaskForm();
-        }
-
-        function checkTaskForm() {
-            const amount = parseInt(document.getElementById('taskAmount').value) || 0;
-            const min = PLAN_MINIMUMS[userPlan] || 0;
-            const bank = document.getElementById('taskBank').value;
-            const account = document.getElementById('taskAccount').value;
-            const name = document.getElementById('taskName').value;
-            const btn = document.getElementById('taskBtn');
-
-            const withdrawals = JSON.parse(localStorage.getItem('clickmoni_withdrawals') || '[]');
-            const thisMonth = new Date().getMonth();
-            const taskUsed = withdrawals.filter(w => w.type === 'task' && new Date(w.date).getMonth() === thisMonth).length;
-
-            const allValid = amount >= min && amount <= taskBalance && amount > 0 && bank && account.length === 10 && name.length > 2 && taskUsed < TASK_WITHDRAW_LIMIT;
-            btn.disabled =!allValid;
-        }
-
-        function checkAffiliateAmount() {
-            const amount = parseInt(document.getElementById('affiliateAmount').value) || 0;
-            const validHint = document.getElementById('affiliateValidHint');
-            const invalidHint = document.getElementById('affiliateInvalidHint');
-
-            if (amount >= MIN_AFFILIATE && amount <= affiliateBalance && amount > 0) {
-                validHint.style.display = 'block';
-                invalidHint.style.display = 'none';
-                document.getElementById('affiliateAmount').style.borderColor = '#00ff00';
-            } else {
-                validHint.style.display = 'none';
-                if (amount > 0) {
-                    invalidHint.style.display = 'block';
-                    document.getElementById('affiliateAmount').style.borderColor = '#ff0000';
-                } else {
-                    invalidHint.style.display = 'none';
-                    document.getElementById('affiliateAmount').style.borderColor = '#333';
-                }
-            }
-            checkAffiliateForm();
-        }
-
-        function checkAffiliateForm() {
-            const amount = parseInt(document.getElementById('affiliateAmount').value) || 0;
-            const bank = document.getElementById('affiliateBank').value;
-            const account = document.getElementById('affiliateAccount').value;
-            const name = document.getElementById('affiliateName').value;
-            const btn = document.getElementById('affiliateBtn');
-
-            const withdrawals = JSON.parse(localStorage.getItem('clickmoni_withdrawals') || '[]');
-            const lastAffiliate = withdrawals.filter(w => w.type === 'affiliate').sort((a,b) => new Date(b.date) - new Date(a.date))[0];
-            let canWithdraw = true;
-
-            if (lastAffiliate) {
-                const lastDate = new Date(lastAffiliate.date);
-                const today = new Date();
-                const diffDays = Math.floor((today - lastDate) / (1000 * 60 * 60 * 24));
-                canWithdraw = diffDays >= AFFILIATE_DAYS_LIMIT;
-            }
-
-            const allValid = amount >= MIN_AFFILIATE && amount <= affiliateBalance && amount > 0 && bank && account.length === 10 && name.length > 2 && canWithdraw;
-            btn.disabled =!allValid;
-        }
-
-        async function submitTaskWithdraw() {
-
-    const amount = parseInt(document.getElementById("taskAmount").value);
-    const bank = document.getElementById("taskBank").value;
-    const account = document.getElementById("taskAccount").value;
-    const name = document.getElementById("taskName").value;
-
-    const response = await fetch("/api/withdraw", {
-        method: "POST",
-        headers: {
-            "Content-Type": "application/json"
-        },
-        body: JSON.stringify({
-            email: email,
-            amount: amount,
-            bank_name: bank,
-            account_name: name,
-            account_number: account,
-            type: "task"
-        })
-    });
+    const response = await fetch("/api/user?email=" + encodeURIComponent(email));
 
     const result = await response.json();
 
-    alert(result.message);
-
-    if (result.success) {
-        location.reload();
+    if (!result.success) {
+        alert(result.message);
+        return;
     }
+
+    user = result.user;
+
+    taskBalance = Number(user.task_balance || 0);
+    affiliateBalance = Number(user.affiliate_balance || 0);
+
+    document.getElementById("taskBalance").textContent =
+        taskBalance.toLocaleString();
+
+    document.getElementById("affiliateBalance").textContent =
+        affiliateBalance.toLocaleString();
+
+    document.getElementById("taskPlan").textContent =
+        user.plan || "No Plan";
+
+    const planMinimums = {
+        "Starter": 9000,
+        "Bronze": 17000,
+        "Silver": 27000,
+        "Gold": 55000
+    };
+
+    document.getElementById("taskMin").textContent =
+        (planMinimums[user.plan] || 0).toLocaleString();
+
+    document.getElementById("withdrawContainer").style.display = "block";
+    document.getElementById("activateWarning").style.display = "none";
         }
-            
-            
-    
-                
-                
-                
-                
-            
 
-            localStorage.setItem('clickmoni_withdrawals', JSON.stringify(withdrawals));
-            localStorage.setItem('clickmoni_balance', taskBalance - amount);
-            alert('Withdrawal submitted! CEO @Monigold will process within 24 hours.');
-            location.reload();
+        const response = await fetch(
+            "/api/me?email=" + encodeURIComponent(email)
+        );
+
+        const result = await response.json();
+
+        if (!result.success) {
+            alert(result.message);
+            return;
         }
 
-        async function submitAffiliateWithdraw() {
+        user = result.user;
 
-    const amount = parseInt(document.getElementById("affiliateAmount").value);
-    const bank = document.getElementById("affiliateBank").value;
-    const account = document.getElementById("affiliateAccount").value;
-    const name = document.getElementById("affiliateName").value;
+        if (user.payment_status !== "paid") {
 
-    const response = await fetch("/api/withdraw", {
-        method: "POST",
-        headers: {
-            "Content-Type": "application/json"
-        },
-        body: JSON.stringify({
-            email: email,
-            amount: amount,
-            bank_name: bank,
-            account_name: name,
-            account_number: account,
-            type: "affiliate"
-        })
-    });
+            document.getElementById("activateWarning").style.display = "block";
+            document.getElementById("withdrawContainer").style.display = "none";
+            return;
 
-    const result = await response.json();
+        }
 
-    alert(result.message);
+        document.getElementById("activateWarning").style.display = "none";
+        document.getElementById("withdrawContainer").style.display = "block";
 
-    if (result.success) {
-        location.reload();
+        userPlan = user.plan;
+        taskBalance = Number(user.task_balance || 0);
+        affiliateBalance = Number(user.affiliate_balance || 0);
+
+        document.getElementById("taskPlan").innerText = userPlan;
+        document.getElementById("taskBalance").innerText =
+            taskBalance.toLocaleString();
+
+        document.getElementById("affiliateBalance").innerText =
+            affiliateBalance.toLocaleString();
+
+        document.getElementById("taskMin").innerText =
+            (PLAN_MINIMUMS[userPlan] || 0).toLocaleString();
+
+    } catch (err) {
+
+        alert(err.message);
+
     }
+
+                }
+        async function loadHistory() {
+
+    try {
+
+        const response = await fetch(
+            "/api/history?email=" + encodeURIComponent(email)
+        );
+
+        const result = await response.json();
+
+        const container = document.getElementById("withdrawHistory");
+
+        if (!result.success || result.withdrawals.length === 0) {
+
+            container.innerHTML =
+                "<p style='text-align:center;color:#888;'>No withdrawal history.</p>";
+
+            return;
         }
-            
-            
 
-            localStorage.setItem('clickmoni_withdrawals', JSON.stringify(withdrawals));
-            localStorage.setItem('clickmoni_ref_earned', affiliateBalance - amount);
-            alert('Withdrawal submitted! CEO @Monigold will process within 24 hours.');
-            location.reload();
-        }
+        container.innerHTML = "";
 
-        function loadHistory() {
-            const withdrawals = JSON.parse(localStorage.getItem('clickmoni_withdrawals') || '[]');
-            const container = document.getElementById('withdrawHistory');
+        result.withdrawals.forEach(w => {
 
-            if (withdrawals.length === 0) {
-                container.innerHTML = '<p style="color:#666; text-align:center; padding:20px;">No withdrawal history</p>';
-                return;
-            }
-
-            container.innerHTML = withdrawals.reverse().map(w => `
+            container.innerHTML += `
                 <div class="history-item">
+
                     <div class="history-header">
-                        <div class="history-amount">₦${w.amount.toLocaleString()}</div>
-                        <div class="history-status status-${w.status}">${w.status}</div>
+
+                        <div class="history-amount">
+                            ₦${Number(w.amount).toLocaleString()}
+                        </div>
+
+                        <div class="history-status status-${w.status}">
+                            ${w.status}
+                        </div>
+
                     </div>
-                    <div style="color:#aaa; font-size:14px;">
-                        ${w.type === 'task'? 'Task Balance' : 'Affiliate Balance'}<br>
-                        ${w.bank} - ${w.account}<br>
-                        ${new Date(w.date).toLocaleDateString('en-GB')}
+
+                    <div style="color:#aaa;font-size:14px">
+
+                        ${w.type} Withdrawal<br>
+
+                        ${w.bank_name}<br>
+
+                        ${w.account_number}<br>
+
+                        ${new Date(w.created_at).toLocaleDateString("en-GB")}
+
                     </div>
+
                 </div>
-            `).join('');
+            `;
+
+        });
+
+    } catch (err) {
+
+        console.log(err);
+
+    }
+
         }
+        function checkTaskAmount() {
+
+    const amount = Number(document.getElementById("taskAmount").value);
+
+    const planMinimums = {
+        "Starter": 9000,
+        "Bronze": 17000,
+        "Silver": 27000,
+        "Gold": 55000
+    };
+
+    const minimum = planMinimums[user.plan] || 0;
+
+    const valid =
+        amount >= minimum &&
+        amount <= user.task_balance;
+
+    document.getElementById("taskValidHint").style.display =
+        valid ? "block" : "none";
+
+    document.getElementById("taskInvalidHint").style.display =
+        valid ? "none" : "block";
+
+    checkTaskForm();
+        }
+        function checkTaskForm() {
+
+    const amount = Number(document.getElementById("taskAmount").value);
+
+    const planMinimums = {
+        "Starter": 9000,
+        "Bronze": 17000,
+        "Silver": 27000,
+        "Gold": 55000
+    };
+
+    const minimum = planMinimums[user.plan] || 0;
+
+    const valid =
+        amount >= minimum &&
+        amount <= user.task_balance &&
+        document.getElementById("taskBank").value &&
+        document.getElementById("taskAccount").value.length === 10 &&
+        document.getElementById("taskName").value.trim() !== "";
+
+    document.getElementById("taskBtn").disabled = !valid;
+        }
+        function checkAffiliateAmount() {
+
+    const amount =
+        Number(document.getElementById("affiliateAmount").value || 0);
+
+    document.getElementById("affiliateBtn").disabled =
+        !(amount >= 1000 && amount <= affiliateBalance);
+
+}
+
+async function submitAffiliateWithdraw() {
+
+    const amount =
+        Number(document.getElementById("affiliateAmount").value);
+
+    const bank =
+        document.getElementById("affiliateBank").value;
+
+    const accountName =
+        document.getElementById("affiliateName").value;
+
+    const accountNumber =
+        document.getElementById("affiliateAccount").value;
+
+    const response = await fetch("/api/withdraw", {
+
+        method: "POST",
+
+        headers: {
+            "Content-Type": "application/json"
+        },
+
+        body: JSON.stringify({
+
+            email,
+
+            amount,
+
+            bank_name: bank,
+
+            account_name: accountName,
+
+            account_number: accountNumber,
+
+            type: "affiliate"
+
+        })
+
+    });
+
+    const result = await response.json();
+
+    alert(result.message);
+
+    if (result.success) {
+
+        await loadUser();
+
+        await loadHistory();
+
+        document.getElementById("affiliateAmount").value = "";
+
+    }
+
+                } 
+        
+            
+        
     </script>
 </body>
                             </html>
