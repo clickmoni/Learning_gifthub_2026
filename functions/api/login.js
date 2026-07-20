@@ -44,8 +44,9 @@ export async function onRequestPost(context) {
         email: user.email,
         phone: user.phone,
         plan: user.plan,
-        balance: user.balance,
-        referral_balance: user.referral_balance,
+        task_balance: user.task_balance,
+affiliate_balance: user.affiliate_balance,
+        
         total_referrals: user.total_referrals,
         role: user.role,
         created_at: user.created_at
