@@ -24,7 +24,9 @@ export async function onRequestPost(context) {
       SELECT *
       FROM users
       WHERE email = ?
-    `).bind(email).first();
+    `)
+    .bind(email.trim().toLowerCase())
+    .first();
 
     if (!user) {
       return Response.json({
@@ -33,6 +35,8 @@ export async function onRequestPost(context) {
       });
     }
 
+    const withdrawAmount = Number(amount);
+
     if (type === "task") {
 
       const today = new Date().getDate();
@@ -40,58 +44,76 @@ export async function onRequestPost(context) {
       if (today !== 15 && today !== 30) {
         return Response.json({
           success: false,
-          message: "Task withdrawals are only allowed on the 15th and 30th of every month."
+          message: "Task withdrawals are only allowed on the 15th and 30th."
         });
       }
 
-      let minimum = 0;
+      let minimum = 9000;
 
       switch ((user.plan || "").toLowerCase()) {
+
         case "starter":
           minimum = 9000;
           break;
+
         case "bronze":
           minimum = 17000;
           break;
+
         case "silver":
           minimum = 27000;
           break;
+
         case "gold":
           minimum = 55000;
           break;
-        default:
-          minimum = 9000;
       }
 
-      if (Number(amount) < minimum) {
+      if (withdrawAmount < minimum) {
         return Response.json({
           success: false,
-          message: `Minimum withdrawal for your plan is ₦${minimum.toLocaleString()}`
+          message: `Minimum withdrawal is ₦${minimum.toLocaleString()}`
         });
       }
 
-      if (Number(amount) > Number(user.task_balance || 0)) {
+      if (withdrawAmount > Number(user.task_balance || 0)) {
         return Response.json({
           success: false,
           message: "Insufficient task balance."
         });
       }
 
+      await env.DB.prepare(`
+        UPDATE users
+        SET task_balance = task_balance - ?
+        WHERE id = ?
+      `)
+      .bind(withdrawAmount, user.id)
+      .run();
+
     } else {
 
-      if (Number(amount) < 1000) {
+      if (withdrawAmount < 1000) {
         return Response.json({
           success: false,
           message: "Minimum affiliate withdrawal is ₦1,000."
         });
       }
 
-      if (Number(amount) > Number(user.affiliate_balance || 0)) {
+      if (withdrawAmount > Number(user.affiliate_balance || 0)) {
         return Response.json({
           success: false,
           message: "Insufficient affiliate balance."
         });
       }
+
+      await env.DB.prepare(`
+        UPDATE users
+        SET affiliate_balance = affiliate_balance - ?
+        WHERE id = ?
+      `)
+      .bind(withdrawAmount, user.id)
+      .run();
 
     }
 
@@ -127,7 +149,7 @@ export async function onRequestPost(context) {
     `)
     .bind(
       user.id,
-      amount,
+      withdrawAmount,
       type
     )
     .run();
@@ -146,4 +168,4 @@ export async function onRequestPost(context) {
 
   }
 
-                                  }
+  }
