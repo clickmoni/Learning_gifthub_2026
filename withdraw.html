@@ -351,6 +351,7 @@ window.onload = async function () {
     setupTabs();
 
     await loadUser();
+await loadHistory();
 
 };
 
@@ -504,6 +505,89 @@ async function loadUser(){
     }
 
  } 
+ async function submitAffiliateWithdraw(){
+
+    const response = await fetch("/api/withdraw",{
+
+        method:"POST",
+
+        headers:{
+            "Content-Type":"application/json"
+        },
+
+        body:JSON.stringify({
+
+            email: email,
+
+            amount:Number(document.getElementById("affiliateAmount").value),
+
+            bank_name:document.getElementById("affiliateBank").value,
+
+            account_name:document.getElementById("affiliateName").value,
+
+            account_number:document.getElementById("affiliateAccount").value,
+
+            type:"affiliate"
+
+        })
+
+    });
+
+    const result = await response.json();
+
+    alert(result.message);
+
+    if(result.success){
+
+        await loadUser();
+
+        await loadHistory();
+
+    }
+
+ }
+ async function loadHistory(){
+
+    const response = await fetch(
+        "/api/history?email=" + encodeURIComponent(email)
+    );
+
+    const result = await response.json();
+
+    const history = document.getElementById("history");
+
+    if(!result.success){
+
+        history.innerHTML = "<p>No withdrawal history.</p>";
+
+        return;
+
+    }
+
+    if(result.withdrawals.length===0){
+
+        history.innerHTML = "<p>No withdrawal history.</p>";
+
+        return;
+
+    }
+
+    history.innerHTML = "";
+
+    result.withdrawals.forEach(item=>{
+
+        history.innerHTML += `
+        <div class="historyItem">
+            <strong>₦${Number(item.amount).toLocaleString()}</strong><br>
+            ${item.type}<br>
+            ${item.status}<br>
+            ${new Date(item.created_at).toLocaleString()}
+        </div>
+        `;
+
+    });
+
+ }
 
 </script>
 
