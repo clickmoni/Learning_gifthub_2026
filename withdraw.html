@@ -328,36 +328,88 @@ const email =
 localStorage.getItem("currentUser") ||
 localStorage.getItem("clickmoni_email");
 
-if(!email){
+if (!email) {
+    window.location.href = "login.html";
+}
 
-window.location.href="login.html";
+let user = {};
+
+const PLAN_MINIMUMS = {
+    "Starter": 9000,
+    "Bronze": 17000,
+    "Silver": 27000,
+    "Gold": 55000
+};
+
+window.onload = async function () {
+
+    setupTabs();
+
+    await loadUser();
+
+};
+
+function setupTabs(){
+
+    const taskBtn=document.getElementById("taskTabBtn");
+    const affiliateBtn=document.getElementById("affiliateTabBtn");
+
+    const taskTab=document.getElementById("taskTab");
+    const affiliateTab=document.getElementById("affiliateTab");
+
+    taskBtn.onclick=function(){
+
+        taskBtn.classList.add("active");
+        affiliateBtn.classList.remove("active");
+
+        taskTab.classList.add("active");
+        affiliateTab.classList.remove("active");
+
+    };
+
+    affiliateBtn.onclick=function(){
+
+        affiliateBtn.classList.add("active");
+        taskBtn.classList.remove("active");
+
+        affiliateTab.classList.add("active");
+        taskTab.classList.remove("active");
+
+    };
 
 }
- const taskBtn = document.getElementById("taskTabBtn");
-const affiliateBtn = document.getElementById("affiliateTabBtn");
 
-const taskTab = document.getElementById("taskTab");
-const affiliateTab = document.getElementById("affiliateTab");
+async function loadUser(){
 
-taskBtn.onclick = function () {
+    const response = await fetch(
+        "/api/me?email=" + encodeURIComponent(email)
+    );
 
-    taskBtn.classList.add("active");
-    affiliateBtn.classList.remove("active");
+    const result = await response.json();
 
-    taskTab.classList.add("active");
-    affiliateTab.classList.remove("active");
+    if(!result.success){
 
-};
+        alert(result.message);
 
-affiliateBtn.onclick = function () {
+        return;
 
-    affiliateBtn.classList.add("active");
-    taskBtn.classList.remove("active");
+    }
 
-    affiliateTab.classList.add("active");
-    taskTab.classList.remove("active");
+    user=result.user;
 
-};
+    document.getElementById("taskBalance").textContent =
+        Number(user.task_balance || 0).toLocaleString();
+
+    document.getElementById("affiliateBalance").textContent =
+        Number(user.affiliate_balance || 0).toLocaleString();
+
+    document.getElementById("taskPlan").textContent =
+        user.plan || "No Plan";
+
+    document.getElementById("taskMinimum").textContent =
+        (PLAN_MINIMUMS[user.plan] || 0).toLocaleString();
+
+ }
 
 </script>
 
