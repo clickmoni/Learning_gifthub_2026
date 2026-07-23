@@ -206,6 +206,31 @@ if(!email){
 window.location.href="login.html";
 
 }
+ const taskBtn = document.getElementById("taskTabBtn");
+const affiliateBtn = document.getElementById("affiliateTabBtn");
+
+const taskTab = document.getElementById("taskTab");
+const affiliateTab = document.getElementById("affiliateTab");
+
+taskBtn.onclick = function () {
+
+    taskBtn.classList.add("active");
+    affiliateBtn.classList.remove("active");
+
+    taskTab.classList.add("active");
+    affiliateTab.classList.remove("active");
+
+};
+
+affiliateBtn.onclick = function () {
+
+    affiliateBtn.classList.add("active");
+    taskBtn.classList.remove("active");
+
+    affiliateTab.classList.add("active");
+    taskTab.classList.remove("active");
+
+};
 
 </script>
 
