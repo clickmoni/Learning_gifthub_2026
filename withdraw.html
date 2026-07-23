@@ -267,13 +267,11 @@ color:#FFD700;
 ">
 Affiliate withdrawals are available every day.
 </div>
+<input type="number" id="affiliateAmount" oninput="checkAffiliateForm()">
 
-<input
-type="number"
-id="affiliateAmount"
-placeholder="Amount">
 
-<select id="affiliateBank">
+
+<select id="affiliateBank" onchange="checkAffiliateForm()">
 <option value="">Select Bank</option>
 <option>Access Bank</option>
 <option>GTBank</option>
@@ -285,22 +283,25 @@ placeholder="Amount">
 <option>Kuda</option>
 </select>
 
-<input
-type="text"
-id="affiliateAccount"
+<input type="text" id="affiliateAccount" oninput="checkAffiliateForm()">
+
+
 maxlength="10"
 placeholder="Account Number">
 
-<input
-type="text"
-id="affiliateName"
+<input type="text" id="affiliateName" oninput="checkAffiliateForm()">
+
+
 placeholder="Account Name">
 
 <button
 id="affiliateSubmit"
+onclick="submitAffiliateWithdraw()"
 disabled>
 Submit Withdrawal
 </button>
+
+
 
 </div>
 
@@ -476,6 +477,33 @@ async function loadUser(){
     }
 
  }
+ function checkAffiliateForm(){
+
+    const amount = Number(document.getElementById("affiliateAmount").value);
+
+    const bank = document.getElementById("affiliateBank").value;
+
+    const account = document.getElementById("affiliateAccount").value;
+
+    const name = document.getElementById("affiliateName").value;
+
+    if(
+        amount >= 1000 &&
+        amount <= Number(user.affiliate_balance || 0) &&
+        bank !== "" &&
+        account.length === 10 &&
+        name.trim() !== ""
+    ){
+
+        document.getElementById("affiliateSubmit").disabled = false;
+
+    }else{
+
+        document.getElementById("affiliateSubmit").disabled = true;
+
+    }
+
+ } 
 
 </script>
 
