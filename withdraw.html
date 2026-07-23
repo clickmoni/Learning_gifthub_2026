@@ -1,494 +1,214 @@
-<!DOCTYPE htmid lang="en">
+ <!DOCTYPE html>
+<html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Withdraw - ClickMoni</title>
-    <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { font-family: 'Segoe UI', Arial, sans-serif; background: #000; color: #fff; padding: 15px; }
- .back { color: #FFD700; text-decoration: none; font-weight: 600; display: block; margin-bottom: 20px; }
- .logo { color: #FFD700; font-size: 24px; font-weight: 800; text-align: center; margin-bottom: 20px; }
- .warning { background: #330000; border: 2px solid #ff0000; border-radius: 14px; padding: 25px; text-align: center; margin: 40px 0; display: none; }
- .box { background: #111; border: 2px solid #FFD700; border-radius: 18px; padding: 25px; margin: 18px 0; }
-        h1 { color: #FFD700; text-align: center; margin-bottom: 20px; font-size: 24px; }
-        h3 { color: #FFD700; margin-bottom: 15px; font-size: 18px; }
- .balance { color: #00ff00; font-size: 32px; font-weight: 800; text-align: center; margin: 15px 0; }
- .input-group { margin: 15px 0; }
- .input-group label { color: #FFD700; font-size: 14px; font-weight: 600; display: block; margin-bottom: 8px; }
- .input-group input,.input-group select { width: 100%; padding: 14px; background: #000; border: 1px solid #333; border-radius: 10px; color: #fff; font-size: 15px; }
- .input-group input:focus,.input-group select:focus { border-color: #FFD700; outline: none; }
- .btn { background: #FFD700; color: #000; border: none; padding: 16px; border-radius: 12px; font-weight: 800; font-size: 17px; cursor: pointer; width: 100%; margin-top: 15px; transition: all 0.3s; }
- .btn:disabled { background: #333; color: #666; cursor: not-allowed; }
- .btn:not(:disabled):hover { background: #ffed4e; transform: scale(1.02); }
- .info { background: #001a33; border: 1px solid #0088cc; border-radius: 10px; padding: 15px; margin: 20px 0; font-size: 14px; color: #aaa; }
- .info strong { color: #FFD700; }
- .withdraw-day { background: #003300; border: 2px solid #00ff00; border-radius: 10px; padding: 15px; margin: 15px 0; text-align: center; }
- .withdraw-day.blocked { background: #330000; border-color: #ff0000; }
- .withdraw-day h4 { color: #00ff00; margin-bottom: 8px; font-size: 16px; }
- .withdraw-day.blocked h4 { color: #ff0000; }
- .withdraw-day p { color: #aaa; font-size: 14px; }
- .tabs { display: flex; gap: 10px; margin: 20px 0; }
- .tab { flex: 1; background: #111; color: #FFD700; border: 1px solid #FFD700; padding: 12px; border-radius: 10px; cursor: pointer; font-weight: 600; text-align: center; }
- .tab.active { background: #FFD700; color: #000; }
- .tab-content { display: none; }
- .tab-content.active { display: block; }
- .history { margin-top: 30px; }
- .history-item { background: #111; border: 1px solid #333; border-radius: 10px; padding: 15px; margin: 10px 0; }
- .history-header { display: flex; justify-content: space-between; margin-bottom: 8px; }
- .history-amount { color: #00ff00; font-weight: 700; }
- .history-status { padding: 4px 10px; border-radius: 6px; font-size: 12px; font-weight: 700; }
- .status-pending { background: #ffaa00; color: #000; }
- .status-approved { background: #00ff00; color: #000; }
- .status-rejected { background: #ff0000; color: #fff; }
- .valid-hint { color: #00ff00; font-size: 12px; margin-top: 5px; display: none; }
- .invalid-hint { color: #ff0000; font-size: 12px; margin-top: 5px; display: none; }
-    </style>
+
+<meta charset="UTF-8">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Withdraw - ClickMoni</title>
+
+<style>
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:Arial,sans-serif;
+}
+
+body{
+background:#000;
+color:#fff;
+padding:20px;
+padding-bottom:100px;
+}
+
+.container{
+max-width:700px;
+margin:auto;
+}
+
+.logo{
+text-align:center;
+font-size:36px;
+font-weight:bold;
+color:#FFD700;
+margin-bottom:20px;
+}
+
+.back{
+display:inline-block;
+margin-bottom:20px;
+color:#FFD700;
+text-decoration:none;
+font-weight:bold;
+}
+
+.card{
+background:#111;
+border:1px solid #FFD700;
+border-radius:15px;
+padding:20px;
+margin-bottom:20px;
+}
+
+h2{
+color:#FFD700;
+margin-bottom:15px;
+}
+
+.balance{
+font-size:35px;
+font-weight:bold;
+color:#00ff66;
+text-align:center;
+margin:15px 0;
+}
+
+.tabs{
+display:flex;
+gap:10px;
+margin-bottom:20px;
+}
+
+.tab{
+flex:1;
+padding:15px;
+text-align:center;
+background:#111;
+border:1px solid #FFD700;
+border-radius:10px;
+cursor:pointer;
+font-weight:bold;
+}
+
+.tab.active{
+background:#FFD700;
+color:#000;
+}
+
+.tab-content{
+display:none;
+}
+
+.tab-content.active{
+display:block;
+}
+
+input,
+select{
+width:100%;
+padding:14px;
+margin-top:10px;
+margin-bottom:15px;
+background:#000;
+color:#fff;
+border:1px solid #555;
+border-radius:10px;
+}
+
+button{
+width:100%;
+padding:15px;
+background:#FFD700;
+color:#000;
+border:none;
+border-radius:10px;
+font-size:17px;
+font-weight:bold;
+cursor:pointer;
+}
+
+button:disabled{
+background:#555;
+color:#999;
+cursor:not-allowed;
+}
+
+.historyItem{
+background:#111;
+border:1px solid #444;
+border-radius:10px;
+padding:15px;
+margin-top:10px;
+}
+
+</style>
+
 </head>
+
 <body>
-    <a href="dashboard.html" class="back">← Back to Dashboard</a>
-    <div class="logo">ClickMoni</div>
-
-    <div class="warning" id="activateWarning">
-        <h2>⚠️ Activate Plan First</h2>
-        <p>You must activate a ClickMoni plan before you can withdraw.</p>
-        <a href="tiers.html" class="btn">🚀 Activate Plan Now</a>
-    </div>
-
-    <div id="withdrawContainer" style="display:none;">
-        <h1>💰 Withdraw Funds</h1>
-
-        <div class="tabs">
-            <div class="tab active" onclick="showTab('task')">Task Balance</div>
-            <div class="tab" onclick="showTab('affiliate')">Affiliate Balance</div>
-        </div>
-
-        <div class="tab-content active" id="taskTab">
-            <div class="box">
-                <h3>Task Balance Withdrawal</h3>
-                <div class="balance">₦<span id="taskBalance">0</span></div>
-
-                <div class="withdraw-day" id="taskWithdrawDay">
-                    <h4 id="taskDayTitle">✅ Withdrawal Available</h4>
-                    <p id="taskDayDesc">You can withdraw today</p>
-                </div>
-
-                <div class="info">
-                    <strong>Your Plan:</strong> <span id="taskPlan">None</span><br>
-                    <strong>Min Withdraw:</strong> ₦<span id="taskMin">0</span><br>
-                    <strong>Withdrawals:</strong> 2 times per month<br>
-                    <strong>Used This Month:</strong> <span id="taskUsed">0</span>/2
-                </div>
-
-                <div class="input-group">
-                    <label>Amount to Withdraw</label>
-                    <input type="number" id="taskAmount" placeholder="Enter amount" oninput="checkTaskAmount()">
-                    <div class="valid-hint" id="taskValidHint">✅ Amount valid</div>
-                    <div class="invalid-hint" id="taskInvalidHint">❌ Below minimum or insufficient balance</div>
-                </div>
-
-                <div class="input-group">
-                    <label>Bank Name</label>
-                    <select id="taskBank" onchange="checkTaskForm()">
-                        <option value="">Select Bank</option>
-                        <option value="Access Bank">Access Bank</option>
-                        <option value="GTBank">GTBank</option>
-                        <option value="First Bank">First Bank</option>
-                        <option value="UBA">UBA</option>
-                        <option value="Zenith Bank">Zenith Bank</option>
-                        <option value="Opay">Opay</option>
-                        <option value="Palmpay">Palmpay</option>
-                        <option value="Kuda">Kuda</option>
-                    </select>
-                </div>
-
-                <div class="input-group">
-                    <label>Account Number</label>
-                    <input type="text" id="taskAccount" placeholder="0123456789" maxlength="10" oninput="checkTaskForm()">
-                </div>
-
-                <div class="input-group">
-                    <label>Account Name</label>
-                    <input type="text" id="taskName" placeholder="Your full name" oninput="checkTaskForm()">
-                </div>
-
-                <button class="btn" id="taskBtn" onclick="submitTaskWithdraw()" disabled>Submit Withdrawal</button>
-            </div>
-        </div>
-
-        <div class="tab-content" id="affiliateTab">
-            <div class="box">
-                <h3>Affiliate Balance Withdrawal</h3>
-                <div class="balance">₦<span id="affiliateBalance">0</span></div>
-
-                <div class="withdraw-day" id="affiliateWithdrawDay">
-                    <h4 id="affiliateDayTitle">✅ Withdrawal Available</h4>
-                    <p id="affiliateDayDesc">You can withdraw today</p>
-                </div>
-
-                <div class="info">
-                    <strong>Min Withdraw:</strong> ₦1,000<br>
-                    <strong>Withdrawals:</strong> Every 2 days<br>
-                    <strong>Last Withdraw:</strong> <span id="affiliateLast">Never</span>
-                </div>
-
-                <div class="input-group">
-                    <label>Amount to Withdraw</label>
-                    <input type="number" id="affiliateAmount" placeholder="Enter amount" oninput="checkAffiliateAmount()">
-                    <div class="valid-hint" id="affiliateValidHint">✅ Amount valid</div>
-                    <div class="invalid-hint" id="affiliateInvalidHint">❌ Below ₦1,000 or insufficient balance</div>
-                </div>
-
-                <div class="input-group">
-                    <label>Bank Name</label>
-                    <select id="affiliateBank" onchange="checkAffiliateForm()">
-                        <option value="">Select Bank</option>
-                        <option value="Access Bank">Access Bank</option>
-                        <option value="GTBank">GTBank</option>
-                        <option value="First Bank">First Bank</option>
-                        <option value="UBA">UBA</option>
-                        <option value="Zenith Bank">Zenith Bank</option>
-                        <option value="Opay">Opay</option>
-                        <option value="Palmpay">Palmpay</option>
-                        <option value="Kuda">Kuda</option>
-                    </select>
-                </div>
 
-                <div class="input-group">
-                    <label>Account Number</label>
-                    <input type="text" id="affiliateAccount" placeholder="0123456789" maxlength="10" oninput="checkAffiliateForm()">
-                </div>
+<div class="container">
 
-                <div class="input-group">
-                    <label>Account Name</label>
-                    <input type="text" id="affiliateName" placeholder="Your full name" oninput="checkAffiliateForm()">
-                </div>
+<a href="dashboard.html" class="back">
+← Back
+</a>
 
-                <button class="btn" id="affiliateBtn" onclick="submitAffiliateWithdraw()" disabled>Submit Withdrawal</button>
-            </div>
-        </div>
+<div class="logo">
+ClickMoni
+</div>
 
-        <div class="history">
-            <h3>Withdrawal History</h3>
-            <div id="withdrawHistory"></div>
-        </div>
-    </div>
+<div class="tabs">
 
-    <script>
-        const email =
-    localStorage.getItem("currentUser") ||
-    localStorage.getItem("clickmoni_email");
+<div
+class="tab active"
+id="taskTabBtn">
+Task Balance
+</div>
 
-if (!email) {
-    alert("Please login first.");
-    window.location.href = "login.html";
-}
+<div
+class="tab"
+id="affiliateTabBtn">
+Affiliate Balance
+</div>
 
-let user = {};
-let taskBalance = 0;
-let affiliateBalance = 0;
+</div>
 
+<div
+class="tab-content active"
+id="taskTab">
 
-let userPlan = "";
+</div>
 
-const PLAN_MINIMUMS = {
-    "Starter": 10000,
-    "Bronze": 18000,
-    "Silver": 30000,
-    "Gold": 50000,
-    "Platinum": 80000
-};
+<div
+class="tab-content"
+id="affiliateTab">
 
-window.onload = async function () {
-    await loadUser();
-    await loadHistory();
-};
+</div>
 
-async function loadUser() {
+<div class="card">
 
-    try {
-        async function loadUser() {
+<h2>
+Withdrawal History
+</h2>
 
-    const response = await fetch("/api/user?email=" + encodeURIComponent(email));
+<div id="history">
 
-    const result = await response.json();
+Loading...
 
-    if (!result.success) {
-        alert(result.message);
-        return;
-    }
+</div>
 
-    user = result.user;
+</div>
 
-    taskBalance = Number(user.task_balance || 0);
-    affiliateBalance = Number(user.affiliate_balance || 0);
+</div>
 
-    document.getElementById("taskBalance").textContent =
-        taskBalance.toLocaleString();
+<script>
 
-    document.getElementById("affiliateBalance").textContent =
-        affiliateBalance.toLocaleString();
+const email =
+localStorage.getItem("currentUser") ||
+localStorage.getItem("clickmoni_email");
 
-    document.getElementById("taskPlan").textContent =
-        user.plan || "No Plan";
+if(!email){
 
-    const planMinimums = {
-        "Starter": 9000,
-        "Bronze": 17000,
-        "Silver": 27000,
-        "Gold": 55000
-    };
-
-    document.getElementById("taskMin").textContent =
-        (planMinimums[user.plan] || 0).toLocaleString();
-
-    document.getElementById("withdrawContainer").style.display = "block";
-    document.getElementById("activateWarning").style.display = "none";
-        }
-
-        const response = await fetch(
-            "/api/me?email=" + encodeURIComponent(email)
-        );
-
-        const result = await response.json();
-
-        if (!result.success) {
-            alert(result.message);
-            return;
-        }
-
-        user = result.user;
-
-        if (user.payment_status !== "paid") {
-
-            document.getElementById("activateWarning").style.display = "block";
-            document.getElementById("withdrawContainer").style.display = "none";
-            return;
-
-        }
-
-        document.getElementById("activateWarning").style.display = "none";
-        document.getElementById("withdrawContainer").style.display = "block";
-
-        userPlan = user.plan;
-        taskBalance = Number(user.task_balance || 0);
-        affiliateBalance = Number(user.affiliate_balance || 0);
-
-        document.getElementById("taskPlan").innerText = userPlan;
-        document.getElementById("taskBalance").innerText =
-            taskBalance.toLocaleString();
-
-        document.getElementById("affiliateBalance").innerText =
-            affiliateBalance.toLocaleString();
-
-        document.getElementById("taskMin").innerText =
-            (PLAN_MINIMUMS[userPlan] || 0).toLocaleString();
-
-    } catch (err) {
-
-        alert(err.message);
-
-    }
-
-                }
-        async function loadHistory() {
-
-    try {
-
-        const response = await fetch(
-            "/api/history?email=" + encodeURIComponent(email)
-        );
-
-        const result = await response.json();
-
-        const container = document.getElementById("withdrawHistory");
-
-        if (!result.success || result.withdrawals.length === 0) {
-
-            container.innerHTML =
-                "<p style='text-align:center;color:#888;'>No withdrawal history.</p>";
-
-            return;
-        }
-
-        container.innerHTML = "";
-
-        result.withdrawals.forEach(w => {
-
-            container.innerHTML += `
-                <div class="history-item">
-
-                    <div class="history-header">
-
-                        <div class="history-amount">
-                            ₦${Number(w.amount).toLocaleString()}
-                        </div>
-
-                        <div class="history-status status-${w.status}">
-                            ${w.status}
-                        </div>
-
-                    </div>
-
-                    <div style="color:#aaa;font-size:14px">
-
-                        ${w.type} Withdrawal<br>
-
-                        ${w.bank_name}<br>
-
-                        ${w.account_number}<br>
-
-                        ${new Date(w.created_at).toLocaleDateString("en-GB")}
-
-                    </div>
-
-                </div>
-            `;
-
-        });
-
-    } catch (err) {
-
-        console.log(err);
-
-    }
-
-        }
-        function checkTaskAmount() {
-
-    const amount = Number(document.getElementById("taskAmount").value);
-
-    const planMinimums = {
-        "Starter": 9000,
-        "Bronze": 17000,
-        "Silver": 27000,
-        "Gold": 55000
-    };
-
-    const minimum = planMinimums[user.plan] || 0;
-
-    const valid =
-        amount >= minimum &&
-        amount <= user.task_balance;
-
-    document.getElementById("taskValidHint").style.display =
-        valid ? "block" : "none";
-
-    document.getElementById("taskInvalidHint").style.display =
-        valid ? "none" : "block";
-
-    checkTaskForm();
-        }
-        function checkTaskForm() {
-
-    const amount = Number(document.getElementById("taskAmount").value);
-
-    const planMinimums = {
-        "Starter": 9000,
-        "Bronze": 17000,
-        "Silver": 27000,
-        "Gold": 55000
-    };
-
-    const minimum = planMinimums[user.plan] || 0;
-
-    const valid =
-        amount >= minimum &&
-        amount <= user.task_balance &&
-        document.getElementById("taskBank").value &&
-        document.getElementById("taskAccount").value.length === 10 &&
-        document.getElementById("taskName").value.trim() !== "";
-
-    document.getElementById("taskBtn").disabled = !valid;
-        }
-        function checkAffiliateAmount() {
-
-    const amount =
-        Number(document.getElementById("affiliateAmount").value || 0);
-
-    document.getElementById("affiliateBtn").disabled =
-        !(amount >= 1000 && amount <= affiliateBalance);
+window.location.href="login.html";
 
 }
 
-async function submitAffiliateWithdraw() {
+</script>
 
-    const amount = Number(document.getElementById("affiliateAmount").value);
-    const bank = document.getElementById("affiliateBank").value;
-    const accountName = document.getElementById("affiliateName").value;
-    const accountNumber = document.getElementById("affiliateAccount").value;
-
-    const response = await fetch("/api/withdraw", {
-        method: "POST",
-        headers: {
-            "Content-Type":"application/json"
-        },
-        body: JSON.stringify({
-            email,
-            amount,
-            bank_name: bank,
-            account_name: accountName,
-            account_number: accountNumber,
-            type: "affiliate"
-        })
-    });
-
-    const result = await response.json();
-
-    alert(result.message);
-
-    if(result.success){
-        location.reload();
-    }
-}
-
-async function loadHistory(){
-
-    const response = await fetch(
-        "/api/history?email=" + encodeURIComponent(email)
-    );
-
-    const result = await response.json();
-
-    const box = document.getElementById("withdrawHistory");
-
-    if(!result.success || result.withdrawals.length===0){
-        box.innerHTML="<p>No withdrawal history.</p>";
-        return;
-    }
-
-    box.innerHTML="";
-
-    result.withdrawals.forEach(item=>{
-
-        box.innerHTML += `
-        <div class="history-item">
-            <div class="history-header">
-                <div class="history-amount">
-                    ₦${Number(item.amount).toLocaleString()}
-                </div>
-
-                <div class="history-status status-${item.status}">
-                    ${item.status}
-                </div>
-            </div>
-
-            <div>
-                ${item.type}<br>
-                ${new Date(item.created_at).toLocaleString()}
-            </div>
-        </div>
-        `;
-    });
-
-}
-
-window.onload = async function(){
-
-    await loadUser();
-
-    await loadHistory();
-
-};
-        
 </body>
-                                          </html>
+
+</html>
