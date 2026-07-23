@@ -167,11 +167,76 @@ Affiliate Balance
 
 </div>
 
+<div class="tab-content active" id="taskTab">
+
+<div class="card">
+
+<h2>Task Balance Withdrawal</h2>
+
+<div class="balance">
+₦<span id="taskBalance">0</span>
+</div>
+
+<p><strong>Plan:</strong> <span id="taskPlan">Loading...</span></p>
+
+<p style="margin-top:10px;">
+<strong>Minimum Withdrawal:</strong>
+₦<span id="taskMinimum">0</span>
+</p>
+
 <div
-class="tab-content active"
-id="taskTab">
+id="taskNotice"
+style="
+margin-top:15px;
+padding:12px;
+background:#222;
+border-radius:10px;
+color:#FFD700;
+">
+Task withdrawals are allowed only on the 15th and 30th of every month.
+</div>
+
+<input
+type="number"
+id="taskAmount"
+placeholder="Amount">
+
+<select id="taskBank">
+<option value="">Select Bank</option>
+<option>Access Bank</option>
+<option>GTBank</option>
+<option>UBA</option>
+<option>First Bank</option>
+<option>Zenith Bank</option>
+<option>Opay</option>
+<option>Palmpay</option>
+<option>Kuda</option>
+</select>
+
+<input
+type="text"
+id="taskAccount"
+maxlength="10"
+placeholder="Account Number">
+
+<input
+type="text"
+id="taskName"
+placeholder="Account Name">
+
+<button
+id="taskSubmit"
+disabled>
+Submit Withdrawal
+</button>
 
 </div>
+
+</div>
+
+
+
+
 
 <div
 class="tab-content"
