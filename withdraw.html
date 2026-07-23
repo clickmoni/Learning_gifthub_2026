@@ -238,11 +238,73 @@ Submit Withdrawal
 
 
 
+<div class="tab-content" id="affiliateTab">
+
+<div class="card">
+
+<h2>Affiliate Balance Withdrawal</h2>
+
+<div class="balance">
+₦<span id="affiliateBalance">0</span>
+</div>
+
+<p>
+<strong>Minimum Withdrawal:</strong>
+₦1,000
+</p>
+
 <div
-class="tab-content"
-id="affiliateTab">
+style="
+margin-top:15px;
+padding:12px;
+background:#222;
+border-radius:10px;
+color:#FFD700;
+">
+Affiliate withdrawals are available every day.
+</div>
+
+<input
+type="number"
+id="affiliateAmount"
+placeholder="Amount">
+
+<select id="affiliateBank">
+<option value="">Select Bank</option>
+<option>Access Bank</option>
+<option>GTBank</option>
+<option>UBA</option>
+<option>First Bank</option>
+<option>Zenith Bank</option>
+<option>Opay</option>
+<option>Palmpay</option>
+<option>Kuda</option>
+</select>
+
+<input
+type="text"
+id="affiliateAccount"
+maxlength="10"
+placeholder="Account Number">
+
+<input
+type="text"
+id="affiliateName"
+placeholder="Account Name">
+
+<button
+id="affiliateSubmit"
+disabled>
+Submit Withdrawal
+</button>
 
 </div>
+
+</div>
+
+
+
+
 
 <div class="card">
 
