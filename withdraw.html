@@ -196,12 +196,12 @@ color:#FFD700;
 Task withdrawals are allowed only on the 15th and 30th of every month.
 </div>
 
-<input
-type="number"
-id="taskAmount"
-placeholder="Amount">
+<input type="number" id="taskAmount" placeholder="Enter amount" oninput="checkTaskForm()">
 
-<select id="taskBank">
+
+
+
+<select id="taskBank" onchange="checkTaskForm()">
 <option value="">Select Bank</option>
 <option>Access Bank</option>
 <option>GTBank</option>
@@ -213,22 +213,26 @@ placeholder="Amount">
 <option>Kuda</option>
 </select>
 
-<input
-type="text"
-id="taskAccount"
+<input type="text" id="taskAccount" oninput="checkTaskForm()"
+
+
 maxlength="10"
 placeholder="Account Number">
 
-<input
-type="text"
-id="taskName"
+<input type="text" id="taskName" oninput="checkTaskForm()"
+
+
 placeholder="Account Name">
 
 <button
 id="taskSubmit"
+onclick="submitTaskWithdrawal()"
 disabled>
 Submit Withdrawal
 </button>
+
+
+
 
 </div>
 
@@ -408,6 +412,68 @@ async function loadUser(){
 
     document.getElementById("taskMinimum").textContent =
         (PLAN_MINIMUMS[user.plan] || 0).toLocaleString();
+
+ }
+ async function submitTaskWithdrawal(){
+
+    const response = await fetch("/api/withdraw",{
+
+        method:"POST",
+
+        headers:{
+            "Content-Type":"application/json"
+        },
+
+        body:JSON.stringify({
+
+            email: email,
+
+            amount: Number(document.getElementById("taskAmount").value),
+
+            bank_name: document.getElementById("taskBank").value,
+
+            account_name: document.getElementById("taskName").value,
+
+            account_number: document.getElementById("taskAccount").value,
+
+            type: "task"
+
+        })
+
+    });
+
+    const result = await response.json();
+
+    alert(result.message);
+
+ }
+ function checkTaskForm(){
+
+    const amount = Number(document.getElementById("taskAmount").value);
+
+    const bank = document.getElementById("taskBank").value;
+
+    const account = document.getElementById("taskAccount").value;
+
+    const name = document.getElementById("taskName").value;
+
+    const minimum = PLAN_MINIMUMS[user.plan] || 0;
+
+    if(
+        amount >= minimum &&
+        amount <= Number(user.task_balance || 0) &&
+        bank !== "" &&
+        account.length === 10 &&
+        name.trim() !== ""
+    ){
+
+        document.getElementById("taskSubmit").disabled = false;
+
+    }else{
+
+        document.getElementById("taskSubmit").disabled = true;
+
+    }
 
  }
 
