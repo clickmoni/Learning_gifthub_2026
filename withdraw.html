@@ -571,30 +571,24 @@ async function loadUser(){
     const history = document.getElementById("history");
 
     if(!result.success){
-
         history.innerHTML = "<p>No withdrawal history.</p>";
-
         return;
-
     }
 
-    if(result.withdrawals.length===0){
-
+    if(result.history.length === 0){
         history.innerHTML = "<p>No withdrawal history.</p>";
-
         return;
-
     }
 
     history.innerHTML = "";
 
-    result.withdrawals.forEach(item=>{
+    result.history.forEach(item=>{
 
         history.innerHTML += `
         <div class="historyItem">
             <strong>₦${Number(item.amount).toLocaleString()}</strong><br>
-            ${item.type}<br>
-            ${item.status}<br>
+            Type: ${item.type}<br>
+            Status: ${item.status}<br>
             ${new Date(item.created_at).toLocaleString()}
         </div>
         `;
@@ -602,6 +596,8 @@ async function loadUser(){
     });
 
  }
+
+    
 
 </script>
 
