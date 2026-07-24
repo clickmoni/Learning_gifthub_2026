@@ -544,15 +544,20 @@ async function loadUser(){
 
     const result = await response.json();
 
-    alert(result.message);
-
     if(result.success){
+    await loadUser();
+    loadHistory();
+    document.getElementById("affiliateAmount").value="";
+    document.getElementById("affiliateSubmit").disabled=true;
+         }
 
-        await loadUser();
+    
 
-        await loadHistory();
+       
 
-    }
+        
+
+    
 
  }
  async function loadHistory(){
