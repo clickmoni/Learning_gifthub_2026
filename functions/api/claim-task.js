@@ -53,28 +53,20 @@ export async function onRequestPost(context) {
       });
     }
 
-    const newTaskBalance =
-      Number(user.task_balance || 0) +
-      Number(user.daily_earning || 0);
-
-    const newTotalBalance =
-      Number(user.balance || 0) +
-      Number(user.daily_earning || 0);
-
     await env.DB.prepare(`
-      UPDATE users
-      SET
-        task_balance = ?,
-        balance = ?,
-        last_claim = CURRENT_TIMESTAMP
-      WHERE id = ?
-    `)
-    .bind(
-      newTaskBalance,
-      newTotalBalance,
-      user.id
-    )
-    .run();
+  UPDATE users
+  SET
+    task_balance = task_balance + ?,
+    balance = balance + ?,
+    last_claim = CURRENT_TIMESTAMP
+  WHERE id = ?
+`)
+.bind(
+  Number(user.daily_earning),
+  Number(user.daily_earning),
+  user.id
+)
+.run();
 
     return Response.json({
       success: true,
