@@ -400,12 +400,10 @@ async function loadUsers(){
 
                 <td>
 
-                    <button
-                    onclick="viewUser(${user.id})">
-
-                    View
-
-                    </button>
+                    <button onclick="editUser(${user.id})">
+    ✏ Edit
+</button>
+    
 
                 </td>
 
@@ -489,6 +487,42 @@ loadDashboard();
 }
 
 loadWithdrawals();
+    async function editUser(id){
+
+    const plan = prompt("Enter plan (Starter, Bronze, Silver, Gold):");
+
+    if(plan===null) return;
+
+    const taskBalance = prompt("Enter Task Balance:");
+
+    if(taskBalance===null) return;
+
+    const affiliateBalance = prompt("Enter Affiliate Balance:");
+
+    if(affiliateBalance===null) return;
+
+    const response = await fetch("/api/admin/edit-user",{
+        method:"POST",
+        headers:{
+            "Content-Type":"application/json"
+        },
+        body:JSON.stringify({
+            id,
+            plan,
+            task_balance:Number(taskBalance),
+            affiliate_balance:Number(affiliateBalance)
+        })
+    });
+
+    const result = await response.json();
+
+    alert(result.message);
+
+    if(result.success){
+        loadUsers();
+    }
+
+    }
     async function approveWithdrawal(id){
 
     if(!confirm("Approve this withdrawal?")){
