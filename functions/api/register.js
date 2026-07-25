@@ -64,17 +64,18 @@
       )
       VALUES(?,?,?,?,?,?,?,?,?)
     `)
-      .bind(
-        firstName,
-        lastName,
-        username,
-        email,
-        phone,
-        password,
-        affiliate || "",
-        referralCode,
-        affiliate || ""
-      )
+     .bind(
+  firstName,
+  lastName,
+  username,
+  email,
+  phone,
+  password,
+  "",
+  referralCode,
+  affiliate || ""
+)
+        
       .run();
 
     return Response.json({
