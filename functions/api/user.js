@@ -1,4 +1,4 @@
-export async function onRequestGet(context) {
+exporting async function onRequestGet(context) {
 
     const { request, env } = context;
 
@@ -15,20 +15,23 @@ export async function onRequestGet(context) {
         }
 
         const user = await env.DB.prepare(`
-            SELECT
-                id,
-                first_name,
-                last_name,
-                email,
-                plan,
-                task_balance,
-                affiliate_balance,
-                payment_status
-            FROM users
-            WHERE email = ?
-        `)
-        .bind(email)
-        .first();
+    SELECT
+        id,
+        first_name,
+        last_name,
+        email,
+        plan,
+        task_balance,
+        affiliate_balance,
+        referral_count,
+        payment_status
+    FROM users
+    WHERE email = ?
+`)
+.bind(email)
+.first();
+            
+                
 
         if (!user) {
             return Response.json({
