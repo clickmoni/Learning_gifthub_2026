@@ -105,6 +105,40 @@ export async function onRequestPost(context) {
         email
       )
       .run();
+    // Give referral bonus
+const user = await env.DB.prepare(`
+SELECT referred_by, plan
+FROM users
+WHERE email=?
+`)
+.bind(email)
+.first();
+
+if (user?.referred_by) {
+
+  const bonus = {
+    Starter: 200,
+    Basic: 300,
+    Bronze: 1000,
+    Silver: 1500,
+    Gold: 3000,
+    Platinum: 5000
+  }[user.plan] || 0;
+
+  if (bonus > 0) {
+
+    await env.DB.prepare(`
+    UPDATE users
+    SET affiliate_balance =
+        COALESCE(affiliate_balance,0) + ?
+    WHERE referral_code = ?
+    `)
+    .bind(bonus, user.referred_by)
+    .run();
+
+  }
+
+      }
 
     // Save transaction
     await env.DB.prepare(`
