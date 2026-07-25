@@ -162,33 +162,7 @@ if (user?.referred_by) {
       )
       .run();
 
-    // Credit referrer
-    if (user.referred_by) {
-
-      const referrer = await env.DB.prepare(`
-        SELECT *
-        FROM users
-        WHERE referral_code = ?
-      `)
-        .bind(user.referred_by)
-        .first();
-
-      if (referrer) {
-
-        await env.DB.prepare(`
-          UPDATE users
-          SET
-            affiliate_balance = affiliate_balance + ?,
-            total_referrals = total_referrals + 1
-          WHERE id = ?
-        `)
-          .bind(
-            selectedPlan.referral_bonus,
-            referrer.id
-          )
-          .run();
-
-      }
+    
 
         }    return Response.json({
       success: true,
