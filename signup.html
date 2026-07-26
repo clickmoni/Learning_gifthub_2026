@@ -39,7 +39,54 @@ button:disabled{opacity:.6}
 </div></div>
 <script>
 <script>
-alert(window.location.href);
+window.onload = function () {
+
+    const params = new URLSearchParams(window.location.search);
+    const ref = params.get("ref");
+
+    alert(ref);
+
+    if (ref) {
+        document.getElementById("affiliate").value = ref;
+    }
+
+};
+
+
+document.getElementById("signupForm").addEventListener("submit",async(e)=>{
+e.preventDefault();
+const btn=document.getElementById("signupBtn");
+btn.disabled=true; btn.textContent="Creating Account...";
+const data={
+ firstName:firstName.value.trim(),
+ lastName:lastName.value.trim(),
+ username:username.value.trim(),
+ email:email.value.trim(),
+ phone:phone.value.trim(),
+ password:password.value,
+ affiliate:affiliate.value.trim()
+};
+try{
+ const r=await fetch("/api/register",{
+   method:"POST",
+   headers:{"Content-Type":"application/json"},
+   body:JSON.stringify(data)
+ });
+ const result=await r.json();
+ if(result.success){
+   localStorage.setItem("currentUser",data.email);
+   alert("Account created successfully!");
+   location.href="dashboard.html";
+ }else{
+   btn.disabled=false; btn.textContent="Create Account";
+   alert(result.message);
+ }
+}catch(err){
+ btn.disabled=false; btn.textContent="Create Account";
+ alert("Unable to connect to the server.");
+ console.error(err);
+}
+});
 </script>
 </script>
 </body>
