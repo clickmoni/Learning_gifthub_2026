@@ -38,9 +38,19 @@ button:disabled{opacity:.6}
 <div class="login-link">Already have an account? <a href="index.html">Login</a></div>
 </div></div>
 <script>
-const params=new URLSearchParams(location.search);
-const ref=params.get("ref");
-if(ref) document.getElementById("affiliate").value=ref;
+window.onload = function () {
+
+    const params = new URLSearchParams(window.location.search);
+    const ref = params.get("ref");
+
+    alert(ref);
+
+    if (ref) {
+        document.getElementById("affiliate").value = ref;
+    }
+
+};
+
 
 document.getElementById("signupForm").addEventListener("submit",async(e)=>{
 e.preventDefault();
