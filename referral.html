@@ -49,16 +49,7 @@
         </div>
     </div>
 
-    <script>
-// Save referral code if visitor opened a referral link
-const params = new URLSearchParams(window.location.search);
-const ref = params.get("ref");
-
-if (ref) {
-    localStorage.setItem("clickmoni_ref", ref);
-}
-
-// Show referral link after user logs in
+<script>
 const email =
     localStorage.getItem("currentUser") ||
     localStorage.getItem("clickmoni_email");
@@ -69,61 +60,41 @@ if (email) {
         .then(res => res.json())
         .then(data => {
 
-            if (!data.success) return;
+            if (!data.success) {
+                return;
+            }
 
             document.getElementById("refBox").style.display = "block";
-
-            const referralCode = data.user.referral_code;
 
             const referralLink =
                 window.location.origin +
                 "/signup.html?ref=" +
-                referralCode;
+                data.user.referral_code;
 
             document.getElementById("refLink").textContent = referralLink;
 
-        })
-        .catch(err => {
-            console.error(err);
         });
 
 }
 
-// Copy referral link
 function copyRef() {
-
     const link = document.getElementById("refLink").textContent;
-
     navigator.clipboard.writeText(link);
-
     alert("Referral link copied successfully!");
-
 }
 
-// Share to WhatsApp
 function shareWhatsApp() {
-
     const link = document.getElementById("refLink").textContent;
-
-    const text =
-        "Join ClickMoni and earn daily income!\n\n" + link;
-
+    const text = "Join ClickMoni and earn daily income!\n\n" + link;
     window.open(
-        "https://wa.me/?text=" +
-        encodeURIComponent(text),
+        "https://wa.me/?text=" + encodeURIComponent(text),
         "_blank"
     );
-
 }
 
-// Share to Telegram
 function shareTelegram() {
-
     const link = document.getElementById("refLink").textContent;
-
-    const text =
-        "Join ClickMoni and earn daily income!\n\n" + link;
-
+    const text = "Join ClickMoni and earn daily income!\n\n" + link;
     window.open(
         "https://t.me/share/url?url=" +
         encodeURIComponent(link) +
@@ -131,9 +102,8 @@ function shareTelegram() {
         encodeURIComponent(text),
         "_blank"
     );
-
 }
-    </script>
-    </script>
+</script>
+
 </body>
 </html>
