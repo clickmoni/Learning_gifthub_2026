@@ -38,7 +38,7 @@
 
         <!-- REFERRAL SECTION - SHOWS AFTER USER SIGNUPS -->
         <div id="refBox" class="ref-box">
-            <h3>🎉 NEW REFERRAL LINK TEST</h3>
+            <h3>🎉 Your Referral Link</h3>
             <p>Share and earn ₦500+ per friend who joins!</p>
             <div class="ref-link" id="refLink">Loading...</div>
             <div class="share-btns">
@@ -50,70 +50,90 @@
     </div>
 
     <script>
-        // SAFE REFERRAL SYSTEM - BLOCKS BAD LINKS
-        const urlParams = new URLSearchParams(window.location.search);
-        const ref = urlParams.get('ref');
-        if (ref && /^[a-zA-Z0-9]{3,20}$/.test(ref)) { 
-            localStorage.setItem('clickmoni_ref', ref);
-        }
+// Save referral code if visitor opened a referral link
+const params = new URLSearchParams(window.location.search);
+const ref = params.get("ref");
 
-        // SHOW REFERRAL BOX IF USER IS LOGGED IN
-        const email =
+if (ref) {
+    localStorage.setItem("clickmoni_ref", ref);
+}
+
+// Show referral link after user logs in
+const email =
     localStorage.getItem("currentUser") ||
     localStorage.getItem("clickmoni_email");
 
 if (email) {
 
     fetch("/api/me?email=" + encodeURIComponent(email))
-    .then(response => response.json())
-    .then(result => {
+        .then(res => res.json())
+        .then(data => {
 
-        if (!result.success) {
-            return;
-        }
+            if (!data.success) return;
 
-        document.getElementById("refBox").style.display = "block";
+            document.getElementById("refBox").style.display = "block";
 
-        const link =
-            "https://learning-gifthub-2026.pages.dev/signup.html?ref=" +
-            result.user.referral_code;
+            const referralCode = data.user.referral_code;
 
-        document.getElementById("refLink").textContent = link;
+            const referralLink =
+                window.location.origin +
+                "/signup.html?ref=" +
+                referralCode;
 
-    });
+            document.getElementById("refLink").textContent = referralLink;
+
+        })
+        .catch(err => {
+            console.error(err);
+        });
 
 }
-    
-   
-        
 
-    
+// Copy referral link
+function copyRef() {
 
+    const link = document.getElementById("refLink").textContent;
 
+    navigator.clipboard.writeText(link);
 
-        
-        
+    alert("Referral link copied successfully!");
 
-            
-        
+}
 
-        function copyRef() {
-            const link = document.getElementById('refLink').textContent;
-            navigator.clipboard.writeText(link);
-            alert('Referral link copied! ✅');
-        }
+// Share to WhatsApp
+function shareWhatsApp() {
 
-        function shareWhatsApp() {
-            const link = document.getElementById('refLink').textContent;
-            const text = `Join ClickMoni and earn daily income! 💰 Use my link: ${link}`;
-            window.open(`https://wa.me/?text=${encodeURIComponent(text)}`, '_blank');
-        }
+    const link = document.getElementById("refLink").textContent;
 
-        function shareTelegram() {
-            const link = document.getElementById('refLink').textContent;
-            const text = `Join ClickMoni and earn daily income! 💰 Use my link: ${link}`;
-            window.open(`https://t.me/share/url?url=${encodeURIComponent(link)}&text=${encodeURIComponent(text)}`, '_blank');
-        }
+    const text =
+        "Join ClickMoni and earn daily income!\n\n" + link;
+
+    window.open(
+        "https://wa.me/?text=" +
+        encodeURIComponent(text),
+        "_blank"
+    );
+
+}
+
+// Share to Telegram
+function shareTelegram() {
+
+    const link = document.getElementById("refLink").textContent;
+
+    const text =
+        "Join ClickMoni and earn daily income!\n\n" + link;
+
+    window.open(
+        "https://t.me/share/url?url=" +
+        encodeURIComponent(link) +
+        "&text=" +
+        encodeURIComponent(text),
+        "_blank"
+    );
+
+}
+    </script>
     </script>
 </body>
 </html>
