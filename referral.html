@@ -49,61 +49,6 @@
         </div>
     </div>
 
-<script>
-const email =
-    localStorage.getItem("currentUser") ||
-    localStorage.getItem("clickmoni_email");
-
-if (email) {
-
-    fetch("/api/me?email=" + encodeURIComponent(email))
-        .then(res => res.json())
-        .then(data => {
-
-            if (!data.success) {
-                return;
-            }
-
-            document.getElementById("refBox").style.display = "block";
-
-            const referralLink =
-                window.location.origin +
-                "/signup.html?ref=" +
-                data.user.referral_code;
-
-            document.getElementById("refLink").textContent = referralLink;
-
-        });
-
-}
-
-function copyRef() {
-    const link = document.getElementById("refLink").textContent;
-    navigator.clipboard.writeText(link);
-    alert("Referral link copied successfully!");
-}
-
-function shareWhatsApp() {
-    const link = document.getElementById("refLink").textContent;
-    const text = "Join ClickMoni and earn daily income!\n\n" + link;
-    window.open(
-        "https://wa.me/?text=" + encodeURIComponent(text),
-        "_blank"
-    );
-}
-
-function shareTelegram() {
-    const link = document.getElementById("refLink").textContent;
-    const text = "Join ClickMoni and earn daily income!\n\n" + link;
-    window.open(
-        "https://t.me/share/url?url=" +
-        encodeURIComponent(link) +
-        "&text=" +
-        encodeURIComponent(text),
-        "_blank"
-    );
-}
-</script>
-
-</body>
+<script src="referral.js"></script>
+Your/body>
 </html>
