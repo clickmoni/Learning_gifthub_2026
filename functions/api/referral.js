@@ -1,3 +1,4 @@
+alert("Referral.js loaded");
 const email =
     localStorage.getItem("currentUser") ||
     localStorage.getItem("clickmoni_email");
@@ -53,4 +54,4 @@ function shareTelegram() {
         encodeURIComponent(link),
         "_blank"
     );
-      }
+}
