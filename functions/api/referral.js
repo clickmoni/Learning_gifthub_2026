@@ -7,7 +7,7 @@ if (!email) {
     location.href = "login.html";
 }
 
-fetch("/api/me?email=" + encodeURIComponent(email))
+fetch("https://learning-gifthub-2026.pages.dev/api/me?email=" + encodeURIComponent(email))
 .then(res => res.json())
 .then(data => {
 
