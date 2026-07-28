@@ -1,53 +1,284 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ClickMoni - Earn Daily Income</title>
-    <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Arial, sans-serif; background: #0f172a; color: white; text-align: center; padding: 40px 20px; }
-        .container { max-width: 600px; margin: 0 auto; }
-        h1 { color: #ef4444; font-size: 3rem; margin: 20px 0; }
-        .btn { background: #ef4444; color: white; padding: 16px 32px; border: none; border-radius: 10px; font-weight: 700; cursor: pointer; font-size: 18px; margin: 10px; text-decoration: none; display: inline-block; }
-        .btn:hover { background: #dc2626; }
-        .feature { background: #1e293b; padding: 20px; border-radius: 12px; margin: 15px 0; }
-        
-        /* REFERRAL BOX */
-        .ref-box { background: #1e293b; padding: 25px; border-radius: 16px; margin: 30px 0; border: 2px solid #ef4444; display: none; }
-        .ref-box h3 { color: #ef4444; margin-bottom: 15px; }
-        .ref-link { background: #0f172a; padding: 12px; border-radius: 8px; margin: 15px 0; word-break: break-all; border: 1px solid #334155; }
-        .share-btns { display: flex; gap: 10px; justify-content: center; flex-wrap: wrap; }
-        .share-btn { padding: 12px 20px; border: none; border-radius: 8px; font-weight: 600; cursor: pointer; color: white; }
-        .copy { background: #334155; }
-        .whatsapp { background: #25D366; }
-        .telegram { background: #0088cc; }
-    </style>
+
+<meta charset="UTF-8">
+
+<meta name="viewport"
+content="width=device-width, initial-scale=1.0">
+
+<title>ClickMoni - Earn Daily Income</title>
+
+<style>
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+}
+
+body{
+
+font-family:-apple-system,BlinkMacSystemFont,
+'Segoe UI',Arial,sans-serif;
+
+background:#0f172a;
+
+color:white;
+
+text-align:center;
+
+padding:40px 20px;
+
+}
+
+.container{
+
+max-width:600px;
+
+margin:auto;
+
+}
+
+h1{
+
+color:#ef4444;
+
+font-size:3rem;
+
+margin:20px 0;
+
+}
+
+.btn{
+
+background:#ef4444;
+
+color:white;
+
+padding:16px 32px;
+
+border:none;
+
+border-radius:10px;
+
+font-weight:700;
+
+font-size:18px;
+
+text-decoration:none;
+
+display:inline-block;
+
+margin:10px;
+
+cursor:pointer;
+
+}
+
+.btn:hover{
+
+background:#dc2626;
+
+}
+
+.feature{
+
+background:#1e293b;
+
+padding:20px;
+
+border-radius:12px;
+
+margin:15px 0;
+
+}
+
+.ref-box{
+
+display:none;
+
+background:#1e293b;
+
+padding:25px;
+
+margin-top:30px;
+
+border-radius:16px;
+
+border:2px solid #ef4444;
+
+}
+
+.ref-box h3{
+
+color:#ef4444;
+
+margin-bottom:15px;
+
+}
+
+.ref-link{
+
+background:#0f172a;
+
+border:1px solid #334155;
+
+padding:12px;
+
+border-radius:8px;
+
+margin:15px 0;
+
+word-break:break-all;
+
+}
+
+.share-btns{
+
+display:flex;
+
+gap:10px;
+
+justify-content:center;
+
+flex-wrap:wrap;
+
+}
+
+.share-btn{
+
+padding:12px 20px;
+
+border:none;
+
+border-radius:8px;
+
+font-weight:600;
+
+cursor:pointer;
+
+color:white;
+
+}
+
+.copy{
+
+background:#334155;
+
+}
+
+.whatsapp{
+
+background:#25D366;
+
+}
+
+.telegram{
+
+background:#0088cc;
+
+}
+
+</style>
+
 </head>
+
 <body>
-    <div class="container">
-        <h1>💰 ClickMoni</h1>
-        <p style="font-size: 1.2rem; margin: 20px 0; color: #cbd5e1;">Earn daily income with tasks & referrals</p>
-        
-        <a href="signup.html" class="btn">Get Started Free</a>
-        <a href="tiers.html" class="btn">View Paid Plans</a>
 
-        <div class="feature"><h3>📱 Daily Tasks</h3><p>Get paid for simple tasks</p></div>
-        <div class="feature"><h3>🎁 Referral Bonus</h3><p>₦200 - ₦5,000 per referral</p></div>
-        <div class="feature"><h3>⚡ Instant Payout</h3><p>Withdraw to your bank 24/7</p></div>
+<div class="container">
 
-        <!-- REFERRAL SECTION - SHOWS AFTER USER SIGNUPS -->
-        <div id="refBox" class="ref-box">
-            <h3>🎉 Your Referral Link</h3>
-            <p>Share and earn ₦500+ per friend who joins!</p>
-            <div class="ref-link" id="refLink">Loading...</div>
-            <div class="share-btns">
-                <button class="share-btn copy" onclick="copyRef()">📋 Copy Link</button>
-                <button class="share-btn whatsapp" onclick="shareWhatsApp()">💬 WhatsApp</button>
-                <button class="share-btn telegram" onclick="shareTelegram()">✈️ Telegram</button>
-            </div>
-        </div>
+<h1>💰 ClickMoni</h1>
+
+<p
+style="font-size:1.2rem;
+margin:20px 0;
+color:#cbd5e1;">
+
+Earn daily income with tasks & referrals
+
+</p>
+
+<a
+href="signup.html"
+class="btn">
+
+Get Started Free
+
+</a>
+
+<a
+href="tiers.html"
+class="btn">
+
+View Paid Plans
+
+</a>
+
+<div class="feature">
+
+<h3>📱 Daily Tasks</h3>
+
+<p>Get paid for simple tasks</p>
+
+</div>
+
+<div class="feature">
+
+<h3>🎁 Referral Bonus</h3>
+
+<p>₦200 - ₦5,000 per referral</p>
+
+</div>
+
+<div class="feature">
+
+<h3>⚡ Instant Payout</h3>
+
+<p>Withdraw to your bank 24/7</p>
+    
+
     </div>
-<script src="referral.js"></script>
+    <!-- REFERRAL BOX -->
+<div id="refBox" class="ref-box">
+
+    <h3>🎉 Your Referral Link</h3>
+
+    <p>
+        Share your link and earn ₦500+ for every successful referral.
+    </p>
+
+    <div id="refLink" class="ref-link">
+        Loading...
+    </div>
+
+    <div class="share-btns">
+
+        <button
+            class="share-btn copy"
+            onclick="copyRef()">
+            📋 Copy Link
+        </button>
+
+        <button
+            class="share-btn whatsapp"
+            onclick="shareWhatsApp()">
+            💬 WhatsApp
+        </button>
+
+        <button
+            class="share-btn telegram"
+            onclick="shareTelegram()">
+            ✈️ Telegram
+        </button>
+
+    </div>
+
+</div>
+
+</div>
+
+<script src="referral.js?v=4"></script>
+
 </body>
-</html>
+    </html>
