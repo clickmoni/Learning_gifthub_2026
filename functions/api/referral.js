@@ -1,4 +1,4 @@
-alert("Referral.js loaded");
+alert("NEW referral.js loaded - July 28");
 const email =
     localStorage.getItem("currentUser") ||
     localStorage.getItem("clickmoni_email");
