@@ -27,7 +27,7 @@ async function loadReferral() {
         const referralCode = result.user.referral_code;
 
         const referralLink =
-            "https://learning-gifthub-2026.pages.dev/signup.html?ref=" +
+            "https://learning-gifthub-2026.pages.dev/register.html?ref=" +
             referralCode;
 
         document.getElementById("refLink").textContent = referralLink;
