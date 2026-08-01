@@ -23,7 +23,7 @@ export async function onRequestGet(context) {
     success: true,
     referral_code: user.referral_code,
     referral_link:
-      "https://learning-gifthub-2026.pages.dev/signup.html?ref=" +
+      "https://learning-gifthub-2026.pages.dev/register.html?ref=" +
       user.referral_code
   });
     }
