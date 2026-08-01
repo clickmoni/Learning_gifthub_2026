@@ -199,7 +199,7 @@ required>
 
 <button
 type="submit"
-id="signupBtn">
+id="registerBtn">
 Create Account
 </button>
 
@@ -236,7 +236,7 @@ window.onload = function () {
 
 };
 
-document.getElementById("signupForm").addEventListener("submit", async function(e){
+document.getElementById("registerForm").addEventListener("submit", async function(e){
 
     e.preventDefault();
 
@@ -267,7 +267,7 @@ document.getElementById("signupForm").addEventListener("submit", async function(
     try{
 
         const response = await fetch(
-            "https://learning-gifthub-2026.pages.dev/api/signup",
+            "https://learning-gifthub-2026.pages.dev/api/register",
             {
                 method:"POST",
                 headers:{
