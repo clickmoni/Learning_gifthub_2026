@@ -94,7 +94,7 @@
 
         function loadSponsorData() {
             const userPhone = localStorage.getItem('clickmoni_user') || 'yourID';
-            const refLink = `https://clickmoni.github.io/Learning_gifthub_2026/signup.html?ref=${userPhone}`;
+            const refLink = `https://clickmoni.github.io/Learning_gifthub_2026/register.html?ref=${userPhone}`;
             document.getElementById('refLink').textContent = refLink;
             document.getElementById('refCount').textContent = localStorage.getItem('clickmoni_ref_count') || '0';
             document.getElementById('refEarned').textContent = localStorage.getItem('clickmoni_ref_earned') || '0';
